@@ -1,0 +1,3 @@
+a2_address_homepage:
+    path:     /
+    defaults: { _controller: A2AddressBundle:Default:index }
