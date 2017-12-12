@@ -23,7 +23,14 @@ class Manager
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", mappedBy="manager", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $entrepot;
+
+    /**
      * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\User", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $user;
@@ -61,5 +68,29 @@ class Manager
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set entrepot
+     *
+     * @param \A2\StorehouseBundle\Entity\Storehouse $entrepot
+     *
+     * @return Manager
+     */
+    public function setEntrepot(\A2\StorehouseBundle\Entity\Storehouse $entrepot)
+    {
+        $this->entrepot = $entrepot;
+
+        return $this;
+    }
+
+    /**
+     * Get entrepot
+     *
+     * @return \A2\StorehouseBundle\Entity\Storehouse
+     */
+    public function getEntrepot()
+    {
+        return $this->entrepot;
     }
 }
