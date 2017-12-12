@@ -16,7 +16,7 @@ class Seller
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="sellerId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -26,12 +26,12 @@ class Seller
      * @ORM\ManyToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $entrepot;
+    private $storehouse;
 
     /**
-     * @ORM\Column(name="sellerNbVente", type="integer")
+     * @ORM\Column(name="sellerNbSales", type="integer")
      */
-    private $nbVente;
+    private $nbSales;
 
     /**
      * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\User", cascade={"persist", "remove"})
@@ -76,50 +76,50 @@ class Seller
     }
 
     /**
-     * Set nbVente
+     * Set nbSales
      *
-     * @param integer $nbVente
+     * @param integer $nbSales
      *
      * @return Seller
      */
-    public function setNbVente($nbVente)
+    public function setNbSales($nbSales)
     {
-        $this->nbVente = $nbVente;
+        $this->nbSales = $nbSales;
 
         return $this;
     }
 
     /**
-     * Get nbVente
+     * Get nbSales
      *
      * @return integer
      */
-    public function getNbVente()
+    public function getNbSales()
     {
-        return $this->nbVente;
+        return $this->nbSales;
     }
 
     /**
-     * Set entrepot
+     * Set storehouse
      *
-     * @param \A2\StorehouseBundle\Entity\Storehouse $entrepot
+     * @param \A2\StorehouseBundle\Entity\Storehouse $storehouse
      *
      * @return Seller
      */
-    public function setEntrepot(\A2\StorehouseBundle\Entity\Storehouse $entrepot)
+    public function setStorehouse(\A2\StorehouseBundle\Entity\Storehouse $storehouse)
     {
-        $this->entrepot = $entrepot;
+        $this->storehouse = $storehouse;
 
         return $this;
     }
 
     /**
-     * Get entrepot
+     * Get storehouse
      *
      * @return \A2\StorehouseBundle\Entity\Storehouse
      */
-    public function getEntrepot()
+    public function getStorehouse()
     {
-        return $this->entrepot;
+        return $this->storehouse;
     }
 }

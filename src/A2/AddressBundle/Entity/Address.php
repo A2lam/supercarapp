@@ -3,6 +3,7 @@
 namespace A2\AddressBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Address
@@ -15,7 +16,7 @@ class Address
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="addressId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,44 +25,50 @@ class Address
     /**
      * @var int
      *
-     * @ORM\Column(name="numRue", type="integer", nullable=true)
+     * @ORM\Column(name="addressStreetNb", type="integer", nullable=true)
+     * @Assert\Type(type="integer")
      */
-    private $numRue;
+    private $streetNb;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rue", type="string", length=255)
+     * @ORM\Column(name="addressStreetName", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $rue;
+    private $streetName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="complement", type="string", length=255, nullable=true)
+     * @ORM\Column(name="addressComplement", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $complement;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="cp", type="integer")
+     * @ORM\Column(name="addressZipCode", type="integer")
+     * @Assert\Type(type="integer")
      */
-    private $cp;
+    private $zipCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="addressTown", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $ville;
+    private $town;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pays", type="string", length=255)
+     * @ORM\Column(name="addressCountry", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $pays;
+    private $country;
 
 
     /**
@@ -72,54 +79,6 @@ class Address
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set numRue
-     *
-     * @param integer $numRue
-     *
-     * @return Address
-     */
-    public function setNumRue($numRue)
-    {
-        $this->numRue = $numRue;
-
-        return $this;
-    }
-
-    /**
-     * Get numRue
-     *
-     * @return int
-     */
-    public function getNumRue()
-    {
-        return $this->numRue;
-    }
-
-    /**
-     * Set rue
-     *
-     * @param string $rue
-     *
-     * @return Address
-     */
-    public function setRue($rue)
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
-    /**
-     * Get rue
-     *
-     * @return string
-     */
-    public function getRue()
-    {
-        return $this->rue;
     }
 
     /**
@@ -147,74 +106,122 @@ class Address
     }
 
     /**
-     * Set cp
+     * Set streetNb
      *
-     * @param integer $cp
+     * @param integer $streetNb
      *
      * @return Address
      */
-    public function setCp($cp)
+    public function setStreetNb($streetNb)
     {
-        $this->cp = $cp;
+        $this->streetNb = $streetNb;
 
         return $this;
     }
 
     /**
-     * Get cp
+     * Get streetNb
      *
-     * @return int
+     * @return integer
      */
-    public function getCp()
+    public function getStreetNb()
     {
-        return $this->cp;
+        return $this->streetNb;
     }
 
     /**
-     * Set ville
+     * Set streetName
      *
-     * @param string $ville
+     * @param string $streetName
      *
      * @return Address
      */
-    public function setVille($ville)
+    public function setStreetName($streetName)
     {
-        $this->ville = $ville;
+        $this->streetName = $streetName;
 
         return $this;
     }
 
     /**
-     * Get ville
+     * Get streetName
      *
      * @return string
      */
-    public function getVille()
+    public function getStreetName()
     {
-        return $this->ville;
+        return $this->streetName;
     }
 
     /**
-     * Set pays
+     * Set zipCode
      *
-     * @param string $pays
+     * @param integer $zipCode
      *
      * @return Address
      */
-    public function setPays($pays)
+    public function setZipCode($zipCode)
     {
-        $this->pays = $pays;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
 
     /**
-     * Get pays
+     * Get zipCode
+     *
+     * @return integer
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * Set town
+     *
+     * @param string $town
+     *
+     * @return Address
+     */
+    public function setTown($town)
+    {
+        $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * Get town
      *
      * @return string
      */
-    public function getPays()
+    public function getTown()
     {
-        return $this->pays;
+        return $this->town;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Address
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

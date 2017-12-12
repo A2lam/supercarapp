@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  *
- * @ORM\Table(name="utilisateur")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="A2\UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
@@ -17,66 +17,66 @@ class User extends BaseUser
     /**
      * @var int
      *
-     * @ORM\Column(name="utilisateurId", type="integer")
+     * @ORM\Column(name="userId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(name="utilisateurNom", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @ORM\Column(name="userName", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $nom;
+    private $name;
 
     /**
-     * @ORM\Column(name="utilisateurPrenom", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @ORM\Column(name="userLastName", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $prenom;
+    private $lastName;
 
     /**
-     * @ORM\Column(name="utilisateurDdn", type="datetime")
+     * @ORM\Column(name="userBday", type="datetime")
      * @Assert\DateTime()
      */
-    private $ddn;
+    private $bday;
 
     /**
-     * @ORM\Column(name="utilisateurTel", type="string", length=255)
+     * @ORM\Column(name="userNum", type="string", length=255)
      * @Assert\Type(type="integer")
      */
-    private $tel;
+    private $num;
 
     /**
      * @ORM\OneToOne(targetEntity="A2\AddressBundle\Entity\Address", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
-    private $adresse;
+    private $address;
 
     /**
-     * @ORM\Column(name="adminCreation", type="integer")
+     * @ORM\Column(name="adminAdd", type="integer")
      */
-    private $adminCreation;
+    private $adminAdd;
 
     /**
-     * @ORM\Column(name="dateCreation", type="datetime")
+     * @ORM\Column(name="dateAdd", type="datetime")
      */
-    private $dateCreation;
+    private $dateAdd;
 
     /**
-     * @ORM\Column(name="utilisateurModif", type="integer", nullable=true)
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
      */
-    private $utModification;
+    private $userUpdate;
 
     /**
-     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
      */
-    private $dateModif;
+    private $dateUpdate;
 
     /**
-     * @ORM\Column(name="estActif", type="string", length=1)
+     * @ORM\Column(name="isActive", type="string", length=1)
      */
-    private $estActif;
+    private $isActive;
 
     /**
      * User constructor.
@@ -87,242 +87,242 @@ class User extends BaseUser
     }
 
     /**
-     * Set nom
+     * Set name
      *
-     * @param string $nom
+     * @param string $name
      *
      * @return User
      */
-    public function setNom($nom)
+    public function setName($name)
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nom
+     * Get name
      *
      * @return string
      */
-    public function getNom()
+    public function getName()
     {
-        return $this->nom;
+        return $this->name;
     }
 
     /**
-     * Set prenom
+     * Set lastName
      *
-     * @param string $prenom
+     * @param string $lastName
      *
      * @return User
      */
-    public function setPrenom($prenom)
+    public function setLastName($lastName)
     {
-        $this->prenom = $prenom;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     /**
-     * Get prenom
+     * Get lastName
      *
      * @return string
      */
-    public function getPrenom()
+    public function getLastName()
     {
-        return $this->prenom;
+        return $this->lastName;
     }
 
     /**
-     * Set ddn
+     * Set bday
      *
-     * @param \DateTime $ddn
+     * @param \DateTime $bday
      *
      * @return User
      */
-    public function setDdn($ddn)
+    public function setBday($bday)
     {
-        $this->ddn = $ddn;
+        $this->bday = $bday;
 
         return $this;
     }
 
     /**
-     * Get ddn
+     * Get bday
      *
      * @return \DateTime
      */
-    public function getDdn()
+    public function getBday()
     {
-        return $this->ddn;
+        return $this->bday;
     }
 
     /**
-     * Set tel
+     * Set num
      *
-     * @param string $tel
+     * @param string $num
      *
      * @return User
      */
-    public function setTel($tel)
+    public function setNum($num)
     {
-        $this->tel = $tel;
+        $this->num = $num;
 
         return $this;
     }
 
     /**
-     * Get tel
+     * Get num
      *
      * @return string
      */
-    public function getTel()
+    public function getNum()
     {
-        return $this->tel;
+        return $this->num;
     }
 
     /**
-     * Set adminCreation
+     * Set adminAdd
      *
-     * @param integer $adminCreation
+     * @param integer $adminAdd
      *
      * @return User
      */
-    public function setAdminCreation($adminCreation)
+    public function setAdminAdd($adminAdd)
     {
-        $this->adminCreation = $adminCreation;
+        $this->adminAdd = $adminAdd;
 
         return $this;
     }
 
     /**
-     * Get adminCreation
+     * Get adminAdd
      *
      * @return integer
      */
-    public function getAdminCreation()
+    public function getAdminAdd()
     {
-        return $this->adminCreation;
+        return $this->adminAdd;
     }
 
     /**
-     * Set dateCreation
+     * Set dateAdd
      *
-     * @param \DateTime $dateCreation
+     * @param \DateTime $dateAdd
      *
      * @return User
      */
-    public function setDateCreation($dateCreation)
+    public function setDateAdd($dateAdd)
     {
-        $this->dateCreation = $dateCreation;
+        $this->dateAdd = $dateAdd;
 
         return $this;
     }
 
     /**
-     * Get dateCreation
+     * Get dateAdd
      *
      * @return \DateTime
      */
-    public function getDateCreation()
+    public function getDateAdd()
     {
-        return $this->dateCreation;
+        return $this->dateAdd;
     }
 
     /**
-     * Set utModification
+     * Set userUpdate
      *
-     * @param integer $utModification
+     * @param integer $userUpdate
      *
      * @return User
      */
-    public function setUtModification($utModification)
+    public function setUserUpdate($userUpdate)
     {
-        $this->utModification = $utModification;
+        $this->userUpdate = $userUpdate;
 
         return $this;
     }
 
     /**
-     * Get utModification
+     * Get userUpdate
      *
      * @return integer
      */
-    public function getUtModification()
+    public function getUserUpdate()
     {
-        return $this->utModification;
+        return $this->userUpdate;
     }
 
     /**
-     * Set dateModif
+     * Set dateUpdate
      *
-     * @param \DateTime $dateModif
+     * @param \DateTime $dateUpdate
      *
      * @return User
      */
-    public function setDateModif($dateModif)
+    public function setDateUpdate($dateUpdate)
     {
-        $this->dateModif = $dateModif;
+        $this->dateUpdate = $dateUpdate;
 
         return $this;
     }
 
     /**
-     * Get dateModif
+     * Get dateUpdate
      *
      * @return \DateTime
      */
-    public function getDateModif()
+    public function getDateUpdate()
     {
-        return $this->dateModif;
+        return $this->dateUpdate;
     }
 
     /**
-     * Set estActif
+     * Set isActive
      *
-     * @param string $estActif
+     * @param string $isActive
      *
      * @return User
      */
-    public function setEstActif($estActif)
+    public function setIsActive($isActive)
     {
-        $this->estActif = $estActif;
+        $this->isActive = $isActive;
 
         return $this;
     }
 
     /**
-     * Get estActif
+     * Get isActive
      *
      * @return string
      */
-    public function getEstActif()
+    public function getIsActive()
     {
-        return $this->estActif;
+        return $this->isActive;
     }
 
     /**
-     * Set adresse
+     * Set address
      *
-     * @param \A2\AddressBundle\Entity\Address $adresse
+     * @param \A2\AddressBundle\Entity\Address $address
      *
      * @return User
      */
-    public function setAdresse(\A2\AddressBundle\Entity\Address $adresse = null)
+    public function setAddress(\A2\AddressBundle\Entity\Address $address = null)
     {
-        $this->adresse = $adresse;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     * Get adresse
+     * Get address
      *
      * @return \A2\AddressBundle\Entity\Address
      */
-    public function getAdresse()
+    public function getAddress()
     {
-        return $this->adresse;
+        return $this->address;
     }
 }

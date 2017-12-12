@@ -16,7 +16,7 @@ class Manager
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="managerId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -26,7 +26,7 @@ class Manager
      * @ORM\OneToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", mappedBy="manager", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $entrepot;
+    private $storehouse;
 
     /**
      * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\User", cascade={"persist", "remove"})
@@ -71,26 +71,26 @@ class Manager
     }
 
     /**
-     * Set entrepot
+     * Set storehouse
      *
-     * @param \A2\StorehouseBundle\Entity\Storehouse $entrepot
+     * @param \A2\StorehouseBundle\Entity\Storehouse $storehouse
      *
      * @return Manager
      */
-    public function setEntrepot(\A2\StorehouseBundle\Entity\Storehouse $entrepot)
+    public function setStorehouse(\A2\StorehouseBundle\Entity\Storehouse $storehouse)
     {
-        $this->entrepot = $entrepot;
+        $this->storehouse = $storehouse;
 
         return $this;
     }
 
     /**
-     * Get entrepot
+     * Get storehouse
      *
      * @return \A2\StorehouseBundle\Entity\Storehouse
      */
-    public function getEntrepot()
+    public function getStorehouse()
     {
-        return $this->entrepot;
+        return $this->storehouse;
     }
 }

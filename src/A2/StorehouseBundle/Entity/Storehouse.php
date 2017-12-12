@@ -16,7 +16,7 @@ class Storehouse
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="storehouseId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,47 +25,47 @@ class Storehouse
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, unique=true)
+     * @ORM\Column(name="storehouseName", type="string", length=255, unique=true)
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\OneToOne(targetEntity="A2\AddressBundle\Entity\Address", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
-    private $adresse;
+    private $address;
 
     /**
-     * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\Manager", inversedBy="entrepot", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\Manager", inversedBy="storehouse", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $manager;
 
     /**
-     * @ORM\Column(name="adminCreation", type="integer")
+     * @ORM\Column(name="adminAdd", type="integer")
      */
-    private $adminCreation;
+    private $adminAdd;
 
     /**
-     * @ORM\Column(name="dateCreation", type="datetime")
+     * @ORM\Column(name="dateAdd", type="datetime")
      */
-    private $dateCreation;
+    private $dateAdd;
 
     /**
-     * @ORM\Column(name="utilisateurModif", type="integer", nullable=true)
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
      */
-    private $utModification;
+    private $userUpdate;
 
     /**
-     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
      */
-    private $dateModif;
+    private $dateUpdate;
 
     /**
-     * @ORM\Column(name="estActif", type="string", length=1)
+     * @ORM\Column(name="isActive", type="string", length=1)
      */
-    private $estActif;
+    private $isActive;
 
     /**
      * Get id
@@ -75,174 +75,6 @@ class Storehouse
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Storehouse
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set adminCreation
-     *
-     * @param integer $adminCreation
-     *
-     * @return Storehouse
-     */
-    public function setAdminCreation($adminCreation)
-    {
-        $this->adminCreation = $adminCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get adminCreation
-     *
-     * @return integer
-     */
-    public function getAdminCreation()
-    {
-        return $this->adminCreation;
-    }
-
-    /**
-     * Set dateCreation
-     *
-     * @param \DateTime $dateCreation
-     *
-     * @return Storehouse
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreation
-     *
-     * @return \DateTime
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
-    }
-
-    /**
-     * Set utModification
-     *
-     * @param integer $utModification
-     *
-     * @return Storehouse
-     */
-    public function setUtModification($utModification)
-    {
-        $this->utModification = $utModification;
-
-        return $this;
-    }
-
-    /**
-     * Get utModification
-     *
-     * @return integer
-     */
-    public function getUtModification()
-    {
-        return $this->utModification;
-    }
-
-    /**
-     * Set dateModif
-     *
-     * @param \DateTime $dateModif
-     *
-     * @return Storehouse
-     */
-    public function setDateModif($dateModif)
-    {
-        $this->dateModif = $dateModif;
-
-        return $this;
-    }
-
-    /**
-     * Get dateModif
-     *
-     * @return \DateTime
-     */
-    public function getDateModif()
-    {
-        return $this->dateModif;
-    }
-
-    /**
-     * Set estActif
-     *
-     * @param string $estActif
-     *
-     * @return Storehouse
-     */
-    public function setEstActif($estActif)
-    {
-        $this->estActif = $estActif;
-
-        return $this;
-    }
-
-    /**
-     * Get estActif
-     *
-     * @return string
-     */
-    public function getEstActif()
-    {
-        return $this->estActif;
-    }
-
-    /**
-     * Set adresse
-     *
-     * @param \A2\AddressBundle\Entity\Address $adresse
-     *
-     * @return Storehouse
-     */
-    public function setAdresse(\A2\AddressBundle\Entity\Address $adresse)
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * Get adresse
-     *
-     * @return \A2\AddressBundle\Entity\Address
-     */
-    public function getAdresse()
-    {
-        return $this->adresse;
     }
 
     /**
@@ -267,5 +99,173 @@ class Storehouse
     public function getManager()
     {
         return $this->manager;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Storehouse
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set adminAdd
+     *
+     * @param integer $adminAdd
+     *
+     * @return Storehouse
+     */
+    public function setAdminAdd($adminAdd)
+    {
+        $this->adminAdd = $adminAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get adminAdd
+     *
+     * @return integer
+     */
+    public function getAdminAdd()
+    {
+        return $this->adminAdd;
+    }
+
+    /**
+     * Set dateAdd
+     *
+     * @param \DateTime $dateAdd
+     *
+     * @return Storehouse
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdd
+     *
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
+    }
+
+    /**
+     * Set userUpdate
+     *
+     * @param integer $userUpdate
+     *
+     * @return Storehouse
+     */
+    public function setUserUpdate($userUpdate)
+    {
+        $this->userUpdate = $userUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get userUpdate
+     *
+     * @return integer
+     */
+    public function getUserUpdate()
+    {
+        return $this->userUpdate;
+    }
+
+    /**
+     * Set dateUpdate
+     *
+     * @param \DateTime $dateUpdate
+     *
+     * @return Storehouse
+     */
+    public function setDateUpdate($dateUpdate)
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdate
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdate()
+    {
+        return $this->dateUpdate;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param string $isActive
+     *
+     * @return Storehouse
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return string
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \A2\AddressBundle\Entity\Address $address
+     *
+     * @return Storehouse
+     */
+    public function setAddress(\A2\AddressBundle\Entity\Address $address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \A2\AddressBundle\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }
