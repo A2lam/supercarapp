@@ -1,0 +1,3 @@
+a2_storehouse_homepage:
+    path:     /
+    defaults: { _controller: A2StorehouseBundle:Default:index }
