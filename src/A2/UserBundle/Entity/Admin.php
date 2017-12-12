@@ -24,6 +24,7 @@ class Admin
 
     /**
      * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\User", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $user;
