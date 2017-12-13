@@ -1,0 +1,3 @@
+a2_model_homepage:
+    path:     /
+    defaults: { _controller: A2ModelBundle:Default:index }

@@ -1,3 +1,7 @@
+a2_model:
+    resource: "@A2ModelBundle/Resources/config/routing.yml"
+    prefix:   /
+
 a2_brand:
     resource: "@A2BrandBundle/Resources/config/routing.yml"
     prefix:   /

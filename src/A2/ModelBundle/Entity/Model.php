@@ -1,22 +1,22 @@
 <?php
 
-namespace A2\BrandBundle\Entity;
+namespace A2\ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Brand
+ * Model
  *
- * @ORM\Table(name="brand")
- * @ORM\Entity(repositoryClass="A2\BrandBundle\Repository\BrandRepository")
+ * @ORM\Table(name="model")
+ * @ORM\Entity(repositoryClass="A2\ModelBundle\Repository\ModelRepository")
  */
-class Brand
+class Model
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="brandId", type="integer")
+     * @ORM\Column(name="modelId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,10 +25,24 @@ class Brand
     /**
      * @var string
      *
-     * @ORM\Column(name="brandName", type="string", length=255, unique=true)
+     * @ORM\Column(name="modelName", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $name;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="modelAlertValue", type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\NotBlank()
+     */
+    private $alertValue;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\BrandBundle\Entity\Brand", cascade={"persist"})
+     */
+    private $brand;
 
     /**
      * @ORM\Column(name="adminAdd", type="integer")
@@ -71,7 +85,7 @@ class Brand
      *
      * @param string $name
      *
-     * @return Brand
+     * @return Model
      */
     public function setName($name)
     {
@@ -91,11 +105,35 @@ class Brand
     }
 
     /**
+     * Set alertValue
+     *
+     * @param integer $alertValue
+     *
+     * @return Model
+     */
+    public function setAlertValue($alertValue)
+    {
+        $this->alertValue = $alertValue;
+
+        return $this;
+    }
+
+    /**
+     * Get alertValue
+     *
+     * @return int
+     */
+    public function getAlertValue()
+    {
+        return $this->alertValue;
+    }
+
+    /**
      * Set adminAdd
      *
      * @param integer $adminAdd
      *
-     * @return Brand
+     * @return Model
      */
     public function setAdminAdd($adminAdd)
     {
@@ -119,7 +157,7 @@ class Brand
      *
      * @param \DateTime $dateAdd
      *
-     * @return Brand
+     * @return Model
      */
     public function setDateAdd($dateAdd)
     {
@@ -143,7 +181,7 @@ class Brand
      *
      * @param integer $userUpdate
      *
-     * @return Brand
+     * @return Model
      */
     public function setUserUpdate($userUpdate)
     {
@@ -167,7 +205,7 @@ class Brand
      *
      * @param \DateTime $dateUpdate
      *
-     * @return Brand
+     * @return Model
      */
     public function setDateUpdate($dateUpdate)
     {
@@ -191,7 +229,7 @@ class Brand
      *
      * @param string $isActive
      *
-     * @return Brand
+     * @return Model
      */
     public function setIsActive($isActive)
     {
@@ -208,5 +246,29 @@ class Brand
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \A2\BrandBundle\Entity\Brand $brand
+     *
+     * @return Model
+     */
+    public function setBrand(\A2\BrandBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \A2\BrandBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new A2\StorehouseBundle\A2StorehouseBundle(),
             new A2\CategoryBundle\A2CategoryBundle(),
             new A2\BrandBundle\A2BrandBundle(),
+            new A2\ModelBundle\A2ModelBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
