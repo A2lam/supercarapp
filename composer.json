@@ -8,7 +8,8 @@
             "A2\\UserBundle\\": "src/A2/UserBundle",
             "A2\\AddressBundle\\": "src/A2/AddressBundle",
             "A2\\StorehouseBundle\\": "src/A2/StorehouseBundle",
-            "A2\\CategoryBundle\\": "src/A2/CategoryBundle"
+            "A2\\CategoryBundle\\": "src/A2/CategoryBundle",
+            "A2\\BrandBundle\\": "src/A2/BrandBundle"
         },
         "classmap": [
             "app/AppKernel.php",
