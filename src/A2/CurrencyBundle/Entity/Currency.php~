@@ -1,0 +1,124 @@
+<?php
+
+namespace A2\CurrencyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Currency
+ *
+ * @ORM\Table(name="currency")
+ * @ORM\Entity(repositoryClass="A2\CurrencyBundle\Repository\CurrencyRepository")
+ */
+class Currency
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="currencyId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="currencyName", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="currencySymbol", type="string", length=2)
+     * @Assert\NotBlank()
+     */
+    private $symbol;
+
+    /**
+     * @ORM\Column(name="adminAdd", type="integer")
+     */
+    private $adminAdd;
+
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     */
+    private $dateAdd;
+
+    /**
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
+     */
+    private $userUpdate;
+
+    /**
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="isActive", type="string", length=1)
+     */
+    private $isActive;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Currency
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set symbol
+     *
+     * @param string $symbol
+     *
+     * @return Currency
+     */
+    public function setSymbol($symbol)
+    {
+        $this->symbol = $symbol;
+
+        return $this;
+    }
+
+    /**
+     * Get symbol
+     *
+     * @return string
+     */
+    public function getSymbol()
+    {
+        return $this->symbol;
+    }
+}
