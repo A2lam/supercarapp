@@ -1,0 +1,3 @@
+a2_car_homepage:
+    path:     /
+    defaults: { _controller: A2CarBundle:Default:index }

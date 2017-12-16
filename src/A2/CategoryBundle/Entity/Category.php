@@ -3,6 +3,7 @@
 namespace A2\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -25,6 +26,7 @@ class Category
      * @var string
      *
      * @ORM\Column(name="categoryName", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
