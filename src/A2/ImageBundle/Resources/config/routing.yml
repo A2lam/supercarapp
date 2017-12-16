@@ -1,0 +1,3 @@
+a2_image_homepage:
+    path:     /
+    defaults: { _controller: A2ImageBundle:Default:index }

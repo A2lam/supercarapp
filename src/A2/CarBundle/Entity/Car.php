@@ -23,12 +23,33 @@ class Car
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="A2\CategoryBundle\Entity\Category", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\ModelBundle\Entity\Model", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $model;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $color;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\ImageBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $image;
 
     /**
      * @var int

@@ -11,7 +11,8 @@
             "A2\\CategoryBundle\\": "src/A2/CategoryBundle",
             "A2\\BrandBundle\\": "src/A2/BrandBundle",
             "A2\\ModelBundle\\": "src/A2/ModelBundle",
-            "A2\\CarBundle\\": "src/A2/CarBundle"
+            "A2\\CarBundle\\": "src/A2/CarBundle",
+            "A2\\ImageBundle\\": "src/A2/ImageBundle"
         },
         "classmap": [
             "app/AppKernel.php",
