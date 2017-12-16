@@ -59,6 +59,13 @@ class Car
     private $price;
 
     /**
+     * @ORM\ManyToOne(targetEntity="A2\CurrencyBundle\Entity\Currency", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $currency;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="energy", type="string", length=255)
@@ -113,6 +120,31 @@ class Car
      * @ORM\Column(name="isSold", type="string", length=1)
      */
     private $isSold;
+
+    /**
+     * @ORM\Column(name="adminAdd", type="integer")
+     */
+    private $adminAdd;
+
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     */
+    private $dateAdd;
+
+    /**
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
+     */
+    private $userUpdate;
+
+    /**
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="isActive", type="string", length=1)
+     */
+    private $isActive;
 
 
     /**
@@ -364,5 +396,220 @@ class Car
     {
         return $this->isSold;
     }
-}
 
+    /**
+     * Set adminAdd
+     *
+     * @param integer $adminAdd
+     *
+     * @return Car
+     */
+    public function setAdminAdd($adminAdd)
+    {
+        $this->adminAdd = $adminAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get adminAdd
+     *
+     * @return integer
+     */
+    public function getAdminAdd()
+    {
+        return $this->adminAdd;
+    }
+
+    /**
+     * Set dateAdd
+     *
+     * @param \DateTime $dateAdd
+     *
+     * @return Car
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdd
+     *
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
+    }
+
+    /**
+     * Set userUpdate
+     *
+     * @param integer $userUpdate
+     *
+     * @return Car
+     */
+    public function setUserUpdate($userUpdate)
+    {
+        $this->userUpdate = $userUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get userUpdate
+     *
+     * @return integer
+     */
+    public function getUserUpdate()
+    {
+        return $this->userUpdate;
+    }
+
+    /**
+     * Set dateUpdate
+     *
+     * @param \DateTime $dateUpdate
+     *
+     * @return Car
+     */
+    public function setDateUpdate($dateUpdate)
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdate
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdate()
+    {
+        return $this->dateUpdate;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param string $isActive
+     *
+     * @return Car
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return string
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \A2\CategoryBundle\Entity\Category $category
+     *
+     * @return Car
+     */
+    public function setCategory(\A2\CategoryBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \A2\CategoryBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set model
+     *
+     * @param \A2\ModelBundle\Entity\Model $model
+     *
+     * @return Car
+     */
+    public function setModel(\A2\ModelBundle\Entity\Model $model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \A2\ModelBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \A2\ImageBundle\Entity\Image $image
+     *
+     * @return Car
+     */
+    public function setImage(\A2\ImageBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \A2\ImageBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param \A2\CurrencyBundle\Entity\Currency $currency
+     *
+     * @return Car
+     */
+    public function setCurrency(\A2\CurrencyBundle\Entity\Currency $currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return \A2\CurrencyBundle\Entity\Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+}
