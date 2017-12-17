@@ -1,0 +1,4 @@
+services:
+#    a2_order.example:
+#        class: A2\OrderBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
