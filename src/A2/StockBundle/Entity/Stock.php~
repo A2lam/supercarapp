@@ -1,0 +1,112 @@
+<?php
+
+namespace A2\StockBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Stock
+ *
+ * @ORM\Table(name="stock")
+ * @ORM\Entity(repositoryClass="A2\StockBundle\Repository\StockRepository")
+ */
+class Stock
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="stockId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\CategoryBundle\Entity\Category", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\ModelBundle\Entity\Model", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $model;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $storehouse;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="stockQuantity", type="integer")
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(name="adminAdd", type="integer")
+     */
+    private $adminAdd;
+
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     */
+    private $dateAdd;
+
+    /**
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
+     */
+    private $userUpdate;
+
+    /**
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Stock
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+}
+

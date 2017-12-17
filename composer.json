@@ -16,7 +16,8 @@
             "A2\\CurrencyBundle\\": "src/A2/CurrencyBundle",
             "A2\\CustomerBundle\\": "src/A2/CustomerBundle",
             "A2\\SupplierBundle\\": "src/A2/SupplierBundle",
-            "A2\\OrderBundle\\": "src/A2/OrderBundle"
+            "A2\\OrderBundle\\": "src/A2/OrderBundle",
+            "A2\\StockBundle\\": "src/A2/StockBundle"
         },
         "classmap": [
             "app/AppKernel.php",

@@ -1,0 +1,3 @@
+a2_stock_homepage:
+    path:     /
+    defaults: { _controller: A2StockBundle:Default:index }
