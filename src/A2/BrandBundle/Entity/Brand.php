@@ -51,7 +51,7 @@ class Brand
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -189,7 +189,7 @@ class Brand
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return Brand
      */
@@ -203,7 +203,7 @@ class Brand
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {

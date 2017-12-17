@@ -65,7 +65,7 @@ class Model
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -227,7 +227,7 @@ class Model
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return Model
      */
@@ -241,7 +241,7 @@ class Model
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {

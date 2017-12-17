@@ -74,7 +74,7 @@ class User extends BaseUser
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -281,7 +281,7 @@ class User extends BaseUser
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return User
      */
@@ -295,7 +295,7 @@ class User extends BaseUser
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {

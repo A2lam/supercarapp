@@ -63,7 +63,7 @@ class Storehouse
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -224,7 +224,7 @@ class Storehouse
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return Storehouse
      */
@@ -238,7 +238,7 @@ class Storehouse
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {

@@ -51,7 +51,7 @@ class Category
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -188,7 +188,7 @@ class Category
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return Category
      */
@@ -202,7 +202,7 @@ class Category
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {

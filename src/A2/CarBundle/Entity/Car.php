@@ -115,9 +115,15 @@ class Car
     private $year;
 
     /**
+     * @ORM\ManyToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $storehouse;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="isSold", type="string", length=1)
+     * @ORM\Column(name="isSold", type="boolean")
      */
     private $isSold;
 
@@ -147,7 +153,7 @@ class Car
     private $dateUpdate;
 
     /**
-     * @ORM\Column(name="isActive", type="string", length=1)
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
@@ -381,7 +387,7 @@ class Car
     /**
      * Set isSold
      *
-     * @param string $isSold
+     * @param boolean $isSold
      *
      * @return Car
      */
@@ -395,7 +401,7 @@ class Car
     /**
      * Get isSold
      *
-     * @return string
+     * @return boolean
      */
     public function getIsSold()
     {
@@ -501,7 +507,7 @@ class Car
     /**
      * Set isActive
      *
-     * @param string $isActive
+     * @param boolean $isActive
      *
      * @return Car
      */
@@ -515,7 +521,7 @@ class Car
     /**
      * Get isActive
      *
-     * @return string
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -640,5 +646,29 @@ class Car
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set storehouse
+     *
+     * @param \A2\StorehouseBundle\Entity\Storehouse $storehouse
+     *
+     * @return Car
+     */
+    public function setStorehouse(\A2\StorehouseBundle\Entity\Storehouse $storehouse)
+    {
+        $this->storehouse = $storehouse;
+
+        return $this;
+    }
+
+    /**
+     * Get storehouse
+     *
+     * @return \A2\StorehouseBundle\Entity\Storehouse
+     */
+    public function getStorehouse()
+    {
+        return $this->storehouse;
     }
 }
