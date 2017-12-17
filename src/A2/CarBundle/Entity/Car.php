@@ -16,7 +16,7 @@ class Car
     /**
      * @var int
      *
-     * @ORM\Column(name="carId", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

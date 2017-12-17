@@ -16,7 +16,7 @@ class Category
     /**
      * @var int
      *
-     * @ORM\Column(name="categoryId", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

@@ -16,7 +16,7 @@ class Manager
     /**
      * @var int
      *
-     * @ORM\Column(name="managerId", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

@@ -15,7 +15,7 @@ class Sale
     /**
      * @var int
      *
-     * @ORM\Column(name="saleId", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
