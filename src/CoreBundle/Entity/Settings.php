@@ -1,37 +1,50 @@
 <?php
 
-namespace A2\SaleBundle\Entity;
+namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Sale
+ * Settings
  *
- * @ORM\Table(name="sale")
- * @ORM\Entity(repositoryClass="A2\SaleBundle\Repository\SaleRepository")
+ * @ORM\Table(name="settings")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\SettingsRepository")
  */
-class Sale
+class Settings
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="saleId", type="integer")
+     * @ORM\Column(name="settingsId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="A2\CarBundle\Entity\Car")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="settingsName", type="string", length=255)
      */
-    private $car;
+    private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="A2\CustomerBundle\Entity\Customer")
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="settingsTitle", type="string", length=255)
+     * @Assert\NotBlank()
      */
-    private $customer;
+    private $title;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="settingsValue", type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\NotBlank()
+     */
+    private $value;
 
     /**
      * @ORM\Column(name="adminAdd", type="integer")
@@ -58,6 +71,7 @@ class Sale
      */
     private $isActive;
 
+
     /**
      * Get id
      *
@@ -69,11 +83,83 @@ class Sale
     }
 
     /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Settings
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set value
+     *
+     * @param integer $value
+     *
+     * @return Settings
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return int
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Settings
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Set adminAdd
      *
      * @param integer $adminAdd
      *
-     * @return Sale
+     * @return Settings
      */
     public function setAdminAdd($adminAdd)
     {
@@ -97,7 +183,7 @@ class Sale
      *
      * @param \DateTime $dateAdd
      *
-     * @return Sale
+     * @return Settings
      */
     public function setDateAdd($dateAdd)
     {
@@ -121,7 +207,7 @@ class Sale
      *
      * @param integer $userUpdate
      *
-     * @return Sale
+     * @return Settings
      */
     public function setUserUpdate($userUpdate)
     {
@@ -145,7 +231,7 @@ class Sale
      *
      * @param \DateTime $dateUpdate
      *
-     * @return Sale
+     * @return Settings
      */
     public function setDateUpdate($dateUpdate)
     {
@@ -169,7 +255,7 @@ class Sale
      *
      * @param boolean $isActive
      *
-     * @return Sale
+     * @return Settings
      */
     public function setIsActive($isActive)
     {
@@ -186,53 +272,5 @@ class Sale
     public function getIsActive()
     {
         return $this->isActive;
-    }
-
-    /**
-     * Set customer
-     *
-     * @param \A2\CustomerBundle\Entity\Customer $customer
-     *
-     * @return Sale
-     */
-    public function setCustomer(\A2\CustomerBundle\Entity\Customer $customer)
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Get customer
-     *
-     * @return \A2\CustomerBundle\Entity\Customer
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * Set car
-     *
-     * @param \A2\CarBundle\Entity\Car $car
-     *
-     * @return Sale
-     */
-    public function setCar(\A2\CarBundle\Entity\Car $car)
-    {
-        $this->car = $car;
-
-        return $this;
-    }
-
-    /**
-     * Get car
-     *
-     * @return \A2\CarBundle\Entity\Car
-     */
-    public function getCar()
-    {
-        return $this->car;
     }
 }

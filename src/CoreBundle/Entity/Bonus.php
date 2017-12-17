@@ -1,37 +1,53 @@
 <?php
 
-namespace A2\SaleBundle\Entity;
+namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Sale
+ * Bonus
  *
- * @ORM\Table(name="sale")
- * @ORM\Entity(repositoryClass="A2\SaleBundle\Repository\SaleRepository")
+ * @ORM\Table(name="bonus")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\BonusRepository")
  */
-class Sale
+class Bonus
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="saleId", type="integer")
+     * @ORM\Column(name="bonusId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="A2\CarBundle\Entity\Car")
+     * @ORM\ManyToOne(targetEntity="A2\UserBundle\Entity\Seller")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $car;
+    private $seller;
 
     /**
-     * @ORM\ManyToOne(targetEntity="A2\CustomerBundle\Entity\Customer")
-     * @ORM\JoinColumn(nullable=false)
+     * @var int
+     *
+     * @ORM\Column(name="bonusTotalBonus", type="integer")
      */
-    private $customer;
+    private $totalBonus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\CurrencyBundle\Entity\Currency", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $currency;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="exerciseMonth", type="date")
+     */
+    private $exerciseMonth;
 
     /**
      * @ORM\Column(name="adminAdd", type="integer")
@@ -58,6 +74,7 @@ class Sale
      */
     private $isActive;
 
+
     /**
      * Get id
      *
@@ -69,11 +86,59 @@ class Sale
     }
 
     /**
+     * Set totalBonus
+     *
+     * @param integer $totalBonus
+     *
+     * @return Bonus
+     */
+    public function setTotalBonus($totalBonus)
+    {
+        $this->totalBonus = $totalBonus;
+
+        return $this;
+    }
+
+    /**
+     * Get totalBonus
+     *
+     * @return int
+     */
+    public function getTotalBonus()
+    {
+        return $this->totalBonus;
+    }
+
+    /**
+     * Set exerciseMonth
+     *
+     * @param \DateTime $exerciseMonth
+     *
+     * @return Bonus
+     */
+    public function setExerciseMonth($exerciseMonth)
+    {
+        $this->exerciseMonth = $exerciseMonth;
+
+        return $this;
+    }
+
+    /**
+     * Get exerciseMonth
+     *
+     * @return \DateTime
+     */
+    public function getExerciseMonth()
+    {
+        return $this->exerciseMonth;
+    }
+
+    /**
      * Set adminAdd
      *
      * @param integer $adminAdd
      *
-     * @return Sale
+     * @return Bonus
      */
     public function setAdminAdd($adminAdd)
     {
@@ -97,7 +162,7 @@ class Sale
      *
      * @param \DateTime $dateAdd
      *
-     * @return Sale
+     * @return Bonus
      */
     public function setDateAdd($dateAdd)
     {
@@ -121,7 +186,7 @@ class Sale
      *
      * @param integer $userUpdate
      *
-     * @return Sale
+     * @return Bonus
      */
     public function setUserUpdate($userUpdate)
     {
@@ -145,7 +210,7 @@ class Sale
      *
      * @param \DateTime $dateUpdate
      *
-     * @return Sale
+     * @return Bonus
      */
     public function setDateUpdate($dateUpdate)
     {
@@ -169,7 +234,7 @@ class Sale
      *
      * @param boolean $isActive
      *
-     * @return Sale
+     * @return Bonus
      */
     public function setIsActive($isActive)
     {
@@ -189,50 +254,50 @@ class Sale
     }
 
     /**
-     * Set customer
+     * Set seller
      *
-     * @param \A2\CustomerBundle\Entity\Customer $customer
+     * @param \A2\UserBundle\Entity\Seller $seller
      *
-     * @return Sale
+     * @return Bonus
      */
-    public function setCustomer(\A2\CustomerBundle\Entity\Customer $customer)
+    public function setSeller(\A2\UserBundle\Entity\Seller $seller)
     {
-        $this->customer = $customer;
+        $this->seller = $seller;
 
         return $this;
     }
 
     /**
-     * Get customer
+     * Get seller
      *
-     * @return \A2\CustomerBundle\Entity\Customer
+     * @return \A2\UserBundle\Entity\Seller
      */
-    public function getCustomer()
+    public function getSeller()
     {
-        return $this->customer;
+        return $this->seller;
     }
 
     /**
-     * Set car
+     * Set currency
      *
-     * @param \A2\CarBundle\Entity\Car $car
+     * @param \A2\CurrencyBundle\Entity\Currency $currency
      *
-     * @return Sale
+     * @return Bonus
      */
-    public function setCar(\A2\CarBundle\Entity\Car $car)
+    public function setCurrency(\A2\CurrencyBundle\Entity\Currency $currency)
     {
-        $this->car = $car;
+        $this->currency = $currency;
 
         return $this;
     }
 
     /**
-     * Get car
+     * Get currency
      *
-     * @return \A2\CarBundle\Entity\Car
+     * @return \A2\CurrencyBundle\Entity\Currency
      */
-    public function getCar()
+    public function getCurrency()
     {
-        return $this->car;
+        return $this->currency;
     }
 }

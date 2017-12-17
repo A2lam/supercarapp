@@ -1,0 +1,136 @@
+<?php
+
+namespace CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Bonus
+ *
+ * @ORM\Table(name="bonus")
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\BonusRepository")
+ */
+class Bonus
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bonusId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\UserBundle\Entity\Seller")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $seller;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bonusTotalBonus", type="integer")
+     */
+    private $totalBonus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="A2\CurrencyBundle\Entity\Currency", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $currency;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="exerciseMonth", type="date")
+     */
+    private $exerciseMonth;
+
+    /**
+     * @ORM\Column(name="adminAdd", type="integer")
+     */
+    private $adminAdd;
+
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     */
+    private $dateAdd;
+
+    /**
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
+     */
+    private $userUpdate;
+
+    /**
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set totalBonus
+     *
+     * @param integer $totalBonus
+     *
+     * @return Bonus
+     */
+    public function setTotalBonus($totalBonus)
+    {
+        $this->totalBonus = $totalBonus;
+
+        return $this;
+    }
+
+    /**
+     * Get totalBonus
+     *
+     * @return int
+     */
+    public function getTotalBonus()
+    {
+        return $this->totalBonus;
+    }
+
+    /**
+     * Set exerciseMonth
+     *
+     * @param \DateTime $exerciseMonth
+     *
+     * @return Bonus
+     */
+    public function setExerciseMonth($exerciseMonth)
+    {
+        $this->exerciseMonth = $exerciseMonth;
+
+        return $this;
+    }
+
+    /**
+     * Get exerciseMonth
+     *
+     * @return \DateTime
+     */
+    public function getExerciseMonth()
+    {
+        return $this->exerciseMonth;
+    }
+}
+
