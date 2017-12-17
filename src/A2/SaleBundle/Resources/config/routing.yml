@@ -1,0 +1,3 @@
+a2_sale_homepage:
+    path:     /
+    defaults: { _controller: A2SaleBundle:Default:index }
