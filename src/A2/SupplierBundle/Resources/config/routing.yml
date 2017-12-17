@@ -1,0 +1,3 @@
+a2_supplier_homepage:
+    path:     /
+    defaults: { _controller: A2SupplierBundle:Default:index }

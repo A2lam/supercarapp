@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new A2\ImageBundle\A2ImageBundle(),
             new A2\CurrencyBundle\A2CurrencyBundle(),
             new A2\CustomerBundle\A2CustomerBundle(),
+            new A2\SupplierBundle\A2SupplierBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

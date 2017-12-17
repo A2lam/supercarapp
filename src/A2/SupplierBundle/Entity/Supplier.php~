@@ -1,0 +1,99 @@
+<?php
+
+namespace A2\SupplierBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Supplier
+ *
+ * @ORM\Table(name="supplier")
+ * @ORM\Entity(repositoryClass="A2\SupplierBundle\Repository\SupplierRepository")
+ */
+class Supplier
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="supplierId", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="supplierName", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToOne(targetEntity="A2\AddressBundle\Entity\Address", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(name="adminAdd", type="integer")
+     */
+    private $adminAdd;
+
+    /**
+     * @ORM\Column(name="dateAdd", type="datetime")
+     */
+    private $dateAdd;
+
+    /**
+     * @ORM\Column(name="userUpdate", type="integer", nullable=true)
+     */
+    private $userUpdate;
+
+    /**
+     * @ORM\Column(name="dateUpdate", type="datetime", nullable=true)
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="isActive", type="string", length=1)
+     */
+    private $isActive;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Supplier
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
