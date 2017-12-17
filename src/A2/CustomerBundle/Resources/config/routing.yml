@@ -1,0 +1,3 @@
+a2_customer_homepage:
+    path:     /
+    defaults: { _controller: A2CustomerBundle:Default:index }

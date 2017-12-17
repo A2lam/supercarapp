@@ -122,6 +122,11 @@ class Car
     private $isSold;
 
     /**
+     * @ORM\ManyToOne(targetEntity="A2\CustomerBundle\Entity\Customer", inversedBy="cars")
+     */
+    private $customer;
+
+    /**
      * @ORM\Column(name="adminAdd", type="integer")
      */
     private $adminAdd;
@@ -611,5 +616,29 @@ class Car
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \A2\CustomerBundle\Entity\Customer $customer
+     *
+     * @return Car
+     */
+    public function setCustomer(\A2\CustomerBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \A2\CustomerBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
     }
 }

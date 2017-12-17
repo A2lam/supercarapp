@@ -1,3 +1,7 @@
+a2_customer:
+    resource: "@A2CustomerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 a2_currency:
     resource: "@A2CurrencyBundle/Resources/config/routing.yml"
     prefix:   /

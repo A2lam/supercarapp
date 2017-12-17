@@ -1,57 +1,78 @@
 <?php
 
-namespace A2\UserBundle\Entity;
+namespace A2\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
+ * Customer
  *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="A2\UserBundle\Repository\UserRepository")
+ * @ORM\Table(name="customer")
+ * @ORM\Entity(repositoryClass="A2\CustomerBundle\Repository\CustomerRepository")
  */
-class User extends BaseUser
+class Customer
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\Column(name="customerId", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="customerName", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $name;
 
     /**
-     * @ORM\Column(name="userLastname", type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="customerLastname", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
-     * @ORM\Column(name="userBday", type="datetime")
-     * @Assert\DateTime()
+     * @var \DateTime
+     *
+     * @ORM\Column(name="customerBday", type="datetime")
+     * @Assert\NotBlank()
      */
     private $bday;
-
-    /**
-     * @ORM\Column(name="userNum", type="string", length=255)
-     * @Assert\Type(type="integer")
-     */
-    private $num;
 
     /**
      * @ORM\OneToOne(targetEntity="A2\AddressBundle\Entity\Address", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customerEmail", type="string", length=255)
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customerNum", type="string", length=255)
+     * @Assert\Type(type="integer")
+     */
+    private $num;
+
+    /**
+     * @ORM\OneToMany(targetEntity="A2\CarBundle\Entity\Car", mappedBy="customer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cars;
 
     /**
      * @ORM\Column(name="adminAdd", type="integer")
@@ -78,12 +99,15 @@ class User extends BaseUser
      */
     private $isActive;
 
+
     /**
-     * User constructor.
+     * Get id
+     *
+     * @return int
      */
-    public function __construct()
+    public function getId()
     {
-        parent::__construct();
+        return $this->id;
     }
 
     /**
@@ -91,7 +115,7 @@ class User extends BaseUser
      *
      * @param string $name
      *
-     * @return User
+     * @return Customer
      */
     public function setName($name)
     {
@@ -111,11 +135,11 @@ class User extends BaseUser
     }
 
     /**
-     * Set lastName
+     * Set lastname
      *
-     * @param string $lastName
+     * @param string $lastname
      *
-     * @return User
+     * @return Customer
      */
     public function setLastname($lastname)
     {
@@ -125,7 +149,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get lastName
+     * Get lastname
      *
      * @return string
      */
@@ -139,7 +163,7 @@ class User extends BaseUser
      *
      * @param \DateTime $bday
      *
-     * @return User
+     * @return Customer
      */
     public function setBday($bday)
     {
@@ -159,11 +183,35 @@ class User extends BaseUser
     }
 
     /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Customer
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * Set num
      *
      * @param string $num
      *
-     * @return User
+     * @return Customer
      */
     public function setNum($num)
     {
@@ -181,13 +229,20 @@ class User extends BaseUser
     {
         return $this->num;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cars = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set adminAdd
      *
      * @param integer $adminAdd
      *
-     * @return User
+     * @return Customer
      */
     public function setAdminAdd($adminAdd)
     {
@@ -211,7 +266,7 @@ class User extends BaseUser
      *
      * @param \DateTime $dateAdd
      *
-     * @return User
+     * @return Customer
      */
     public function setDateAdd($dateAdd)
     {
@@ -235,7 +290,7 @@ class User extends BaseUser
      *
      * @param integer $userUpdate
      *
-     * @return User
+     * @return Customer
      */
     public function setUserUpdate($userUpdate)
     {
@@ -259,7 +314,7 @@ class User extends BaseUser
      *
      * @param \DateTime $dateUpdate
      *
-     * @return User
+     * @return Customer
      */
     public function setDateUpdate($dateUpdate)
     {
@@ -283,7 +338,7 @@ class User extends BaseUser
      *
      * @param string $isActive
      *
-     * @return User
+     * @return Customer
      */
     public function setIsActive($isActive)
     {
@@ -307,7 +362,7 @@ class User extends BaseUser
      *
      * @param \A2\AddressBundle\Entity\Address $address
      *
-     * @return User
+     * @return Customer
      */
     public function setAddress(\A2\AddressBundle\Entity\Address $address = null)
     {
@@ -324,5 +379,39 @@ class User extends BaseUser
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Add car
+     *
+     * @param \A2\CarBundle\Entity\Car $car
+     *
+     * @return Customer
+     */
+    public function addCar(\A2\CarBundle\Entity\Car $car)
+    {
+        $this->cars[] = $car;
+
+        return $this;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param \A2\CarBundle\Entity\Car $car
+     */
+    public function removeCar(\A2\CarBundle\Entity\Car $car)
+    {
+        $this->cars->removeElement($car);
+    }
+
+    /**
+     * Get cars
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCars()
+    {
+        return $this->cars;
     }
 }
