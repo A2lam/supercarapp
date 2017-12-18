@@ -24,6 +24,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="A2\ImageBundle\Entity\Image", cascade={"persist", "remove"})
+     * @Assert\Valid()
+     */
+    private $image;
+
+    /**
      * @ORM\Column(name="userName", type="string", length=255)
      * @Assert\NotBlank()
      */
@@ -324,5 +330,29 @@ class User extends BaseUser
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \A2\ImageBundle\Entity\Image $image
+     *
+     * @return User
+     */
+    public function setImage(\A2\ImageBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \A2\ImageBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

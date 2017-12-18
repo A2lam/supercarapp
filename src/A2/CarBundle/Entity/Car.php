@@ -46,7 +46,6 @@ class Car
 
     /**
      * @ORM\ManyToOne(targetEntity="A2\ImageBundle\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $image;
