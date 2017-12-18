@@ -1,62 +1,62 @@
+core:
+    resource: "@CoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 a2_sale:
     resource: "@A2SaleBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /sale
 
 a2_stock:
     resource: "@A2StockBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /stock
 
 a2_order:
     resource: "@A2OrderBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /order
 
 a2_supplier:
     resource: "@A2SupplierBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /supplier
 
 a2_customer:
     resource: "@A2CustomerBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /customer
 
 a2_currency:
     resource: "@A2CurrencyBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /currency
 
 a2_image:
     resource: "@A2ImageBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /image
 
 a2_car:
     resource: "@A2CarBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /car
 
 a2_model:
     resource: "@A2ModelBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /model
 
 a2_brand:
     resource: "@A2BrandBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /brand
 
 a2_category:
     resource: "@A2CategoryBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /category
 
 a2_storehouse:
     resource: "@A2StorehouseBundle/Resources/config/routing.yml"
-    prefix:   /
-
-#core:
-    #resource: "@CoreBundle/Resources/config/routing.yml"
-    #prefix:   /
+    prefix:   /storehouse
 
 a2_address:
     resource: "@A2AddressBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /address
 
 a2_user:
     resource: "@A2UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /user
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
