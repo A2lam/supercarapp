@@ -1,20 +1,102 @@
 {# On étend notre layout de base #}
 {% extends "::base.html.twig" %}
 
-{# Dans notre layout il faut définir le block body #}
+{# Définition du block body, ici ça sera notre menu #}
 {% block body %}
 
-    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
-    {% for key, messages in app.session.flashbag.all() %}
-        {% for message in messages %}
-            <div class="alert alert-{{ key }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    <div class="nav-side-menu">
+        <div class="brand">SuperCar</div>
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
-    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
-    {% block fos_user_content %}
-    {% endblock fos_user_content %}
+        <div class="menu-list">
+
+            <ul id="menu-content" class="menu-content collapse out">
+                <li class="active">
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Accueil
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Ventes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Clients
+                    </a>
+                </li>
+
+                <li  data-toggle="collapse" data-target="#voitures" class="collapsed">
+                    <a href="#"><i class="fa fa-gift fa-lg"></i> Voitures <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="voitures">
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="#">Marques</a></li>
+                    <li><a href="#">Modèles</a></li>
+                    <li><a href="#">Voitures</a></li>
+                </ul>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Fournisseurs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Commandes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Stock
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Primes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Entrepots
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('core_homepage') }}">
+                        <i class="fa fa-dashboard fa-lg"></i> Utilisateurs
+                    </a>
+                </li>
+
+
+                <li data-toggle="collapse" data-target="#parametres" class="collapsed">
+                    <a href="#"><i class="fa fa-car fa-lg"></i> Paramètres <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="parametres">
+                    <li><a href="#">Valeurs par défaut</a></li>
+                    <li><a href="#">Devises</a></li>
+                </ul>
+
+
+                <li data-toggle="collapse" data-target="#profil" class="collapsed">
+                    <a href="#"><i class="fa fa-car fa-lg"></i> Profil <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="profil">
+                    <li><a href="#">Mon compte</a></li>
+                    <li><a href="#">Déconnexion</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+
+    {% block core_body %}
+    {% endblock %}
 
 {% endblock %}

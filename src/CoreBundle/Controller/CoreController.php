@@ -14,6 +14,6 @@ class CoreController extends Controller
 {
     public function accueilAction()
     {
-        $this->render('CoreBundle:Core:accueil.html.twig');
+        return $this->render('CoreBundle:Core:accueil.html.twig');
     }
 }
