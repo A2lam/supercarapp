@@ -1,3 +1,24 @@
-a2_user_homepage:
+user_index:
     path:     /
-    defaults: { _controller: A2UserBundle:Default:index }
+    defaults: { _controller: "A2UserBundle:User:index" }
+    methods:  GET
+
+user_show:
+    path:     /{id}/show
+    defaults: { _controller: "A2UserBundle:User:show" }
+    methods:  GET
+
+user_new:
+    path:     /new
+    defaults: { _controller: "A2UserBundle:User:new" }
+    methods:  [GET, POST]
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "A2UserBundle:User:edit" }
+    methods:  [GET, POST]
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "A2UserBundle:User:delete" }
+    methods:  DELETE

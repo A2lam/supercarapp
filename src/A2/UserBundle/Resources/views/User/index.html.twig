@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Users list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Bday</th>
+                <th>Num</th>
+                <th>Adminadd</th>
+                <th>Dateadd</th>
+                <th>Userupdate</th>
+                <th>Dateupdate</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{% if user.bday %}{{ user.bday|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ user.num }}</td>
+                <td>{{ user.adminAdd }}</td>
+                <td>{% if user.dateAdd %}{{ user.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ user.userUpdate }}</td>
+                <td>{% if user.dateUpdate %}{{ user.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('user_new') }}">Create a new user</a>
+        </li>
+    </ul>
+{% endblock %}
