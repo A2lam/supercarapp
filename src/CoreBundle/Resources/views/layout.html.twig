@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{# On étend notre layout de base #}
+{% extends "::base.html.twig" %}
 
-        <title>{% block title %}Supercar{% endblock %}</title>
+{# Dans notre layout il faut définir le block body #}
+{% block body %}
 
-        {% block stylesheets %}
-            {# On charge le CSS de bootstrap depuis le site directement #}
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        {% endblock %}
-    </head>
-    <body>
-        <div class="container">
-            <div id="content">
-                {% block body %}
-                {% endblock %}
+    {# On affiche les messages flash que définissent les contrôleurs du bundle #}
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
             </div>
+        {% endfor %}
+    {% endfor %}
 
-            <hr>
+    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
 
-            <footer>
-                <p>Supercar Application © {{ 'now'|date('Y') }}.</p>
-            </footer>
-        </div>
-
-        {% block javascripts %}
-            {# Pour se servir des fonctionnalités du Bootstrap de Twitter #}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        {% endblock %}
-    </body>
-</html>
+{% endblock %}
