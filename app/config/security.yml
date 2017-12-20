@@ -28,6 +28,10 @@ security:
             pattern:   ^/login$
             anonymous: true
 
+        main_register:
+            pattern:   ^/register/$
+            anonymous: true
+
         main:
             pattern:        ^/
             anonymous:      false

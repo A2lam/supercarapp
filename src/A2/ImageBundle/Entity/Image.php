@@ -51,9 +51,9 @@ class Image
     /**
      * Image constructor.
      */
-    public function __construct($nature)
+    public function __construct()
     {
-        $this->nature = $nature;
+        //$this->nature = $nature;
     }
 
     /**

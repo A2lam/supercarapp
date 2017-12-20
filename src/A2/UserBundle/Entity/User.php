@@ -30,7 +30,7 @@ class User extends BaseUser
     private $image;
 
     /**
-     * @ORM\Column(name="userName", type="string", length=255)
+     * @ORM\Column(name="usrName", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $name;

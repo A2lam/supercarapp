@@ -42,7 +42,6 @@ class Address
      * @var string
      *
      * @ORM\Column(name="addressComplement", type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
      */
     private $complement;
 

@@ -21,7 +21,7 @@ class AddressType extends AbstractType
         $builder
             ->add('streetNb',   IntegerType::class)
             ->add('streetName', TextType::class)
-            ->add('complement', TextType::class)
+            ->add('complement', TextType::class, array('required' => false))
             ->add('zipCode',    IntegerType::class)
             ->add('town',       TextType::class)
             ->add('country',    TextType::class)
