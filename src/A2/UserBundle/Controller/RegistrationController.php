@@ -56,6 +56,10 @@ class RegistrationController extends Controller
                 $admin->setUser($user);
 
                 $em->persist($admin);
+                if (null == $admin->getUser()->getImage()->getAlt())
+                {
+                    $em->detach($admin->getUser()->getImage());
+                }
                 $em->flush();
 
                 if (null === $response = $event->getResponse()) {

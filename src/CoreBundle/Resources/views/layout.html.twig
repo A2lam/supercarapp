@@ -2,7 +2,7 @@
 {% extends "::base.html.twig" %}
 
 {# Définition du block body, ici ça sera notre menu #}
-{% block body %}
+{% block menu %}
 
     <div class="nav-side-menu">
         <div class="brand">SuperCar</div>
@@ -96,7 +96,9 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block body %}
     {% block core_body %}
     {% endblock %}
-
 {% endblock %}

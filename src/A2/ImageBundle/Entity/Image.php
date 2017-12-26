@@ -26,14 +26,14 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="imageExtension", type="string", length=255)
+     * @ORM\Column(name="imageExtension", type="string", length=255, nullable=true)
      */
     private $extension;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imageAlt", type="string", length=255)
+     * @ORM\Column(name="imageAlt", type="string", length=255, nullable=true)
      */
     private $alt;
 

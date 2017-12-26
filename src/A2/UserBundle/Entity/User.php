@@ -42,7 +42,7 @@ class User extends BaseUser
     private $lastname;
 
     /**
-     * @ORM\Column(name="userBday", type="datetime")
+     * @ORM\Column(name="userBday", type="date")
      * @Assert\DateTime()
      */
     private $bday;

@@ -1,0 +1,173 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block core_body %}
+
+    <h3>Création d'un utilisateur</h3>
+
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+            {# Les erreurs général du formulaire #}
+            {{ form_errors(form) }}
+
+            <div class="form-groupe">
+                {{ form_label(form.name, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.name) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.lastname, "Prénom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.lastname) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.bday, "Date de naissance", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.bday) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.bday, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.num, "Numéro", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.num) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.num, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.streetNb, "N Rue", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.streetNb) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.streetNb, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.streetName, "Rue", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.streetName) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.streetName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.complement, "Complement", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.complement) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.complement, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.zipCode, "Code postal", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.zipCode) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.zipCode, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.town, "Ville", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.town) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.town, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.address.country, "Pays", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.address.country) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.address.country, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.email, "E-mail", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.email) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.username, "Nom d'utilisateur", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.username) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.plainPassword, "Mot de passe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.plainPassword) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-groupe">
+                {{ form_label(form.image, "Mot de passe", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                {# Affichage des erreurs #}
+                {{ form_errors(form.image) }}
+
+                <div class="col-sm-10">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            {# Pour le bouton, pas de label ni d'erreurs, on affiche juste le widget #}
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
