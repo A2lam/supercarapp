@@ -39,4 +39,12 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function myRemove($id)
+    {
+        $category = $this->myFind($id);
+        $category->setIsActive(false);
+
+        return;
+    }
 }
