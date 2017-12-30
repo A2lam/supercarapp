@@ -14,16 +14,12 @@
         {% endblock %}
     </head>
     <body>
-        {% block menu %}
+        {% block body %}
         {% endblock %}
-        <div class="container">
-            <div id="content">
-                {% block body %}
-                {% endblock %}
-            </div>
 
-            <hr>
+        <hr>
 
+        <div style="margin-left: 100px">
             <footer>
                 <p>Supercar Application © {{ 'now'|date('Y') }}.</p>
             </footer>
