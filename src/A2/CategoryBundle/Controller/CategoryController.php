@@ -39,10 +39,15 @@ class CategoryController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $category->setAdminAdd($this->getUser()->getId());
+            $category->setDateAdd(new \DateTime());
+            $category->setIsActive(true);
+
             $em->persist($category);
             $em->flush();
 
-            return $this->redirectToRoute('category_show', array('id' => $category->getId()));
+            return $this->redirectToRoute('a2_category_show', array('id' => $category->getId()));
         }
 
         return $this->render('category/new.html.twig', array(
