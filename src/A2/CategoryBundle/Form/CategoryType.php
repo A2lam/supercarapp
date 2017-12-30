@@ -3,6 +3,7 @@
 namespace A2\CategoryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,9 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('adminAdd')->add('dateAdd')->add('userUpdate')->add('dateUpdate')->add('isActive');
+        $builder
+            ->add('name', TextType::class)
+        ;
     }/**
      * {@inheritdoc}
      */
@@ -31,6 +34,4 @@ class CategoryType extends AbstractType
     {
         return 'a2_categorybundle_category';
     }
-
-
 }
