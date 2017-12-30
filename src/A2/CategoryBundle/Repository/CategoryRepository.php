@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\CategoryBundle\Repository;
+use A2\CategoryBundle\Entity\Category;
 
 /**
  * CategoryRepository
@@ -10,20 +11,6 @@ namespace A2\CategoryBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function myFindAll()
-    {
-        $qb = $this->createQueryBuilder('c');
-        $qb
-            ->where('c.isActive = :isActive')
-            ->setParameter('isActive', 1)
-        ;
-
-        return $qb
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
     public function myFind($id)
     {
         $qb = $this->createQueryBuilder('c');
@@ -46,5 +33,25 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         $category->setIsActive(false);
 
         return;
+    }
+
+    public function getAdminName(Category $category, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.usrName, u.userLastName FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $category->getAdminAdd());
+        else
+            $query->setParameter('id', $category->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['usrName'];
+            $name .= ' ' .$result['userLastName'];
+        }
+
+        return $name;
     }
 }

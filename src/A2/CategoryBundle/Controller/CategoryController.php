@@ -5,6 +5,7 @@ namespace A2\CategoryBundle\Controller;
 use A2\CategoryBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Category controller.
@@ -20,7 +21,10 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $categories = $em->getRepository('A2CategoryBundle:Category')->myFindAll();
+        $categories = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->findByIsActive(true)
+        ;
 
         return $this->render('A2CategoryBundle:Category:index.html.twig', array(
             'categories' => $categories,
@@ -50,7 +54,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('a2_category_show', array('id' => $category->getId()));
         }
 
-        return $this->render('category/new.html.twig', array(
+        return $this->render('A2CategoryBundle:Category:new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));
@@ -60,13 +64,28 @@ class CategoryController extends Controller
      * Finds and displays a category entity.
      *
      */
-    public function showAction(Category $category)
+    public function showAction($id)
     {
-        $deleteForm = $this->createDeleteForm($category);
+        // On récupère l'entity manager
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('category/show.html.twig', array(
-            'category' => $category,
-            'delete_form' => $deleteForm->createView(),
+        // On récupère maintenant l'entité correspondant à l'id $id
+        $category = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->myFind($id)
+        ;
+
+        if (null == $category)
+            throw new NotFoundHttpException("La catégorie d'id " .$id. " n'existe pas");
+
+        $nameAdminAdd = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->getAdminName($category, 'add')
+        ;
+
+        return $this->render('A2CategoryBundle:Category:show.html.twig', array(
+            'category'     => $category,
+            'nameAdminAdd' => $nameAdminAdd
         ));
     }
 
