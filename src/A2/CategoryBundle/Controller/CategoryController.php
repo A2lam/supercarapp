@@ -20,9 +20,9 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $categories = $em->getRepository('A2CategoryBundle:Category')->findAll();
+        $categories = $em->getRepository('A2CategoryBundle:Category')->myFindAll();
 
-        return $this->render('category/index.html.twig', array(
+        return $this->render('A2CategoryBundle:Category:index.html.twig', array(
             'categories' => $categories,
         ));
     }
