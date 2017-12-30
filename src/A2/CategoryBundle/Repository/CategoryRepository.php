@@ -23,4 +23,20 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('c.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
