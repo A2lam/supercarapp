@@ -10,4 +10,17 @@ namespace A2\CategoryBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll()
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
