@@ -131,17 +131,24 @@ class CategoryController extends Controller
      * Deletes a category entity.
      *
      */
-    public function deleteAction(Request $request, Category $category)
+    public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($category);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($category);
-            $em->flush();
-        }
+        $category = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->myFind($id)
+        ;
 
-        return $this->redirectToRoute('category_index');
+        if (null == $category)
+            throw new NotFoundHttpException("La catégorie d'id " .$id. " n'existe pas");
+
+        $category->setIsActive(false);
+
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Catégorie supprimée');
+
+        return $this->redirectToRoute('a2_category_index');
     }
 }
