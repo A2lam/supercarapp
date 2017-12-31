@@ -23,7 +23,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
         ;
     }
 
@@ -37,7 +37,7 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 
     public function getAdminName(Category $category, $action)
     {
-        $query = $this->_em->createQuery('SELECT u.usrName, u.userLastName FROM A2UserBundle:User u WHERE u.id = :id');
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
 
         if ($action == 'add')
             $query->setParameter('id', $category->getAdminAdd());
@@ -48,8 +48,8 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
         $results = $query->getArrayResult();
         foreach ($results as $result)
         {
-            $name = $result['usrName'];
-            $name .= ' ' .$result['userLastName'];
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
         }
 
         return $name;
