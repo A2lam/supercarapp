@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Car</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ car.id }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ car.color }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ car.price }}</td>
+            </tr>
+            <tr>
+                <th>Energy</th>
+                <td>{{ car.energy }}</td>
+            </tr>
+            <tr>
+                <th>Co2</th>
+                <td>{{ car.co2 }}</td>
+            </tr>
+            <tr>
+                <th>Gearbox</th>
+                <td>{{ car.gearBox }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ car.weight }}</td>
+            </tr>
+            <tr>
+                <th>Power</th>
+                <td>{{ car.power }}</td>
+            </tr>
+            <tr>
+                <th>Maxspeed</th>
+                <td>{{ car.maxSpeed }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ car.year }}</td>
+            </tr>
+            <tr>
+                <th>Issold</th>
+                <td>{% if car.isSold %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Adminadd</th>
+                <td>{{ car.adminAdd }}</td>
+            </tr>
+            <tr>
+                <th>Dateadd</th>
+                <td>{% if car.dateAdd %}{{ car.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Userupdate</th>
+                <td>{{ car.userUpdate }}</td>
+            </tr>
+            <tr>
+                <th>Dateupdate</th>
+                <td>{% if car.dateUpdate %}{{ car.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if car.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('car_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('car_edit', { 'id': car.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
