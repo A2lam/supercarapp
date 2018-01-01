@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\OrderBundle\Repository;
+use A2\OrderBundle\Entity\Orders;
 
 /**
  * OrdersRepository
@@ -10,4 +11,47 @@ namespace A2\OrderBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb
+            ->where('o.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('o.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function myRemove($id)
+    {
+        $order = $this->myFind($id);
+        $order->setIsActive(false);
+
+        return;
+    }
+
+    public function getAdminName(Orders $order, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $order->getAdminAdd());
+        else
+            $query->setParameter('id', $order->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
+        }
+
+        return $name;
+    }
 }
