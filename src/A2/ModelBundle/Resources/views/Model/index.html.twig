@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Models list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Alertvalue</th>
+                <th>Adminadd</th>
+                <th>Dateadd</th>
+                <th>Userupdate</th>
+                <th>Dateupdate</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for model in models %}
+            <tr>
+                <td><a href="{{ path('model_show', { 'id': model.id }) }}">{{ model.id }}</a></td>
+                <td>{{ model.name }}</td>
+                <td>{{ model.alertValue }}</td>
+                <td>{{ model.adminAdd }}</td>
+                <td>{% if model.dateAdd %}{{ model.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ model.userUpdate }}</td>
+                <td>{% if model.dateUpdate %}{{ model.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if model.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('model_show', { 'id': model.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('model_edit', { 'id': model.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('model_new') }}">Create a new model</a>
+        </li>
+    </ul>
+{% endblock %}

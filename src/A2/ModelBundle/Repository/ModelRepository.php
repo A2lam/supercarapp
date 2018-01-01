@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\ModelBundle\Repository;
+use A2\ModelBundle\Entity\Model;
 
 /**
  * ModelRepository
@@ -10,4 +11,47 @@ namespace A2\ModelBundle\Repository;
  */
 class ModelRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('m');
+        $qb
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('m.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function myRemove($id)
+    {
+        $model = $this->myFind($id);
+        $model->setIsActive(false);
+
+        return;
+    }
+
+    public function getAdminName(Model $model, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $model->getAdminAdd());
+        else
+            $query->setParameter('id', $model->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
+        }
+
+        return $name;
+    }
 }
