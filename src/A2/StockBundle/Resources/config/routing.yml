@@ -1,3 +1,35 @@
-a2_stock_homepage:
-    path:     /
-    defaults: { _controller: A2StockBundle:Default:index }
+a2_stock_index:
+    path:            /
+    defaults:
+        _controller: A2StockBundle:Stock:index
+    methods:         GET
+
+a2_stock_show:
+    path:            /{id}/show
+    defaults:
+        _controller: A2StockBundle:Stock:show
+    requirements:
+        id:          \d+
+    methods:         GET
+
+a2_stock_new:
+    path:            /new
+    defaults:
+        _controller: A2StockBundle:Stock:new
+    methods:         [GET, POST]
+
+a2_stock_edit:
+    path:            /{id}/edit
+    defaults:
+        _controller: A2StockBundle:Stock:edit
+    requirements:
+        id:          \d+
+    methods:         [GET, POST]
+
+a2_stock_delete:
+    path:            /{id}/delete
+    defaults:
+        _controller: A2StockBundle:Stock:delete
+    requirements:
+        id:          \d+
+    methods:         DELETE

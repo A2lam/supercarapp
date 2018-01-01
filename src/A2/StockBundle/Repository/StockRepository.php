@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\StockBundle\Repository;
+use A2\StockBundle\Entity\Stock;
 
 /**
  * StockRepository
@@ -10,4 +11,47 @@ namespace A2\StockBundle\Repository;
  */
 class StockRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('s.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function myRemove($id)
+    {
+        $stock = $this->myFind($id);
+        $stock->setIsActive(false);
+
+        return;
+    }
+
+    public function getAdminName(Stock $stock, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $stock->getAdminAdd());
+        else
+            $query->setParameter('id', $stock->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
+        }
+
+        return $name;
+    }
 }
