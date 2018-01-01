@@ -1,3 +1,35 @@
-a2_brand_homepage:
-    path:     /
-    defaults: { _controller: A2BrandBundle:Default:index }
+a2_brand_index:
+    path:            /
+    defaults:
+        _controller: A2BrandBundle:Brand:index
+    methods:         GET
+
+a2_brand_show:
+    path:            /{id}/show
+    defaults:
+        _controller: A2BrandBundle:Brand:show
+    requirements:
+        id:          \d+
+    methods:         GET
+
+a2_brand_new:
+    path:            /new
+    defaults:
+        _controller: A2BrandBundle:Brand:new
+    methods:         [GET, POST]
+
+a2_brand_edit:
+    path:            /{id}/edit
+    defaults:
+        _controller: A2BrandBundle:Brand:edit
+    requirements:
+        id:          \d+
+    methods:         [GET, POST]
+
+a2_brand_delete:
+    path:            /{id}/delete
+    defaults:
+        _controller: A2BrandBundle:Brand:delete
+    requirements:
+        id:          \d+
+    methods:         DELETE
