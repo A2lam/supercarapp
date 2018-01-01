@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Currencies list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Adminadd</th>
+                <th>Dateadd</th>
+                <th>Userupdate</th>
+                <th>Dateupdate</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for currency in currencies %}
+            <tr>
+                <td><a href="{{ path('currency_show', { 'id': currency.id }) }}">{{ currency.id }}</a></td>
+                <td>{{ currency.name }}</td>
+                <td>{{ currency.symbol }}</td>
+                <td>{{ currency.adminAdd }}</td>
+                <td>{% if currency.dateAdd %}{{ currency.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ currency.userUpdate }}</td>
+                <td>{% if currency.dateUpdate %}{{ currency.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if currency.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('currency_show', { 'id': currency.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('currency_edit', { 'id': currency.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('currency_new') }}">Create a new currency</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,13 +1,13 @@
 <?php
 
-namespace A2\BrandBundle\Form;
+namespace A2\CurrencyBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BrandType extends AbstractType
+class CurrencyType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -15,7 +15,8 @@ class BrandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name',   TextType::class)
+            ->add('symbol', TextType::class)
         ;
     }
 
@@ -25,7 +26,7 @@ class BrandType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'A2\BrandBundle\Entity\Brand'
+            'data_class' => 'A2\CurrencyBundle\Entity\Currency'
         ));
     }
 
@@ -34,6 +35,6 @@ class BrandType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'a2_brandbundle_brand';
+        return 'a2_currencybundle_currency';
     }
 }

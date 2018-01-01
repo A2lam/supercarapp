@@ -24,7 +24,7 @@ class BrandRepository extends \Doctrine\ORM\EntityRepository
         return $qb
             ->getQuery()
             ->getSingleResult()
-            ;
+        ;
     }
 
     public function myRemove($id)

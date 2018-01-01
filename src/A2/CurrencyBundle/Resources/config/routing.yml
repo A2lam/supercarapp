@@ -1,3 +1,35 @@
-a2_currency_homepage:
-    path:     /
-    defaults: { _controller: A2CurrencyBundle:Default:index }
+a2_currency_index:
+    path:            /
+    defaults:
+        _controller: A2CurrencyBundle:Currency:index
+    methods:         GET
+
+a2_currency_show:
+    path:            /{id}/show
+    defaults:
+        _controller: A2CurrencyBundle:Currency:show
+    requirements:
+        id:          \d+
+    methods:         GET
+
+a2_currency_new:
+    path:            /new
+    defaults:
+        _controller: A2CurrencyBundle:Currency:new
+    methods:         [GET, POST]
+
+a2_currency_edit:
+    path:            /{id}/edit
+    defaults:
+        _controller: A2CurrencyBundle:Currency:edit
+    requirements:
+        id:          \d+
+    methods:         [GET, POST]
+
+a2_currency_delete:
+    path:            /{id}/delete
+    defaults:
+        _controller: A2CurrencyBundle:Currency:delete
+    requirements:
+        id:          \d+
+    methods:         DELETE
