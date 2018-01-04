@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Storehouses list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Adminadd</th>
+                <th>Dateadd</th>
+                <th>Userupdate</th>
+                <th>Dateupdate</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for storehouse in storehouses %}
+            <tr>
+                <td><a href="{{ path('storehouse_show', { 'id': storehouse.id }) }}">{{ storehouse.id }}</a></td>
+                <td>{{ storehouse.name }}</td>
+                <td>{{ storehouse.adminAdd }}</td>
+                <td>{% if storehouse.dateAdd %}{{ storehouse.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ storehouse.userUpdate }}</td>
+                <td>{% if storehouse.dateUpdate %}{{ storehouse.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if storehouse.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('storehouse_show', { 'id': storehouse.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('storehouse_edit', { 'id': storehouse.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('storehouse_new') }}">Create a new storehouse</a>
+        </li>
+    </ul>
+{% endblock %}

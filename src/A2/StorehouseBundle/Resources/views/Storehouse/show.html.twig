@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Storehouse</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ storehouse.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ storehouse.name }}</td>
+            </tr>
+            <tr>
+                <th>Adminadd</th>
+                <td>{{ storehouse.adminAdd }}</td>
+            </tr>
+            <tr>
+                <th>Dateadd</th>
+                <td>{% if storehouse.dateAdd %}{{ storehouse.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Userupdate</th>
+                <td>{{ storehouse.userUpdate }}</td>
+            </tr>
+            <tr>
+                <th>Dateupdate</th>
+                <td>{% if storehouse.dateUpdate %}{{ storehouse.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if storehouse.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('storehouse_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('storehouse_edit', { 'id': storehouse.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

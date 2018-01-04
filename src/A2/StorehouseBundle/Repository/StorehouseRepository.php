@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\StorehouseBundle\Repository;
+use A2\StorehouseBundle\Entity\Storehouse;
 
 /**
  * StorehouseRepository
@@ -10,4 +11,47 @@ namespace A2\StorehouseBundle\Repository;
  */
 class StorehouseRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('s.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function myRemove($id)
+    {
+        $storehouse = $this->myFind($id);
+        $storehouse->setIsActive(false);
+
+        return;
+    }
+
+    public function getAdminName(Storehouse $storehouse, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $storehouse->getAdminAdd());
+        else
+            $query->setParameter('id', $storehouse->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
+        }
+
+        return $name;
+    }
 }
