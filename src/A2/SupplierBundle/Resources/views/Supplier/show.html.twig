@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Supplier</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ supplier.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ supplier.name }}</td>
+            </tr>
+            <tr>
+                <th>Adminadd</th>
+                <td>{{ supplier.adminAdd }}</td>
+            </tr>
+            <tr>
+                <th>Dateadd</th>
+                <td>{% if supplier.dateAdd %}{{ supplier.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Userupdate</th>
+                <td>{{ supplier.userUpdate }}</td>
+            </tr>
+            <tr>
+                <th>Dateupdate</th>
+                <td>{% if supplier.dateUpdate %}{{ supplier.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{% if supplier.isActive %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('supplier_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('supplier_edit', { 'id': supplier.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

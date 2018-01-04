@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Suppliers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Adminadd</th>
+                <th>Dateadd</th>
+                <th>Userupdate</th>
+                <th>Dateupdate</th>
+                <th>Isactive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for supplier in suppliers %}
+            <tr>
+                <td><a href="{{ path('supplier_show', { 'id': supplier.id }) }}">{{ supplier.id }}</a></td>
+                <td>{{ supplier.name }}</td>
+                <td>{{ supplier.adminAdd }}</td>
+                <td>{% if supplier.dateAdd %}{{ supplier.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ supplier.userUpdate }}</td>
+                <td>{% if supplier.dateUpdate %}{{ supplier.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if supplier.isActive %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('supplier_show', { 'id': supplier.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('supplier_edit', { 'id': supplier.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('supplier_new') }}">Create a new supplier</a>
+        </li>
+    </ul>
+{% endblock %}
