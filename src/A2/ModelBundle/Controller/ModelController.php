@@ -17,9 +17,28 @@ class ModelController extends Controller
      * Lists all model entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $models = $em
+                    ->getRepository('A2ModelBundle:Model')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2ModelBundle:Model:index.html.twig', array(
+                    'models' => $models,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $models = $em
             ->getRepository('A2ModelBundle:Model')
@@ -28,6 +47,7 @@ class ModelController extends Controller
 
         return $this->render('A2ModelBundle:Model:index.html.twig', array(
             'models' => $models,
+            'form' => $form->createView()
         ));
     }
 
@@ -51,7 +71,7 @@ class ModelController extends Controller
             $em->persist($model);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Modèle bien enregistrée');
+            $request->getSession()->getFlashBag()->add('notice', 'Modèle bien enregistré');
 
             return $this->redirectToRoute('a2_model_show', array('id' => $model->getId()));
         }
@@ -114,7 +134,7 @@ class ModelController extends Controller
 
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Modèle bien modifiée');
+            $request->getSession()->getFlashBag()->add('notice', 'Modèle bien modifié');
 
             return $this->redirectToRoute('a2_model_edit', array('id' => $model->getId()));
         }
