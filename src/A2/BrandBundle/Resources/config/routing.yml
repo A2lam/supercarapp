@@ -2,7 +2,7 @@ a2_brand_index:
     path:            /
     defaults:
         _controller: A2BrandBundle:Brand:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_brand_show:
     path:            /{id}/show
@@ -32,4 +32,4 @@ a2_brand_delete:
         _controller: A2BrandBundle:Brand:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
