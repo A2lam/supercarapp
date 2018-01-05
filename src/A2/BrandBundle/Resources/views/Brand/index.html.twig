@@ -1,49 +1,40 @@
-{% extends 'base.html.twig' %}
+{% extends "A2BrandBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Brands list</h1>
+{% block brand_content %}
 
-    <table>
-        <thead>
+    <h2>Liste des Marques</h2>
+    <p><a href="{{ path('a2_marque_new') }}">Créer une nouvelle marque</a></p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher une marque</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+        </tr>
+
+        {% for category in categories %}
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for brand in brands %}
-            <tr>
-                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
-                <td>{{ brand.name }}</td>
-                <td>{{ brand.adminAdd }}</td>
-                <td>{% if brand.dateAdd %}{{ brand.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ brand.userUpdate }}</td>
-                <td>{% if brand.dateUpdate %}{{ brand.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if brand.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('brand_show', { 'id': brand.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ brand.name }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_brand_show', { 'id': brand.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_brand_edit', { 'id': brand.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_brand_delete', { 'id': brand.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_new') }}">Create a new brand</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock brand_content %}
