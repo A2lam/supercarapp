@@ -1,52 +1,53 @@
-{% extends 'base.html.twig' %}
+{% extends "A2BrandBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Brand</h1>
+{% block brand_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ brand.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ brand.name }}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ brand.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if brand.dateAdd %}{{ brand.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ brand.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if brand.dateUpdate %}{{ brand.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if brand.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails de la marque</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ brand.name }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ brand.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if brand.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ brand.userUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ brand.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_brand_index') }}">Retour à la liste</a> |
+        <a href="{{ path('a2_brand_edit', { 'id': brand.id }) }}">Modifier</a>
+    </p>
+
+{% endblock brand_content %}
