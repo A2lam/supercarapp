@@ -5,15 +5,16 @@
     <h2>Liste des Catégories</h2>
     <p><a href="{{ path('a2_category_new') }}">Créer une nouvelle catégorie</a></p>
 
-    <form action="{{ path('a2_category_index') }}" method="post">
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
         <table align="right">
             <tr>
                 <td>Rechercher une catégorie</td>
-                <td><input type="text" name="searchString" class="form-control"></td>
+                <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
                 <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
             </tr>
         </table>
-    </form>
+    {{ form_end(form) }}
 
     <table class="table">
         <tr>
