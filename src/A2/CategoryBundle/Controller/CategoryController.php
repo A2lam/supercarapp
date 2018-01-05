@@ -105,9 +105,15 @@ class CategoryController extends Controller
             ->getAdminName($category, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->getAdminName($category, 'update')
+        ;
+
         return $this->render('A2CategoryBundle:Category:show.html.twig', array(
             'category'     => $category,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -168,6 +174,11 @@ class CategoryController extends Controller
             ->getAdminName($category, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->getAdminName($category, 'update')
+        ;
+
         $deleteForm = $this->createFormBuilder()->getForm();
         $deleteForm->handleRequest($request);
 
@@ -184,6 +195,7 @@ class CategoryController extends Controller
         return $this->render('A2CategoryBundle:Category:delete.html.twig', array(
             'category'     => $category,
             'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
             'delete_form' => $deleteForm->createView()
         ));
     }

@@ -1,10 +1,10 @@
-{% extends "A2CategoryBundle::layout.html.twig" %}
+{% extends "A2BrandBundle::layout.html.twig" %}
 
-{% block category_content %}
+{% block brand_content %}
 
-    <h2>Suppression de la catégorie</h2>
+    <h2>Suppression de la marque</h2>
 
-    <h3>Etes-vous sûr de vouloir supprimer cette catégorie ?</h3>
+    <h3>Etes-vous sûr de vouloir supprimer cette marque ?</h3>
 
     <div>
         <hr/>
@@ -13,7 +13,7 @@
                 Nom
             </dt>
             <dd>
-                {{ category.name }}
+                {{ brande.name }}
             </dd>
 
             <dt>
@@ -27,10 +27,10 @@
                 Date d'ajout
             </dt>
             <dd>
-                {{ category.dateAdd|date("d/m/Y h:m:s") }}
+                {{ brand.dateAdd|date("d/m/Y h:m:s") }}
             </dd>
 
-            {% if category.userUpdate is not null %}
+            {% if brand.userUpdate is not null %}
                 <dt>
                     Administateur de mise à jour
                 </dt>
@@ -42,7 +42,7 @@
                     Date de mise à jour
                 </dt>
                 <dd>
-                    {{ category.dateUpdate|date("d/m/Y h:m:s") }}
+                    {{ brand.dateUpdate|date("d/m/Y h:m:s") }}
                 </dd>
             {% endif %}
         </dl>
@@ -51,10 +51,10 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Supprimer" class="btn btn-danger" /> |
-            <a href="{{ path('a2_category_index') }}">Retour à la liste</a>
+            <a href="{{ path('a2_brand_index') }}">Retour à la liste</a>
         </div>
 
         {{ form_end(delete_form) }}
     </div>
 
-{% endblock category_content %}
+{% endblock brand_content %}

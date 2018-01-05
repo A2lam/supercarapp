@@ -104,9 +104,15 @@ class BrandController extends Controller
             ->getAdminName($brand, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2BrandBundle:Brand')
+            ->getAdminName($brand, 'update')
+        ;
+
         return $this->render('A2BrandBundle:Brand:show.html.twig', array(
             'brand' => $brand,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -137,7 +143,7 @@ class BrandController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Marque bien modifiée');
 
-            return $this->redirectToRoute('a2_brand_edit', array('id' => $brand->getId()));
+            return $this->redirectToRoute('a2_brand_show', array('id' => $brand->getId()));
         }
 
         return $this->render('A2BrandBundle:Brand:edit.html.twig', array(
@@ -167,6 +173,11 @@ class BrandController extends Controller
             ->getAdminName($brand, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2BrandBundle:Brand')
+            ->getAdminName($brand, 'update')
+        ;
+
         $deleteForm = $this->createFormBuilder()->getForm();
         $deleteForm->handleRequest($request);
 
@@ -183,6 +194,7 @@ class BrandController extends Controller
         return $this->render('A2BrandBundle:Brand:delete.html.twig', array(
             'brand'     => $brand,
             'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
             'delete_form' => $deleteForm->createView()
         ));
     }
