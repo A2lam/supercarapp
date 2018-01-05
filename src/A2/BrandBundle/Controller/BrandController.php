@@ -45,7 +45,7 @@ class BrandController extends Controller
             ->findByIsActive(true)
         ;
 
-        return $this->render('A2brandBundle:Brand:index.html.twig', array(
+        return $this->render('A2BrandBundle:Brand:index.html.twig', array(
             'brands' => $brands,
             'form' => $form->createView()
         ));

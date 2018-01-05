@@ -3,7 +3,7 @@
 {% block brand_content %}
 
     <h2>Liste des Marques</h2>
-    <p><a href="{{ path('a2_marque_new') }}">Créer une nouvelle marque</a></p>
+    <p><a href="{{ path('a2_brand_new') }}">Créer une nouvelle marque</a></p>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -23,7 +23,7 @@
             </th>
         </tr>
 
-        {% for category in categories %}
+        {% for brand in brands %}
             <tr>
                 <td>
                     {{ brand.name }}
