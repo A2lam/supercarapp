@@ -1,16 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CategoryBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Category creation</h1>
+{% block category_content %}
+
+    <h2>Ajouter une nouvelle catégorie</h2>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+
+    {{ form_errors(form) }}
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            {{ form_label(form.name, "Nom", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(form.name) }}
+            <div class="col-md-4">
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Créer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <p><a href="{{ path('a2_category_index') }}">Retour à la liste</a></p>
+
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('a2_category_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock category_content %}
