@@ -33,7 +33,7 @@ class BrandController extends Controller
                     ->findByKeyword($data['searchString'])
                 ;
 
-                return $this->render('A2CategoryBundle:Category:index.html.twig', array(
+                return $this->render('A2BrandBundle:Brand:index.html.twig', array(
                     'brands' => $brands,
                     'form' => $form->createView()
                 ));
@@ -155,19 +155,35 @@ class BrandController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $brand = $em
-            ->getRepository('A2CategoryBundle:Category')
+            ->getRepository('A2BrandBundle:Brand')
             ->myFind($id)
         ;
 
         if (null == $brand)
-            throw new NotFoundHttpException("La marque d'id " .$id. " n'existe pas");
+            throw new NotFoundHttpException("La catégorie d'id " .$id. " n'existe pas");
 
-        $brand->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->getAdminName($brand, 'add')
+        ;
 
-        $em->flush();
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        $request->getSession()->getFlashBag()->add('notice', 'Marque supprimée');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $brand->setIsActive(false);
 
-        return $this->redirectToRoute('a2_brand_index');
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Marque supprimée');
+
+            return $this->redirectToRoute('a2_brand_index');
+        }
+
+        return $this->render('A2BrandBundle:Brand:delete.html.twig', array(
+            'brand'     => $brand,
+            'nameAdminAdd' => $nameAdminAdd,
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 }
