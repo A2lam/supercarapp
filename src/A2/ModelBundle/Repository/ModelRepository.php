@@ -54,4 +54,18 @@ class ModelRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        $qb
+            ->where('m.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
