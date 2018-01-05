@@ -17,9 +17,28 @@ class BrandController extends Controller
      * Lists all brand entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $brands = $em
+                    ->getRepository('A2BrandBundle:Brand')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2CategoryBundle:Category:index.html.twig', array(
+                    'brands' => $brands,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $brands = $em
             ->getRepository('A2BrandBundle:Brand')
@@ -28,6 +47,7 @@ class BrandController extends Controller
 
         return $this->render('A2brandBundle:Brand:index.html.twig', array(
             'brands' => $brands,
+            'form' => $form->createView()
         ));
     }
 
