@@ -17,9 +17,28 @@ class CategoryController extends Controller
      * Lists all category entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('A2\CoreBundle\Form\SearchType');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $categories = $em
+                    ->getRepository('A2CategoryBundle:Category')
+                    ->findByKeyWord($data['searchString'])
+                ;
+
+                return $this->render('A2CategoryBundle:Category:index.html.twig', array(
+                    'categories' => $categories,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $categories = $em
             ->getRepository('A2CategoryBundle:Category')
@@ -28,6 +47,7 @@ class CategoryController extends Controller
 
         return $this->render('A2CategoryBundle:Category:index.html.twig', array(
             'categories' => $categories,
+            'form' => $form->createView()
         ));
     }
 
