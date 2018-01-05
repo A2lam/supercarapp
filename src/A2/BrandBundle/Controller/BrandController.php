@@ -169,7 +169,7 @@ class BrandController extends Controller
             throw new NotFoundHttpException("La catégorie d'id " .$id. " n'existe pas");
 
         $nameAdminAdd = $em
-            ->getRepository('A2CategoryBundle:Category')
+            ->getRepository('A2BrandBundle:Brand')
             ->getAdminName($brand, 'add')
         ;
 
