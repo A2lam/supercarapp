@@ -103,9 +103,15 @@ class ModelController extends Controller
             ->getAdminName($model, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2ModelBundle:Model')
+            ->getAdminName($model, 'update')
+        ;
+
         return $this->render('A2ModelBundle:Model:show.html.twig', array(
             'model' => $model,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -161,12 +167,34 @@ class ModelController extends Controller
         if (null == $model)
             throw new NotFoundHttpException("Le modèle d'id " .$id. " n'existe pas");
 
-        $model->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2ModelBundle:Model')
+            ->getAdminName($model, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2ModelBundle:Model')
+            ->getAdminName($model, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Modèle supprimé');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_model_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $model->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Modèle supprimé');
+
+            return $this->redirectToRoute('a2_model_index');
+        }
+
+        return $this->render('A2ModelBundle:Model:delete.html.twig', array(
+            'brand'     =>      $model,
+            'nameAdminAdd' =>   $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form' =>    $deleteForm->createView()
+        ));
     }
 }

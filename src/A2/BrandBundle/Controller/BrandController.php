@@ -192,10 +192,10 @@ class BrandController extends Controller
         }
 
         return $this->render('A2BrandBundle:Brand:delete.html.twig', array(
-            'brand'     => $brand,
-            'nameAdminAdd' => $nameAdminAdd,
+            'brand'     =>      $brand,
+            'nameAdminAdd' =>   $nameAdminAdd,
             'nameUserUpdate' => $nameUserUpdate,
-            'delete_form' => $deleteForm->createView()
+            'delete_form' =>    $deleteForm->createView()
         ));
     }
 }
