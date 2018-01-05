@@ -118,7 +118,7 @@ class CategoryController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Catégorie bien modifiée');
 
-            return $this->redirectToRoute('a2_category_edit', array('id' => $category->getId()));
+            return $this->redirectToRoute('a2_category_show', array('id' => $category->getId()));
         }
 
         return $this->render('A2CategoryBundle:Category:edit.html.twig', array(
@@ -143,12 +143,28 @@ class CategoryController extends Controller
         if (null == $category)
             throw new NotFoundHttpException("La catégorie d'id " .$id. " n'existe pas");
 
-        $category->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2CategoryBundle:Category')
+            ->getAdminName($category, 'add')
+        ;
 
-        $em->flush();
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        $request->getSession()->getFlashBag()->add('notice', 'Catégorie supprimée');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $category->setIsActive(false);
 
-        return $this->redirectToRoute('a2_category_index');
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Catégorie supprimée');
+
+            return $this->redirectToRoute('a2_category_index');
+        }
+
+        return $this->render('A2CategoryBundle:Category:delete.html.twig', array(
+            'category'     => $category,
+            'nameAdminAdd' => $nameAdminAdd,
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 }
