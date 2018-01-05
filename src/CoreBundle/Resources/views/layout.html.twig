@@ -4,104 +4,110 @@
 {# Définition du block container, ici ça sera notre menu et d'une nouvelle zone pour le contenuw #}
 {% block body %}
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="nav-side-menu">
-                <div class="brand">SuperCar</div>
-                <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="nav-side-menu">
+                    <div class="brand">SuperCar</div>
+                    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
-                <div class="menu-list">
+                    <div class="menu-list">
 
-                    <ul id="menu-content" class="menu-content collapse out">
-                        <li class="active">
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Accueil
-                            </a>
-                        </li>
+                        <ul id="menu-content" class="menu-content collapse out">
+                            <li class="active">
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Accueil
+                                </a>
+                            </li>
 
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Ventes
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Ventes
+                                </a>
+                            </li>
 
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Clients
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Clients
+                                </a>
+                            </li>
 
-                        <li  data-toggle="collapse" data-target="#voitures" class="collapsed">
-                            <a href="#"><i class="fa fa-car fa-lg"></i> Voitures <span class="arrow"></span></a>
-                        </li>
-                        <ul class="sub-menu collapse" id="voitures">
-                            <li><a href="{{ path('a2_category_index') }}">Catégories</a></li>
-                            <li><a href="#">Marques</a></li>
-                            <li><a href="#">Modèles</a></li>
-                            <li><a href="#">Voitures</a></li>
+                            <li  data-toggle="collapse" data-target="#voitures" class="collapsed">
+                                <a href="#"><i class="fa fa-car fa-lg"></i> Voitures <span class="arrow"></span></a>
+                            </li>
+                            <ul class="sub-menu collapse" id="voitures">
+                                <li><a href="{{ path('a2_category_index') }}">Catégories</a></li>
+                                <li><a href="#">Marques</a></li>
+                                <li><a href="#">Modèles</a></li>
+                                <li><a href="#">Voitures</a></li>
+                            </ul>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Fournisseurs
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Commandes
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Stock
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-gift fa-lg"></i> Primes
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Entrepots
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('core_homepage') }}">
+                                    <i class="fa fa-dashboard fa-lg"></i> Utilisateurs
+                                </a>
+                            </li>
+
+
+                            <li data-toggle="collapse" data-target="#parametres" class="collapsed">
+                                <a href="#"><i class="fa fa-car fa-lg"></i> Paramètres <span class="arrow"></span></a>
+                            </li>
+                            <ul class="sub-menu collapse" id="parametres">
+                                <li><a href="#">Valeurs par défaut</a></li>
+                                <li><a href="#">Devises</a></li>
+                            </ul>
+
+
+                            <li data-toggle="collapse" data-target="#profil" class="collapsed">
+                                <a href="#"><i class="fa fa-car fa-lg"></i> Profil <span class="arrow"></span></a>
+                            </li>
+                            <ul class="sub-menu collapse" id="profil">
+                                <li><a href="#">Mon compte</a></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                            </ul>
                         </ul>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Fournisseurs
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Commandes
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Stock
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-gift fa-lg"></i> Primes
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Entrepots
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Utilisateurs
-                            </a>
-                        </li>
-
-
-                        <li data-toggle="collapse" data-target="#parametres" class="collapsed">
-                            <a href="#"><i class="fa fa-car fa-lg"></i> Paramètres <span class="arrow"></span></a>
-                        </li>
-                        <ul class="sub-menu collapse" id="parametres">
-                            <li><a href="#">Valeurs par défaut</a></li>
-                            <li><a href="#">Devises</a></li>
-                        </ul>
-
-
-                        <li data-toggle="collapse" data-target="#profil" class="collapsed">
-                            <a href="#"><i class="fa fa-car fa-lg"></i> Profil <span class="arrow"></span></a>
-                        </li>
-                        <ul class="sub-menu collapse" id="profil">
-                            <li><a href="#">Mon compte</a></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-                        </ul>
-                    </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-9">
-            <div class="container">
+            <div class="col-md-8">
                 {% block content %}
                 {% endblock content %}
+
+                <hr>
+
+                <footer>
+                    <p>Supercar Application © {{ 'now'|date('Y') }}.</p>
+                </footer>
             </div>
         </div>
     </div>
