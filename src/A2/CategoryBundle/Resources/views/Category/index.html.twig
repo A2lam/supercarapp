@@ -1,49 +1,39 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CategoryBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Categories list</h1>
+{% block category_content %}
 
-    <table>
-        <thead>
+    <h2>Liste des Catégories</h2>
+    <p><a href="{{ path('a2_category_new') }}">Créer une nouvelle catégorie</a></p>
+
+    <form action="{{ path('a2_category_index') }}" method="post">
+        <table align="right">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
+                <td>Rechercher une catégorie</td>
+                <td><input type="text" name="searchString" class="form-control"></td>
+                <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
             </tr>
-        </thead>
-        <tbody>
+        </table>
+    </form>
+
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+        </tr>
+
         {% for category in categories %}
             <tr>
-                <td><a href="{{ path('a2_category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
-                <td>{{ category.name }}</td>
-                <td>{{ category.adminAdd }}</td>
-                <td>{% if category.dateAdd %}{{ category.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ category.userUpdate }}</td>
-                <td>{% if category.dateUpdate %}{{ category.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if category.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('a2_category_show', { 'id': category.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('a2_category_edit', { 'id': category.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ category.name }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_category_show', { 'id': category.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_category_edit', { 'id': category.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_category_delete', { 'id': category.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('a2_category_new') }}">Create a new category</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock category_content %}
