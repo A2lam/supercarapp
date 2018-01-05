@@ -32,7 +32,7 @@
                         </li>
 
                         <li  data-toggle="collapse" data-target="#voitures" class="collapsed">
-                            <a href="#"><i class="fa fa-gift fa-lg"></i> Voitures <span class="arrow"></span></a>
+                            <a href="#"><i class="fa fa-car fa-lg"></i> Voitures <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="voitures">
                             <li><a href="{{ path('a2_category_index') }}">Catégories</a></li>
@@ -61,7 +61,7 @@
 
                         <li>
                             <a href="{{ path('core_homepage') }}">
-                                <i class="fa fa-dashboard fa-lg"></i> Primes
+                                <i class="fa fa-gift fa-lg"></i> Primes
                             </a>
                         </li>
 
@@ -101,9 +101,9 @@
         <div class="col-md-9">
             <div class="container">
                 {% block content %}
-                {% endblock %}
+                {% endblock content %}
             </div>
         </div>
     </div>
 
-{% endblock %}
+{% endblock body %}

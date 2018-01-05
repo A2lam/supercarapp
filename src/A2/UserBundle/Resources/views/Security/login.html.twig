@@ -1,6 +1,6 @@
-{% extends "A2UserBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block fos_user_content %}
+{% block body %}
 
     <div class="container">
 
@@ -10,7 +10,7 @@
         </p>
 
         {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         <div id="loginbox" style="margin-top: 50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -57,4 +57,4 @@
             </div>
         </div>
     </div>
-{% endblock fos_user_content %}
+{% endblock body %}
