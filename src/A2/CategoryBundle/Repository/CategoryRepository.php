@@ -54,4 +54,19 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyWord($keyword)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->where('c.name LIKE %:keyword%')
+            ->setParameter('keyword', $keyword)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
