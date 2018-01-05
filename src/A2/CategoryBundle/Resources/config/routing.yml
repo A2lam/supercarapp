@@ -2,7 +2,7 @@ a2_category_index:
     path:            /
     defaults:
         _controller: A2CategoryBundle:Category:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_category_show:
     path:            /{id}/show
