@@ -54,4 +54,18 @@ class BrandRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        $qb
+            ->where('b.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
