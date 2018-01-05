@@ -32,4 +32,4 @@ a2_category_delete:
         _controller: A2CategoryBundle:Category:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
