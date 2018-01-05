@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm('A2\CoreBundle\Form\SearchType');
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -30,7 +30,7 @@ class CategoryController extends Controller
             {
                 $categories = $em
                     ->getRepository('A2CategoryBundle:Category')
-                    ->findByKeyWord($data['searchString'])
+                    ->findByKeyword($data['searchString'])
                 ;
 
                 return $this->render('A2CategoryBundle:Category:index.html.twig', array(
