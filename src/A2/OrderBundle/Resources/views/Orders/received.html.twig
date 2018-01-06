@@ -1,0 +1,113 @@
+{% extends "A2OrderBundle::layout.html.twig" %}
+
+{% block orders_content %}
+
+    <h2>Etablissement de la commande comme reçu</h2>
+
+    <h3>Voulez-vous marquer cette commande comme étant reçu ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Fournisseur
+            </dt>
+            <dd>
+                {{ order.supplier.name }}
+            </dd>
+
+            <dt>
+                Catégorie
+            </dt>
+            <dd>
+                {{ order.category.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ order.model.brand.name }}
+            </dd>
+
+            <dt>
+                Modèle
+            </dt>
+            <dd>
+                {{ order.model.name }}
+            </dd>
+
+            <dt>
+                Quantité
+            </dt>
+            <dd>
+                {{ order.quantity }}
+            </dd>
+
+            <dt>
+                Détails
+            </dt>
+            <dd>
+                {{ order.details}}
+            </dd>
+
+            <dt>
+                Entrepôt
+            </dt>
+            <dd>
+                {{ order.storehouse.name }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ order.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if order.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ order.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+
+            <dt>
+                Commande reçu
+            </dt>
+            <dd>
+                {% if order.isReceived %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </dd>
+        </dl>
+
+        {{ form_start(received_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Commande reçu" class="btn btn-primary" /> |
+            <a href="{{ path('a2_orders_show', { 'id': order.id }) }}">Annuler</a>
+        </div>
+
+        {{ form_end(received_form) }}
+    </div>
+
+{% endblock orders_content %}
