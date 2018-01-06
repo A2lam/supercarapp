@@ -3,6 +3,7 @@
 namespace A2\OrderBundle\Controller;
 
 use A2\OrderBundle\Entity\Orders;
+use A2\StockBundle\Entity\Stock;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -149,6 +150,77 @@ class OrdersController extends Controller
         return $this->render('A2OrderBundle:Orders:edit.html.twig', array(
             'order' => $order,
             'edit_form' => $editForm->createView()
+        ));
+    }
+
+    /**
+     * Etablissement d'une commande comme étant "Reçu"
+     */
+    public function receivedAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $order = $em
+            ->getRepository('A2OrderBundle:Orders')
+            ->myFind($id)
+        ;
+
+        if (null == $order)
+            throw new NotFoundHttpException("La commande d'id " .$id. " n'existe pas");
+
+        $nameAdminAdd = $em
+            ->getRepository('A2OrderBundle:Orders')
+            ->getAdminName($order, 'add')
+        ;
+
+        $nameUserUpdate = $em
+            ->getRepository('A2OrderBundle:Orders')
+            ->getAdminName($order, 'update')
+        ;
+
+        $receivedForm = $this->createFormBuilder()->getForm();
+        $receivedForm->handleRequest($request);
+
+        if ($receivedForm->isSubmitted() && $receivedForm->isValid()) {
+            $order->setIsReceived(true);
+
+            // Tentative de verification s'il exite déjà un stock pour ce modèle et cet entrepot
+            $stock = $em
+                ->getRepository('A2StockBundle:Stock')
+                ->findByModelAndStorehouse($order->getModel()->getId(), $order->getStorehouse()->getId())
+            ;
+
+            if (null == $stock)
+            {
+                $stock = new Stock();
+
+                $stock->setCategory($order->getCategory());
+                $stock->setModel($order->getModel());
+                $stock->setStorehouse($order->getStorehouse());
+                $stock->setQuantity($order->getQuantity());
+                $stock->setAdminAdd($this->getUser()->getId());
+                $stock->setDateAdd(new \DateTime());
+                $stock->setIsActive(true);
+
+                $em->persist($stock);
+            }
+            else
+            {
+                $stock->setQuantity($stock->getQuantity() + $order->getQuantity());
+            }
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Stock Mis à jour');
+
+            return $this->redirectToRoute('a2_stock_index');
+        }
+
+        return $this->render('A2OrderBundle:Orders:show.html.twig', array(
+            'order'          => $order,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'received_form'  => $receivedForm
         ));
     }
 
