@@ -40,4 +40,4 @@ a2_orders_received:
         _controller: A2OrderBundle:Orders:received
     requirements:
         id:          \d+
-    methods:         POST
+    methods:         [GET, POST]
