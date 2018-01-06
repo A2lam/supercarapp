@@ -33,3 +33,11 @@ a2_orders_delete:
     requirements:
         id:          \d+
     methods:         [GET, POST]
+
+a2_orders_received:
+    path:            /{id}/received
+    defaults:
+        _controller: A2OrderBundle:Orders:received
+    requirements:
+        id:          \d+
+    methods:         POST
