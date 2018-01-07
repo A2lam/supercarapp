@@ -17,9 +17,28 @@ class CustomerController extends Controller
      * Lists all customer entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $customers = $em
+                    ->getRepository('A2CustomerBundle:Customer')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2CustomerBundle:Customer:index.html.twig', array(
+                    'customers' => $customers,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $customers = $em
             ->getRepository('A2CustomerBundle:Customer')
@@ -28,6 +47,7 @@ class CustomerController extends Controller
 
         return $this->render('A2CustomerBundle:Customer:index.html.twig', array(
             'customers' => $customers,
+            'form' => $form->createView()
         ));
     }
 
@@ -84,9 +104,15 @@ class CustomerController extends Controller
             ->getAdminName($customer, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2CustomerBundle:Customer')
+            ->getAdminName($customer, 'update')
+        ;
+
         return $this->render('A2CustomerBundle:Customer:show.html.twig', array(
             'customer' => $customer,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -117,7 +143,7 @@ class CustomerController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Client bien modifié');
 
-            return $this->redirectToRoute('a2_customer_edit', array('id' => $customer->getId()));
+            return $this->redirectToRoute('a2_customer_show', array('id' => $customer->getId()));
         }
 
         return $this->render('A2CustomerBundle:Customer:edit.html.twig', array(
