@@ -195,12 +195,34 @@ class CustomerController extends Controller
         if (null == $customer)
             throw new NotFoundHttpException("Le client d'id " .$id. " n'existe pas");
 
-        $customer->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2CustomerBundle:Customer')
+            ->getAdminName($customer, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2CustomerBundle:Customer')
+            ->getAdminName($customer, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Client supprimé');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_customer_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $customer->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Client supprimé');
+
+            return $this->redirectToRoute('a2_customer_index');
+        }
+
+        return $this->render('A2CustomerBundle:Customer:delete.html.twig', array(
+            'customer'     => $customer,
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 }
