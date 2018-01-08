@@ -2,7 +2,7 @@ a2_orders_index:
     path:            /
     defaults:
         _controller: A2OrderBundle:Orders:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_orders_show:
     path:            /{id}/show
@@ -32,4 +32,4 @@ a2_orders_delete:
         _controller: A2OrderBundle:Orders:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
