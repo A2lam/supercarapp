@@ -1,0 +1,80 @@
+{% extends "A2StorehouseBundle::layout.html.twig" %}
+
+{% block storehouse_content %}
+
+    <h2>Suppression d'un entrepôt</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer cet entrepôt ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ storehouse.name }}
+            </dd>
+
+            {% if storehouse.manager is not null %}
+                <dt>
+                    Manager
+                </dt>
+                <dd>
+                    {{ storehouse.manager.name }}
+                </dd>
+            {% endif %}
+
+            <dt>
+                Adresse
+            </dt>
+            <dd>
+                {{ storehouse.address.streetNb }} {{ storehouse.address.streetName }} <br />
+                {% if storehouse.address.complement is not null %}
+                    {{ storehouse.address.complement }} <br />
+                {% endif %}
+                {{ storehouse.address.zipCode }}, {{ storehouse.address.town }}, {{ storehouse.address.country }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ storehouse.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if storehouse.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ storehouse.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_storehouse_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock storehouse_content %}
