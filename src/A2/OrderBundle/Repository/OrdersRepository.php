@@ -54,4 +54,18 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb
+            ->where('o.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
