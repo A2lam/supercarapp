@@ -17,9 +17,28 @@ class SupplierController extends Controller
      * Lists all supplier entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $suppliers = $em
+                    ->getRepository('A2SupplierBundle:Supplier')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2SupplierBundle:Supplier:index.html.twig', array(
+                    'suppliers' => $suppliers,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $suppliers = $em
             ->getRepository('A2SupplierBundle:Supplier')
@@ -28,6 +47,7 @@ class SupplierController extends Controller
 
         return $this->render('A2SupplierBundle:Supplier:index.html.twig', array(
             'suppliers' => $suppliers,
+            'form' => $form->createView()
         ));
     }
 
@@ -116,7 +136,7 @@ class SupplierController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Fournisseur bien modifié');
 
-            return $this->redirectToRoute('a2_supplier_edit', array('id' => $supplier->getId()));
+            return $this->redirectToRoute('a2_supplier_show', array('id' => $supplier->getId()));
         }
 
         return $this->render('A2SupplierBundle:Supplier:edit.html.twig', array(
