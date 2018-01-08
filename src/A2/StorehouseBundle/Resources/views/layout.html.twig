@@ -1,0 +1,13 @@
+{# On étend notre layout de base #}
+{% extends "CoreBundle::layout.html.twig" %}
+
+{# Dans notre layout il faut définir le block content #}
+{% block content %}
+
+    {# Ici on pourra afficher un truc commun à toutes les vues du bundle #}
+
+    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+    {% block storehouse_content %}
+    {% endblock storehouse_content %}
+
+{% endblock content %}
