@@ -17,9 +17,28 @@ class StorehouseController extends Controller
      * Lists all storehouse entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $storehouses = $em
+                    ->getRepository('A2StorehouseBundle:Storehouse')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2StorehouseBundle:Storehouse:index.html.twig', array(
+                    'storehouses' => $storehouses,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $storehouses = $em
             ->getRepository('A2StorehouseBundle:Storehouse')
@@ -28,6 +47,7 @@ class StorehouseController extends Controller
 
         return $this->render('A2StorehouseBundle:Storehouse:index.html.twig', array(
             'storehouses' => $storehouses,
+            'form' => $form->createView()
         ));
     }
 
