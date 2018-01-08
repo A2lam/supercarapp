@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Orders
  *
- * @ORM\Table(name="order")
+ * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="A2\OrderBundle\Repository\OrdersRepository")
  */
 class Orders
@@ -51,7 +51,7 @@ class Orders
     /**
      * @var int
      *
-     * @ORM\Column(name="orderQuantity", type="integer")
+     * @ORM\Column(name="ordersQuantity", type="integer")
      * @Assert\Type(type="integer")
      * @Assert\NotBlank()
      */
@@ -60,7 +60,7 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="orderDetails", type="text")
+     * @ORM\Column(name="ordersDetails", type="text")
      * @Assert\NotBlank()
      */
     private $details;
