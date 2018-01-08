@@ -103,9 +103,15 @@ class SupplierController extends Controller
             ->getAdminName($supplier, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2SupplierBundle:Supplier')
+            ->getAdminName($supplier, 'update')
+        ;
+
         return $this->render('A2SupplierBundle:Supplier:show.html.twig', array(
             'supplier' => $supplier,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -159,14 +165,36 @@ class SupplierController extends Controller
         ;
 
         if (null == $supplier)
-            throw new NotFoundHttpException("L'entrepôt d'id " .$id. " n'existe pas");
+            throw new NotFoundHttpException("Le fournisseur d'id " .$id. " n'existe pas");
 
-        $supplier->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2SupplierBundle:Supplier')
+            ->getAdminName($supplier, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2SupplierBundle:Supplier')
+            ->getAdminName($supplier, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Fournisseur supprimé');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_supplier_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $supplier->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Fournisseur supprimé');
+
+            return $this->redirectToRoute('a2_supplier_index');
+        }
+
+        return $this->render('A2SupplierBundle:Supplier:delete.html.twig', array(
+            'supplier'     => $supplier,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form'    => $deleteForm->createView()
+        ));
     }
 }
