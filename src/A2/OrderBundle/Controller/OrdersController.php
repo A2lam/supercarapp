@@ -167,12 +167,34 @@ class OrdersController extends Controller
         if (null == $order)
             throw new NotFoundHttpException("La commande d'id " .$id. " n'existe pas");
 
-        $order->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2OrderBundle:Orders')
+            ->getAdminName($order, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2OrderBundle:Orders')
+            ->getAdminName($order, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Commande supprimée');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_corders_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $order->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Commande supprimée');
+
+            return $this->redirectToRoute('a2_orders_index');
+        }
+
+        return $this->render('A2OrderBundle:Orders:delete.html.twig', array(
+            'order'     => $order,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form'    => $deleteForm->createView()
+        ));
     }
 }
