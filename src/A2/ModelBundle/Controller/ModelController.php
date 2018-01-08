@@ -124,7 +124,7 @@ class ModelController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $model = $em
-            ->getRepository('A2ModelBundle;Model')
+            ->getRepository('A2ModelBundle:Model')
             ->myFind($id)
         ;
 
@@ -142,7 +142,7 @@ class ModelController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Modèle bien modifié');
 
-            return $this->redirectToRoute('a2_model_edit', array('id' => $model->getId()));
+            return $this->redirectToRoute('a2_model_show', array('id' => $model->getId()));
         }
 
         return $this->render('A2ModelBundle:Model:edit.html.twig', array(
