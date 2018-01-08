@@ -1,60 +1,106 @@
-{% extends 'base.html.twig' %}
+{% extends "A2OrderBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Order</h1>
+{% block orders_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ order.id }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ order.quantity }}</td>
-            </tr>
-            <tr>
-                <th>Details</th>
-                <td>{{ order.details }}</td>
-            </tr>
-            <tr>
-                <th>Isreceived</th>
-                <td>{% if order.isReceived %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ order.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if order.dateAdd %}{{ order.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ order.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if order.dateUpdate %}{{ order.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if order.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails de la commande</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('orders_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('orders_edit', { 'id': order.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Fournisseur
+            </dt>
+            <dd>
+                {{ order.supplier.name }}
+            </dd>
+
+            <dt>
+                Catégorie
+            </dt>
+            <dd>
+                {{ order.category.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ order.model.brand.name }}
+            </dd>
+
+            <dt>
+                Modèle
+            </dt>
+            <dd>
+                {{ order.model.name }}
+            </dd>
+
+            <dt>
+                Quantité
+            </dt>
+            <dd>
+                {{ order.quantity }}
+            </dd>
+
+            <dt>
+                Détails
+            </dt>
+            <dd>
+                {{ order.details}}
+            </dd>
+
+            <dt>
+                Entrepôt
+            </dt>
+            <dd>
+                {{ order.storehouse.name }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ order.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if order.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ order.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+
+            <dt>
+                Commande reçu
+            </dt>
+            <dd>
+                {% if order.isReceived %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_orders_index') }}">Retour à la liste</a> |
+        <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a>
+    </p>
+
+{% endblock orders_content %}

@@ -66,6 +66,7 @@ class OrdersController extends Controller
 
             $order->setAdminAdd($this->getUser()->getId());
             $order->setDateAdd(new \DateTime());
+            $order->setIsReceived(false);
             $order->setIsActive(true);
 
             $em->persist($order);
@@ -104,7 +105,7 @@ class OrdersController extends Controller
         ;
 
         $nameUserUpdate = $em
-            ->getRepository('A2SupplierBundle:Supplier')
+            ->getRepository('A2OrderBundle:Orders')
             ->getAdminName($order, 'update')
         ;
 
