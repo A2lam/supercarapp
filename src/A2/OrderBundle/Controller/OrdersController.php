@@ -17,17 +17,37 @@ class OrdersController extends Controller
      * Lists all order entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $orders = $em
+                    ->getRepository('A2OrderBundle:Orders')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2OrderBundle:Orders:index.html.twig', array(
+                    'orders' => $orders,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $orders = $em
             ->getRepository('A2OrderBundle:Orders')
             ->findByIsActive(true)
         ;
 
-        return $this->render('orders/index.html.twig', array(
+        return $this->render('A2OrderBundle:Orders:index.html.twig', array(
             'orders' => $orders,
+            'form' => $form->createView()
         ));
     }
 
@@ -83,9 +103,15 @@ class OrdersController extends Controller
             ->getAdminName($order, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2SupplierBundle:Supplier')
+            ->getAdminName($order, 'update')
+        ;
+
         return $this->render('A2OrderBundle:Orders:show.html.twig', array(
             'order' => $order,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -116,7 +142,7 @@ class OrdersController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Commande bien modifiée');
 
-            return $this->redirectToRoute('a2_orders_edit', array('id' => $order->getId()));
+            return $this->redirectToRoute('a2_orders_show', array('id' => $order->getId()));
         }
 
         return $this->render('A2OrderBundle:Orders:edit.html.twig', array(
