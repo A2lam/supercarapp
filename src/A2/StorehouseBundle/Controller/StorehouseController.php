@@ -103,9 +103,15 @@ class StorehouseController extends Controller
             ->getAdminName($storehouse, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2StorehouseBundle:Storehouse')
+            ->getAdminName($storehouse, 'update')
+        ;
+
         return $this->render('A2StorehouseBundle:Storehouse:show.html.twig', array(
             'storehouse' => $storehouse,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -136,7 +142,7 @@ class StorehouseController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Entrepôt bien modifié');
 
-            return $this->redirectToRoute('a2_storehouse_edit', array('id' => $storehouse->getId()));
+            return $this->redirectToRoute('a2_storehouse_show', array('id' => $storehouse->getId()));
         }
 
         return $this->render('A2StorehouseBundle:Storehouse:edit.html.twig', array(
@@ -161,12 +167,34 @@ class StorehouseController extends Controller
         if (null == $storehouse)
             throw new NotFoundHttpException("L'entrepôt d'id " .$id. " n'existe pas");
 
-        $storehouse->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2StorehouseBundle:Storehouse')
+            ->getAdminName($storehouse, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2StorehouseBundle:Storehouse')
+            ->getAdminName($storehouse, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Entrepôt supprimé');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_storehouse_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $storehouse->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Entrepôt supprimé');
+
+            return $this->redirectToRoute('a2_storehouse_index');
+        }
+
+        return $this->render('A2StorehouseBundle:Storehouse:delete.html.twig', array(
+            'storehouse'     => $storehouse,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form'    => $deleteForm->createView()
+        ));
     }
 }
