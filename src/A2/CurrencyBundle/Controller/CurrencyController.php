@@ -17,9 +17,28 @@ class CurrencyController extends Controller
      * Lists all currency entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $currencies = $em
+                    ->getRepository('A2CurrencyBundle:Currency')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2CurrencyBundle:Currency:index.html.twig', array(
+                    'currencies' => $currencies,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $currencies = $em
             ->getRepository('A2CurrencyBundle:Currency')
@@ -28,6 +47,7 @@ class CurrencyController extends Controller
 
         return $this->render('A2CurrencyBundle:Currency:index.html.twig', array(
             'currencies' => $currencies,
+            'form' => $form->createView()
         ));
     }
 
