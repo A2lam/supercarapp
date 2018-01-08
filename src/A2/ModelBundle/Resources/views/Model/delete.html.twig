@@ -1,0 +1,67 @@
+{% extends "A2ModelBundle::layout.html.twig" %}
+
+{% block model_content %}
+
+    <h2>Suppression du modèle</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer ce modèle ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ model.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ model.brand.name }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ model.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if model.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ model.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_model_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock model_content %}

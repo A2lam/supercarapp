@@ -191,7 +191,7 @@ class ModelController extends Controller
         }
 
         return $this->render('A2ModelBundle:Model:delete.html.twig', array(
-            'brand'     =>      $model,
+            'model'     =>      $model,
             'nameAdminAdd' =>   $nameAdminAdd,
             'nameUserUpdate' => $nameUserUpdate,
             'delete_form' =>    $deleteForm->createView()
