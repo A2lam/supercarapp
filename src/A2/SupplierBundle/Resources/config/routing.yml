@@ -4,7 +4,7 @@ a2_supplier_index:
         _controller: A2SupplierBundle:Supplier:index
     methods:         [GET, POST]
 
-a2_upplier_show:
+a2_supplier_show:
     path:            /{id}/show
     defaults:
         _controller: A2SupplierBundle:Supplier:show
