@@ -39,7 +39,6 @@ class OrdersType extends AbstractType
                 'choice_label' => 'name',
                 'multiple'     => false
             ))
-            ->add('isReceived')
         ;
     }
 
