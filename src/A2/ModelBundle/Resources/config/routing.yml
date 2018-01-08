@@ -2,7 +2,7 @@ a2_model_index:
     path:            /
     defaults:
         _controller: A2ModelBundle:Model:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_model_show:
     path:            /{id}/show
@@ -32,4 +32,4 @@ a2_model_delete:
         _controller: A2ModelBundle:Model:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
