@@ -2,7 +2,7 @@ a2_supplier_index:
     path:            /
     defaults:
         _controller: A2SupplierBundle;Supplier:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_upplier_show:
     path:            /{id}/show
@@ -32,4 +32,4 @@ a2_supplier_delete:
         _controller: A2SupplierBundle;Supplier:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
