@@ -32,7 +32,9 @@
                     {{ storehouse.name }}
                 </td>
                 <td>
-                    {{ storehouse.manager.user.name }} {{ storehouse.manager.user.lastname }}
+                    {% if storehouse.manager is not null %}
+                        {{ storehouse.manager.user.name }} {{ storehouse.manager.user.lastname }}
+                    {% endif %}
                 </td>
                 <td>
                     <a href="{{ path('a2_storehouse_show', { 'id': storehouse.id }) }}">Détails</a> |
