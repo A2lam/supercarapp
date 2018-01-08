@@ -1,49 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends "A2StorehouseBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Storehouses list</h1>
+{% block storehouse_content %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h2>Liste des Entrepôts</h2>
+    <p><a href="{{ path('a2_storehouse_new') }}">Créer un nouvel entrepôt</a></p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher un entrepôt</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Manager de l'entrepôt
+            </th>
+        </tr>
+
         {% for storehouse in storehouses %}
             <tr>
-                <td><a href="{{ path('storehouse_show', { 'id': storehouse.id }) }}">{{ storehouse.id }}</a></td>
-                <td>{{ storehouse.name }}</td>
-                <td>{{ storehouse.adminAdd }}</td>
-                <td>{% if storehouse.dateAdd %}{{ storehouse.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ storehouse.userUpdate }}</td>
-                <td>{% if storehouse.dateUpdate %}{{ storehouse.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if storehouse.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('storehouse_show', { 'id': storehouse.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('storehouse_edit', { 'id': storehouse.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ storehouse.name }}
+                </td>
+                <td>
+                    {{ sorehouse.manager.user.name }} {{ storehouse.manager.user.lastname }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_storehouse_show', { 'id': storehouse.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_storehouse_edit', { 'id': storehouse.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_storehouse_delete', { 'id': storehouse.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('storehouse_new') }}">Create a new storehouse</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock storehouse_content %}
