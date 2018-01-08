@@ -103,9 +103,15 @@ class CurrencyController extends Controller
             ->getAdminName($currency, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2CurrencyBundle:Currency')
+            ->getAdminName($currency, 'update')
+        ;
+
         return $this->render('A2CurrencyBundle:Currency:show.html.twig', array(
             'currency' => $currency,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -136,7 +142,7 @@ class CurrencyController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Devise bien modifiée');
 
-            return $this->redirectToRoute('a2_currency_edit', array('id' => $currency->getId()));
+            return $this->redirectToRoute('a2_currency_show', array('id' => $currency->getId()));
         }
 
         return $this->render('A2CurrencyBundle:Currency:edit.html.twig', array(
@@ -161,12 +167,34 @@ class CurrencyController extends Controller
         if (null == $currency)
             throw new NotFoundHttpException("La devise d'id " .$id. " n'existe pas");
 
-        $currency->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2CurrencyBundle:Currency')
+            ->getAdminName($currency, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2CurrencyBundle:Currency')
+            ->getAdminName($currency, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Devise supprimée');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_currency_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $currency->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Devise supprimée');
+
+            return $this->redirectToRoute('a2_currency_index');
+        }
+
+        return $this->render('A2CurrencyBundle:Currency:delete.html.twig', array(
+            'currency'     =>      $currency,
+            'nameAdminAdd' =>   $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form' =>    $deleteForm->createView()
+        ));
     }
 }
