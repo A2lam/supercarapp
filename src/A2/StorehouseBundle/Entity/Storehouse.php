@@ -38,7 +38,7 @@ class Storehouse
 
     /**
      * @ORM\OneToOne(targetEntity="A2\UserBundle\Entity\Manager", inversedBy="storehouse", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $manager;
 

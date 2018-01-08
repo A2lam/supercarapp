@@ -8,7 +8,10 @@
 
 namespace A2\UserBundle\Controller;
 
+use A2\AddressBundle\Entity\Address;
+use A2\StorehouseBundle\Entity\Storehouse;
 use A2\UserBundle\Entity\Admin;
+use A2\UserBundle\Entity\Manager;
 use A2\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +21,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class RegistrationController extends Controller
 {
@@ -47,7 +51,7 @@ class RegistrationController extends Controller
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-                $user->setRoles(array('ROLE_ADMIN'));
+                $user->setRoles(array('ROLE_MANAGER'));
                 $user->setAdminAdd(1);
                 $user->setDateAdd(new \DateTime());
                 $user->setIsActive(true);
