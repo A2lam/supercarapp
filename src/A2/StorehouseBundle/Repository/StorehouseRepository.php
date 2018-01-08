@@ -54,4 +54,18 @@ class StorehouseRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        $qb
+            ->where('s.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
