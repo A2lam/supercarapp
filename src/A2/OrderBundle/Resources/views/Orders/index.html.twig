@@ -1,53 +1,58 @@
-{% extends 'base.html.twig' %}
+{% extends "A2OrderBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Orders list</h1>
+{% block orders_content %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantity</th>
-                <th>Details</th>
-                <th>Isreceived</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h2>Liste des Commandes</h2>
+    <p><a href="{{ path('a2_orders_new') }}">Créer une nouvelle commande</a></p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher une catégorie</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Fournisseur
+            </th>
+            <th>
+                Modèle commandé
+            </th>
+            <th>
+                Pour l'entrepôt
+            </th>
+            <th>
+                Quantité
+            </th>
+        </tr>
+
         {% for order in orders %}
             <tr>
-                <td><a href="{{ path('orders_show', { 'id': order.id }) }}">{{ order.id }}</a></td>
-                <td>{{ order.quantity }}</td>
-                <td>{{ order.details }}</td>
-                <td>{% if order.isReceived %}Yes{% else %}No{% endif %}</td>
-                <td>{{ order.adminAdd }}</td>
-                <td>{% if order.dateAdd %}{{ order.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ order.userUpdate }}</td>
-                <td>{% if order.dateUpdate %}{{ order.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if order.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('orders_show', { 'id': order.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('orders_edit', { 'id': order.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ order.supplier.name }}
+                </td>
+                <td>
+                    {{ order.model.name }}
+                </td>
+                <td>
+                    {{ order.storehouse.name }}
+                </td>
+                <td>
+                    {{ order.quantity }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_orders_show', { 'id': order.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_orders_delete', { 'id': order.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('orders_new') }}">Create a new order</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock orders_content %}
