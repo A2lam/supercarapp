@@ -93,4 +93,9 @@ class Manager
     {
         return $this->storehouse;
     }
+
+    public function getName()
+    {
+        return $this->getUser()->getName(). ' ' .$this->getUser()->getLastname();
+    }
 }
