@@ -26,7 +26,7 @@
         {% for supplier in suppliers %}
             <tr>
                 <td>
-                    {{ storehouse.name }}
+                    {{ supplier.name }}
                 </td>
                 <td>
                     <a href="{{ path('a2_supplier_show', { 'id': supplier.id }) }}">Détails</a> |

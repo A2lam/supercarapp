@@ -1,0 +1,71 @@
+{% extends "A2SupplierBundle::layout.html.twig" %}
+
+{% block supplier_content %}
+
+    <h2>Suppression du fournisseur</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer ce fournisseur ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ supplier.name }}
+            </dd>
+
+            <dt>
+                Adresse
+            </dt>
+            <dd>
+                {{ supplier.address.streetNb }} {{ supplier.address.streetName }} <br />
+                {% if supplier.address.complement is not null %}
+                    {{ supplier.address.complement }} <br />
+                {% endif %}
+                {{ supplier.address.zipCode }}, {{ supplier.address.town }}, {{ supplier.address.country }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ supplier.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if supplier.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ supplier.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_supplier_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock supplier_content %}
