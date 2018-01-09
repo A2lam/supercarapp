@@ -127,11 +127,25 @@
                     {{ car.dateUpdate|date("d/m/Y h:m:s") }}
                 </dd>
             {% endif %}
+
+            <dt>
+                Voiture vendu
+            </dt>
+            <dd>
+                {% if car.isSold %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </dd>
         </dl>
     </div>
     <p>
         <a href="{{ path('a2_car_index') }}">Retour à la liste</a> |
-        <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a>
+        {% if car.isSold == false %}
+            <a href="{{ path('a2_car_sold', { 'id': car.id }) }}">Procéder à la vente de la voiture</a> |
+            <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a>
+        {% endif %}
     </p>
 
 {% endblock car_content %}
