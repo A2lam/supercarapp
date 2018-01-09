@@ -55,6 +55,20 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
         return $name;
     }
 
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        $qb
+            ->where('s.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByModelAndStorehouse($model, $storehouse)
     {
         $qb = $this->createQueryBuilder('s');
