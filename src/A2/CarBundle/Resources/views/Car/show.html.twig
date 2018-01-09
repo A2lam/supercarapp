@@ -1,88 +1,137 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CarBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Car</h1>
+{% block car_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ car.id }}</td>
-            </tr>
-            <tr>
-                <th>Color</th>
-                <td>{{ car.color }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ car.price }}</td>
-            </tr>
-            <tr>
-                <th>Energy</th>
-                <td>{{ car.energy }}</td>
-            </tr>
-            <tr>
-                <th>Co2</th>
-                <td>{{ car.co2 }}</td>
-            </tr>
-            <tr>
-                <th>Gearbox</th>
-                <td>{{ car.gearBox }}</td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td>{{ car.weight }}</td>
-            </tr>
-            <tr>
-                <th>Power</th>
-                <td>{{ car.power }}</td>
-            </tr>
-            <tr>
-                <th>Maxspeed</th>
-                <td>{{ car.maxSpeed }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ car.year }}</td>
-            </tr>
-            <tr>
-                <th>Issold</th>
-                <td>{% if car.isSold %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ car.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if car.dateAdd %}{{ car.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ car.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if car.dateUpdate %}{{ car.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if car.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails de la voiture</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('car_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('car_edit', { 'id': car.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Catégorie
+            </dt>
+            <dd>
+                {{ car.category.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ car.model.brand.name }}
+            </dd>
+
+            <dt>
+                Modèle
+            </dt>
+            <dd>
+                {{ car.model.name }}
+            </dd>
+
+            <dt>
+                Couleur
+            </dt>
+            <dd>
+                {{ car.color }}
+            </dd>
+
+            <dt>
+                Prix
+            </dt>
+            <dd>
+                {{ car.price }} {{ car.currency.symbol }}
+            </dd>
+
+            <dt>
+                Energie
+            </dt>
+            <dd>
+                {{ car.energy }}
+            </dd>
+
+            <dt>
+                Production Co2
+            </dt>
+            <dd>
+                {{ car.co2 }}
+            </dd>
+
+            <dt>
+                Boîte à vitesse
+            </dt>
+            <dd>
+                {{ car.gearbox }}
+            </dd>
+
+            <dt>
+                Poids
+            </dt>
+            <dd>
+                {{ car.weight }}
+            </dd>
+
+            <dt>
+                Puissance
+            </dt>
+            <dd>
+                {{ car.power }}
+            </dd>
+
+            <dt>
+                Vitesse max
+            </dt>
+            <dd>
+                {{ car.maxSpeed }}
+            </dd>
+
+            <dt>
+                Entrepôt
+            </dt>
+            <dd>
+                {{ car.storehouse.name }}
+            </dd>
+
+            <dt>
+                Année
+            </dt>
+            <dd>
+                {{ car.year }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ car.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if car.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ car.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_car_index') }}">Retour à la liste</a> |
+        <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a>
+    </p>
+
+{% endblock car_content %}
