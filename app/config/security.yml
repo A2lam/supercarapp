@@ -25,7 +25,7 @@ security:
             security: false
 
         main_login:
-            pattern:   ^/login$
+            pattern:   ^/user/login$
             anonymous: true
 
         main:
