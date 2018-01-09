@@ -24,13 +24,6 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('roles',         ChoiceType::class, array(
-                'roles' => array(
-                    'Administrateur'  => 1,
-                    'Manager'         => 2,
-                    'Vendeur'         => 3
-                )
-            ))
             ->add('name',          TextType::class)
             ->add('lastname',      TextType::class)
             ->add('bday',          DateType::class)
@@ -46,7 +39,6 @@ class UserType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
             ->add('image',    ImageType::class)
-            ->add('save',       SubmitType::class)
         ;
     }/**
      * {@inheritdoc}
