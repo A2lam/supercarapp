@@ -14,6 +14,7 @@ use A2\UserBundle\Entity\Admin;
 use A2\UserBundle\Entity\Manager;
 use A2\UserBundle\Entity\Seller;
 use A2\UserBundle\Entity\User;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\FOSUserEvents;
@@ -24,6 +25,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class RegistrationController extends Controller
 {
@@ -64,7 +66,7 @@ class RegistrationController extends Controller
                 $user->setAdminAdd(1);
                 $user->setDateAdd(new \DateTime());
                 $user->setIsActive(true);
-
+                dump($roleForm->getData());
                 if ($roleForm->get('role')->getData() == 1)
                 {
                     $user->setRoles(array('ROLE_ADMIN'));
@@ -79,7 +81,7 @@ class RegistrationController extends Controller
                         $em->detach($admin->getUser()->getImage());
                     }
                 }
-                elseif ($roleForm->get('role')->getData() == 2)
+                if ($roleForm->get('role')->getData() == 2)
                 {
                     $user->setRoles(array('ROLE_MANAGER'));
 
@@ -93,9 +95,9 @@ class RegistrationController extends Controller
                         $em->detach($manager->getUser()->getImage());
                     }
                 }
-                else
+                if ($roleForm->get('role')->getData() == 3)
                 {
-                    $user->setRoles(array('ROLE_MANAGER'));
+                    $user->setRoles(array('ROLE_USER'));
 
                     $seller = new Seller();
                     $seller->setNbSales(0);
@@ -111,14 +113,9 @@ class RegistrationController extends Controller
 
                 $em->flush();
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->generateUrl('fos_user_registration_confirmed');
-                    $response = new RedirectResponse($url);
-                }
+                $request->getSession()->getFlashBag()->add('notice', 'Utilisateur bien enregistré');
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return $response;
+                return $this->redirectToRoute('a2_user_index');
             }
 
             $event = new FormEvent($form, $request);
