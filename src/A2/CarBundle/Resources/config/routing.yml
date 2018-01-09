@@ -33,3 +33,11 @@ a2_car_delete:
     requirements:
         id:          \d+
     methods:         [GET, POST]
+
+a2_car_sold:
+    path:            /{id}/sold
+    defaults:
+        _controller: A2CarBundle:Car:sold
+    requirements:
+        id:          \d+
+    methods:         [GET, POST]
