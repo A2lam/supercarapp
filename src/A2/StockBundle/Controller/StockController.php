@@ -52,37 +52,6 @@ class StockController extends Controller
     }
 
     /**
-     * Creates a new stock entity.
-     *
-     */
-    public function newAction(Request $request)
-    {
-        $stock = new Stock();
-        $form = $this->createForm('A2\StockBundle\Form\StockType', $stock);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $stock->setAdminAdd($this->getUser()->getId());
-            $stock->setDateAdd(new \DateTime());
-            $stock->setIsActive(true);
-
-            $em->persist($stock);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Stock bien enregistré');
-
-            return $this->redirectToRoute('a2_stock_show', array('id' => $stock->getId()));
-        }
-
-        return $this->render('A2StockBundle:Stock:new.html.twig', array(
-            'stock' => $stock,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a stock entity.
      *
      */
@@ -110,42 +79,6 @@ class StockController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing stock entity.
-     *
-     */
-    public function editAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $stock = $em
-            ->getRepository('A2StockBundle:Stock')
-            ->myFind($id)
-        ;
-
-        if (null == $stock)
-            throw new NotFoundHttpException("Le stock d'id " .$id. " n'existe pas");
-
-        $editForm = $this->createForm('A2\StockBundle\Form\StockType', $stock);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $stock->setUserUpdate($this->getUser()->getId());
-            $stock->setDateUpdate(new \DateTime());
-
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Stock bien modifié');
-
-            return $this->redirectToRoute('a2_stock_edit', array('id' => $stock->getId()));
-        }
-
-        return $this->render('A2StockBundle:Stock:edit.html.twig', array(
-            'stock' => $stock,
-            'edit_form' => $editForm->createView()
-        ));
-    }
-
-    /**
      * Deletes a stock entity.
      *
      */
@@ -159,14 +92,36 @@ class StockController extends Controller
         ;
 
         if (null == $stock)
-            throw new NotFoundHttpException("La stock d'id " .$id. " n'existe pas");
+            throw new NotFoundHttpException("Le stock d'id " .$id. " n'existe pas");
 
-        $stock->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2StockBundle:Stock')
+            ->getAdminName($stock, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2StockBundle:Stock')
+            ->getAdminName($stock, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Stock supprimé');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_stock_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $stock->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Stock supprimé');
+
+            return $this->redirectToRoute('a2_stock_index');
+        }
+
+        return $this->render('A2StockBundle:Stock:delete.html.twig', array(
+            'stock'     => $stock,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form'    => $deleteForm->createView()
+        ));
     }
 }
