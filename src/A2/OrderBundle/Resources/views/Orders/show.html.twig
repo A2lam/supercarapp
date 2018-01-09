@@ -99,9 +99,11 @@
         </dl>
     </div>
     <p>
-        <a href="{{ path('a2_orders_index') }}">Retour à la liste</a> |
-        <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a> |
-        <a href="{{ path('a2_orders_received', { 'id': order.id }) }}">Marquer la commande comme reçu</a>
+        <a href="{{ path('a2_orders_index') }}">Retour à la liste</a>
+        {% if order.isReceived == false %}
+            | <a href="{{ path('a2_orders_received', { 'id': order.id }) }}">Marquer la commande comme reçu</a> |
+            <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a>
+        {% endif %}
     </p>
 
 {% endblock orders_content %}

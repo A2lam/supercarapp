@@ -47,6 +47,7 @@ class StockController extends Controller
 
         return $this->render('A2StockBundle:Stock:index.html.twig', array(
             'stocks' => $stocks,
+            'form' => $form->createView()
         ));
     }
 
