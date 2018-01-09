@@ -207,6 +207,8 @@ class OrdersController extends Controller
             else
             {
                 $stock->setQuantity($stock->getQuantity() + $order->getQuantity());
+                $stock->setUserUpdate($this->getUser()->getId());
+                $stock->setDateUpdate(new \DateTime());
             }
 
             $em->flush();
