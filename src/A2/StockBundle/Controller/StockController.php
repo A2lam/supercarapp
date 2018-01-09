@@ -17,9 +17,28 @@ class StockController extends Controller
      * Lists all stock entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $stocks = $em
+                    ->getRepository('A2StockBundle:Stock')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2OrderBundle:Orders:index.html.twig', array(
+                    'stocks' => $stocks,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $stocks = $em
             ->getRepository('A2StockBundle:Stock')
