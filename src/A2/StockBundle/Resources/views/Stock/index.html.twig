@@ -1,49 +1,50 @@
-{% extends 'base.html.twig' %}
+{% extends "A2StockBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Stocks list</h1>
+{% block stock_content %}
 
-    <table>
-        <thead>
+    <h2>Liste des Stocks disponibles</h2>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher un model</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Modèle
+            </th>
+            <th>
+                Entrepôt
+            </th>
+            <th>
+                Quantité
+            </th>
+        </tr>
+
+        {% for order in orders %}
             <tr>
-                <th>Id</th>
-                <th>Quantity</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stock in stocks %}
-            <tr>
-                <td><a href="{{ path('stock_show', { 'id': stock.id }) }}">{{ stock.id }}</a></td>
-                <td>{{ stock.quantity }}</td>
-                <td>{{ stock.adminAdd }}</td>
-                <td>{% if stock.dateAdd %}{{ stock.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ stock.userUpdate }}</td>
-                <td>{% if stock.dateUpdate %}{{ stock.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if stock.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('stock_show', { 'id': stock.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('stock_edit', { 'id': stock.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ stock.model.name }}
+                </td>
+                <td>
+                    {{ stock.storehouse.name }}
+                </td>
+                <td>
+                    {{ stock.quantity }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_stock_show', { 'id': stock.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_stock_delete', { 'id': stock.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('stock_new') }}">Create a new stock</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock stock_content %}
