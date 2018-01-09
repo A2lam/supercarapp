@@ -1,0 +1,144 @@
+{% extends "A2CarBundle::layout.html.twig" %}
+
+{% block car_content %}
+
+    <h2>Suppression de la voiture</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer cette voiture ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Catégorie
+            </dt>
+            <dd>
+                {{ car.category.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ car.model.brand.name }}
+            </dd>
+
+            <dt>
+                Modèle
+            </dt>
+            <dd>
+                {{ car.model.name }}
+            </dd>
+
+            <dt>
+                Couleur
+            </dt>
+            <dd>
+                {{ car.color }}
+            </dd>
+
+            <dt>
+                Prix
+            </dt>
+            <dd>
+                {{ car.price }} {{ car.currency.symbol }}
+            </dd>
+
+            <dt>
+                Energie
+            </dt>
+            <dd>
+                {{ car.energy }}
+            </dd>
+
+            <dt>
+                Production Co2
+            </dt>
+            <dd>
+                {{ car.co2 }}
+            </dd>
+
+            <dt>
+                Boîte à vitesse
+            </dt>
+            <dd>
+                {{ car.gearbox }}
+            </dd>
+
+            <dt>
+                Poids
+            </dt>
+            <dd>
+                {{ car.weight }}
+            </dd>
+
+            <dt>
+                Puissance
+            </dt>
+            <dd>
+                {{ car.power }}
+            </dd>
+
+            <dt>
+                Vitesse max
+            </dt>
+            <dd>
+                {{ car.maxSpeed }}
+            </dd>
+
+            <dt>
+                Entrepôt
+            </dt>
+            <dd>
+                {{ car.storehouse.name }}
+            </dd>
+
+            <dt>
+                Année
+            </dt>
+            <dd>
+                {{ car.year }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ car.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if car.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ car.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_car_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock car_content %}
