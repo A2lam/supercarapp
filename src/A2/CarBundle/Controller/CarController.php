@@ -17,9 +17,28 @@ class CarController extends Controller
      * Lists all car entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $cars = $em
+                    ->getRepository('A2CarBundle:Car')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2CarBundle:Car:index.html.twig', array(
+                    'cars' => $cars,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $cars = $em
             ->getRepository('A2CarBundle:Car')
@@ -28,6 +47,7 @@ class CarController extends Controller
 
         return $this->render('A2CarBundle:Car:index.html.twig', array(
             'cars' => $cars,
+            'form' => $form->createView()
         ));
     }
 
@@ -51,7 +71,7 @@ class CarController extends Controller
             $em->persist($car);
             $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Voiture bien enregistrée');
+            $request->getSession()->getFlashBag()->add('notice', 'Voiture bien enregistrée');
 
             return $this->redirectToRoute('a2_car_show', array('id' => $car->getId()));
         }
@@ -83,9 +103,15 @@ class CarController extends Controller
             ->getAdminName($car, 'add')
         ;
 
+        $nameUserUpdate = $em
+            ->getRepository('A2CarBundle:Car')
+            ->getAdminName($car, 'update')
+        ;
+
         return $this->render('A2CarBundle:Car:show.html.twig', array(
             'car' => $car,
-            'nameAdminAdd' => $nameAdminAdd
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -116,7 +142,7 @@ class CarController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'Voiture bien modifiée');
 
-            return $this->redirectToRoute('a2_car_edit', array('id' => $car->getId()));
+            return $this->redirectToRoute('a2_car_show', array('id' => $car->getId()));
         }
 
         return $this->render('A2CarBundle:Car:edit.html.twig', array(
