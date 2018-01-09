@@ -167,12 +167,34 @@ class CarController extends Controller
         if (null == $car)
             throw new NotFoundHttpException("La voiture d'id " .$id. " n'existe pas");
 
-        $car->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2CarBundle:Car')
+            ->getAdminName($car, 'add')
+        ;
 
-        $em->flush();
+        $nameUserUpdate = $em
+            ->getRepository('A2CarBundle:Car')
+            ->getAdminName($car, 'update')
+        ;
 
-        $request->getSession()->getFlashBag()->add('notice', 'Voiture supprimée');
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        return $this->redirectToRoute('a2_car_index');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $car->setIsActive(false);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Voiture supprimée');
+
+            return $this->redirectToRoute('a2_car_index');
+        }
+
+        return $this->render('A2CarBundle:Car:delete.html.twig', array(
+            'car'     => $car,
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 }
