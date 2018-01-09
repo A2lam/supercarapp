@@ -2,7 +2,7 @@ a2_car_index:
     path:            /
     defaults:
         _controller: A2CarBundle:Car:index
-    methods:         GET
+    methods:         [GET, POST]
 
 a2_car_show:
     path:            /{id}/show
@@ -32,4 +32,4 @@ a2_car_delete:
         _controller: A2CarBundle:Car:delete
     requirements:
         id:          \d+
-    methods:         DELETE
+    methods:         [GET, POST]
