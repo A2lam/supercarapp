@@ -55,15 +55,15 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
         return $name;
     }
 
-    public function findByModelAndStorehouse($modelId, $storehouseId)
+    public function findByModelAndStorehouse($model, $storehouse)
     {
         $qb = $this->createQueryBuilder('s');
 
         $qb
-            ->where('s.model_id = :model_id')
-            ->setParameter('model_id', $modelId)
-            ->andWhere('s.storehouse_id = :storehouse_id')
-            ->setParameter('storehouse_id', $storehouseId)
+            ->where('s.model = :model')
+            ->setParameter('model', $model)
+            ->andWhere('s.storehouse = :storehouse')
+            ->setParameter('storehouse', $storehouse)
         ;
 
         return $qb

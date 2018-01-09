@@ -187,7 +187,7 @@ class OrdersController extends Controller
             // Tentative de verification s'il exite déjà un stock pour ce modèle et cet entrepot
             $stock = $em
                 ->getRepository('A2StockBundle:Stock')
-                ->findByModelAndStorehouse($order->getModel()->getId(), $order->getStorehouse()->getId())
+                ->findByModelAndStorehouse($order->getModel(), $order->getStorehouse())
             ;
 
             if (null == $stock)
