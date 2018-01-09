@@ -1,67 +1,58 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CarBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Cars list</h1>
+{% block car_content %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Color</th>
-                <th>Price</th>
-                <th>Energy</th>
-                <th>Co2</th>
-                <th>Gearbox</th>
-                <th>Weight</th>
-                <th>Power</th>
-                <th>Maxspeed</th>
-                <th>Year</th>
-                <th>Issold</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h2>Liste des Voitures</h2>
+    <p><a href="{{ path('a2_car_new') }}">Créer une nouvelle voiture</a></p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher une catégorie</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Catégorie
+            </th>
+            <th>
+                Marque
+            </th>
+            <th>
+                Modèle
+            </th>
+            <th>
+                Année
+            </th>
+        </tr>
+
         {% for car in cars %}
             <tr>
-                <td><a href="{{ path('car_show', { 'id': car.id }) }}">{{ car.id }}</a></td>
-                <td>{{ car.color }}</td>
-                <td>{{ car.price }}</td>
-                <td>{{ car.energy }}</td>
-                <td>{{ car.co2 }}</td>
-                <td>{{ car.gearBox }}</td>
-                <td>{{ car.weight }}</td>
-                <td>{{ car.power }}</td>
-                <td>{{ car.maxSpeed }}</td>
-                <td>{{ car.year }}</td>
-                <td>{% if car.isSold %}Yes{% else %}No{% endif %}</td>
-                <td>{{ car.adminAdd }}</td>
-                <td>{% if car.dateAdd %}{{ car.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ car.userUpdate }}</td>
-                <td>{% if car.dateUpdate %}{{ car.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if car.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('car_show', { 'id': car.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('car_edit', { 'id': car.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ car.category.name }}
+                </td>
+                <td>
+                    {{ car.model.brand.name }}
+                </td>
+                <td>
+                    {{ car.model.name }}
+                </td>
+                <td>
+                    {{ car.year }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_car_show', { 'id': car.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_car_delete', { 'id': car.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('car_new') }}">Create a new car</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock car_content %}
