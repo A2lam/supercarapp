@@ -1,52 +1,89 @@
-{% extends 'base.html.twig' %}
+{% extends "A2StockBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Stock</h1>
+{% block stock_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ stock.id }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ stock.quantity }}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ stock.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if stock.dateAdd %}{{ stock.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ stock.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if stock.dateUpdate %}{{ stock.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if stock.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails du stock</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('stock_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('stock_edit', { 'id': stock.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Catégorie
+            </dt>
+            <dd>
+                {{ stock.category.name }}
+            </dd>
+
+            <dt>
+                Marque
+            </dt>
+            <dd>
+                {{ stock.model.brand.name }}
+            </dd>
+
+            <dt>
+                Modèle
+            </dt>
+            <dd>
+                {{ stock.model.name }}
+            </dd>
+
+            <dt>
+                Quantité
+            </dt>
+            <dd>
+                {{ stock.quantity }}
+            </dd>
+
+            <dt>
+                Entrepôt
+            </dt>
+            <dd>
+                {{ stock.storehouse.name }}
+            </dd>
+
+            {% if stock.userUpdate is not null %}
+                <dt>
+                    Dernière mise-à-jour
+                </dt>
+                <dd>
+                    {{ stock.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ stock.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if stock.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ stock.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_stock_index') }}">Retour à la liste</a>
+    </p>
+
+{% endblock stock_content %}
