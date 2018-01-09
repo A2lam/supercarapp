@@ -32,7 +32,7 @@ class CarType extends AbstractType
             ->add('price',      IntegerType::class)
             ->add('currency',   EntityType::class, array(
                 'class'        => 'A2CurrencyBundle:Currency',
-                'choice_label' => 'name',
+                'choice_label' => 'symbol',
                 'multiple'     => false
             ))
             ->add('energy',     TextType::class)

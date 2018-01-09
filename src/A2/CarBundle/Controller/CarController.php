@@ -66,6 +66,7 @@ class CarController extends Controller
 
             $car->setAdminAdd($this->getUser()->getId());
             $car->setDateAdd(new \DateTime());
+            $car->setIsSold(false);
             $car->setIsActive(true);
 
             $em->persist($car);
