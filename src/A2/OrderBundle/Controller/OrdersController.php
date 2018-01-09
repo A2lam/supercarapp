@@ -216,11 +216,11 @@ class OrdersController extends Controller
             return $this->redirectToRoute('a2_stock_index');
         }
 
-        return $this->render('A2OrderBundle:Orders:show.html.twig', array(
+        return $this->render('A2OrderBundle:Orders:received.html.twig', array(
             'order'          => $order,
             'nameAdminAdd'   => $nameAdminAdd,
             'nameUserUpdate' => $nameUserUpdate,
-            'received_form'  => $receivedForm
+            'received_form'  => $receivedForm->createView()
         ));
     }
 
