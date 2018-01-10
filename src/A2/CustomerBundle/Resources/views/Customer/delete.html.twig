@@ -1,0 +1,99 @@
+{% extends "A2CustomerBundle::layout.html.twig" %}
+
+{% block customer_content %}
+
+    <h2>Suppression du client</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer ce client ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ customer.name }}
+            </dd>
+
+            <dt>
+                Prénom
+            </dt>
+            <dd>
+                {{ customer.lastname }}
+            </dd>
+
+            <dt>
+                Date de naissance
+            </dt>
+            <dd>
+                {{ customer.bday }}
+            </dd>
+
+            <dt>
+                Adresse
+            </dt>
+            <dd>
+                {{ customer.address.streetNb }} {{ customer.address.streetName }} <br />
+                {% if customer.address.complement is not null %}
+                    {{ customer.address.complement }} <br />
+                {% endif %}
+                {{ customer.address.zipCode }}, {{ customer.address.town }}, {{ customer.address.country }}
+            </dd>
+
+            <dt>
+                E-mail
+            </dt>
+            <dd>
+                {{ customer.email }}
+            </dd>
+
+            <dt>
+                Téléphone
+            </dt>
+            <dd>
+                {{ customer.num }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ customer.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if customer.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ customer.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_customer_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock customer_content %}
