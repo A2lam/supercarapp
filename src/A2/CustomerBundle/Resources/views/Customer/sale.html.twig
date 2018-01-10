@@ -1,0 +1,30 @@
+{% extends "A2CustomerBundle::layout.html.twig" %}
+
+{% block customer_content %}
+
+    <h2>Choix parmis les clients existants</h2>
+
+    {{ form_start(form) }}
+
+    {{ form_errors(form) }}
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            {{ form_label(form.customer, "Liste des clients", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(form.customer) }}
+            <div class="col-md-4">
+                {{ form_widget(form.customer, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Finaliser la vente" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <p><a href="{{ path('a2_car_sold', { 'id': car.id }) }}">Annuler</a></p>
+
+    {{ form_end(form) }}
+
+{% endblock customer_content %}
