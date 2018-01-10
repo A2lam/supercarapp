@@ -48,14 +48,14 @@ class CoreController extends Controller
                         $modelsAReguler[] = $model;
                 }
             }
-            elseif ($role == "ROLE_MANAGER")
-            {
+            //elseif ($role == "ROLE_MANAGER")
+            //{
 
-            }
-            else
-            {
-                return;
-            }
+            //}
+            //else
+            //{
+            //    return;
+            //}
         }
 
         // Recupération des recentes notif pour tous les utilisateurs
@@ -69,7 +69,7 @@ class CoreController extends Controller
             )
         ;
         $orders = $em
-            ->getRepository('OrderBundle:Orders')
+            ->getRepository('A2OrderBundle:Orders')
             ->findBy(
                 array('isActive' => true),
                 array('dateAdd'  => 'DESC'),
