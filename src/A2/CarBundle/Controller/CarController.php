@@ -42,7 +42,10 @@ class CarController extends Controller
 
         $cars = $em
             ->getRepository('A2CarBundle:Car')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2CarBundle:Car:index.html.twig', array(

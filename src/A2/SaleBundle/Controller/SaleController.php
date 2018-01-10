@@ -42,7 +42,10 @@ class SaleController extends Controller
 
         $sales = $em
             ->getRepository('A2SaleBundle:Sale')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2SaleBundle:Sale:index.html.twig', array(

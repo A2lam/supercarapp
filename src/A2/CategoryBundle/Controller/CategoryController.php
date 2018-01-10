@@ -42,7 +42,10 @@ class CategoryController extends Controller
 
         $categories = $em
             ->getRepository('A2CategoryBundle:Category')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2CategoryBundle:Category:index.html.twig', array(

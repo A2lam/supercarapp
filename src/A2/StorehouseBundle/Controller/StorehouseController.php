@@ -42,7 +42,10 @@ class StorehouseController extends Controller
 
         $storehouses = $em
             ->getRepository('A2StorehouseBundle:Storehouse')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2StorehouseBundle:Storehouse:index.html.twig', array(

@@ -42,7 +42,10 @@ class CurrencyController extends Controller
 
         $currencies = $em
             ->getRepository('A2CurrencyBundle:Currency')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2CurrencyBundle:Currency:index.html.twig', array(

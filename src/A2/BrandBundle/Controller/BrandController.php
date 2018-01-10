@@ -42,7 +42,10 @@ class BrandController extends Controller
 
         $brands = $em
             ->getRepository('A2BrandBundle:Brand')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2BrandBundle:Brand:index.html.twig', array(

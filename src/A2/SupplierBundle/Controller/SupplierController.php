@@ -42,7 +42,10 @@ class SupplierController extends Controller
 
         $suppliers = $em
             ->getRepository('A2SupplierBundle:Supplier')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2SupplierBundle:Supplier:index.html.twig', array(

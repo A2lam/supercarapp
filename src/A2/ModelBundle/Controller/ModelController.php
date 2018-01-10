@@ -42,7 +42,10 @@ class ModelController extends Controller
 
         $models = $em
             ->getRepository('A2ModelBundle:Model')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2ModelBundle:Model:index.html.twig', array(

@@ -42,7 +42,10 @@ class StockController extends Controller
 
         $stocks = $em
             ->getRepository('A2StockBundle:Stock')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2StockBundle:Stock:index.html.twig', array(

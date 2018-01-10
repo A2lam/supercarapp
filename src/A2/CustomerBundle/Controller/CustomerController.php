@@ -44,7 +44,10 @@ class CustomerController extends Controller
 
         $customers = $em
             ->getRepository('A2CustomerBundle:Customer')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2CustomerBundle:Customer:index.html.twig', array(

@@ -43,7 +43,10 @@ class OrdersController extends Controller
 
         $orders = $em
             ->getRepository('A2OrderBundle:Orders')
-            ->findByIsActive(true)
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
         ;
 
         return $this->render('A2OrderBundle:Orders:index.html.twig', array(
