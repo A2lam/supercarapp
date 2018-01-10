@@ -185,11 +185,10 @@ class CarController extends Controller
             {
                 return $this->redirectToRoute('a2_customer_new', array('id' => $car->getId()));
             }
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Stock Mis à jour');
-
-            return $this->redirectToRoute('a2_stock_index');
+            else
+            {
+                return $this->redirectToRoute('a2_customer_exist', array('id' => $car->getId()));
+            }
         }
 
         return $this->render('A2CarBundle:Car:sold.html.twig', array(
