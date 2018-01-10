@@ -149,7 +149,7 @@ class CustomerController extends Controller
 
         return $this->render('A2CustomerBundle:Customer:sale.html.twig', array(
             'car'        => $car,
-            'sold_form'  => $customerForm->createView()
+            'customer_form'  => $customerForm->createView()
         ));
     }
 

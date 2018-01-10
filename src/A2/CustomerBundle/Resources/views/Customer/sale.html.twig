@@ -10,10 +10,10 @@
     <div class="form-horizontal">
         <hr />
         <div class="form-group">
-            {{ form_label(form.customer, "Liste des clients", {'label_attr': {'class': 'control-label col-md-2'}}) }}
-            {{ form_errors(form.customer) }}
+            {{ form_label(customer_form.customer, "Liste des clients", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(customer_form.customer) }}
             <div class="col-md-4">
-                {{ form_widget(form.customer, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(customer_form.customer, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
         <div class="form-group">
