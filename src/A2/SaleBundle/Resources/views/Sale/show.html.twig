@@ -1,48 +1,50 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CustomerBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Sale</h1>
+{% block customer_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ sale.id }}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ sale.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if sale.dateAdd %}{{ sale.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ sale.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if sale.dateUpdate %}{{ sale.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if sale.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails de la vente</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('sale_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('sale_edit', { 'id': sale.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom du client
+            </dt>
+            <dd>
+                {{ sale.customer.name }}
+            </dd>
+
+            <dt>
+                Prénom du client
+            </dt>
+            <dd>
+                {{ sale.customer.lastname }}
+            </dd>
+
+            <dt>
+                Modèle acheté
+            </dt>
+            <dd>
+                {{ sale.car.model.name }}
+            </dd>
+
+            <dt>
+                Date de vente
+            </dt>
+            <dd>
+                {{ sale.dateAdd }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_sale_index') }}">Retour à la liste</a>
+    </p>
+
+{% endblock customer_content %}
