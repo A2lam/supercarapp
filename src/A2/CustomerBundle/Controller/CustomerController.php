@@ -35,7 +35,7 @@ class CustomerController extends Controller
      * Creates a new customer entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id)
     {
         $customer = new Customer();
         $form = $this->createForm('A2\CustomerBundle\Form\CustomerType', $customer);
@@ -58,6 +58,7 @@ class CustomerController extends Controller
 
         return $this->render('A2CustomerBundle:Customer:new.html.twig', array(
             'customer' => $customer,
+            'id' => $id,
             'form' => $form->createView(),
         ));
     }

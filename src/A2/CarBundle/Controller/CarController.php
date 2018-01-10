@@ -183,9 +183,7 @@ class CarController extends Controller
         if ($soldForm->isSubmitted() && $soldForm->isValid()) {
             if ($soldForm->get('choice')->getData() == 1)
             {
-                return $this->render('A2CustomerBundle:Customer:new.html.twig', array(
-                    'car_id' => $car->getId()
-                ));
+                return $this->redirectToRoute('a2_customer_new', array('id' => $car->getId()));
             }
             $em->flush();
 

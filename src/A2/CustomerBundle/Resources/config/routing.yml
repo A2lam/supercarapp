@@ -13,9 +13,11 @@ a2_customer_show:
     methods:         GET
 
 a2_customer_new:
-    path:            /new
+    path:            /{id}/new
     defaults:
         _controller: A2CustomerBundle:Customer:new
+    requirements:
+        id:          \d+
     methods:         [GET, POST]
 
 a2_customer_edit:
