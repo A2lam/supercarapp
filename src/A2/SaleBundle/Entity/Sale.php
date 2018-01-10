@@ -27,6 +27,8 @@ class Sale
      */
     private $car;
 
+    private $sellerName;
+
     /**
      * @ORM\ManyToOne(targetEntity="A2\CustomerBundle\Entity\Customer")
      * @ORM\JoinColumn(nullable=false)
@@ -162,6 +164,18 @@ class Sale
     public function getDateUpdate()
     {
         return $this->dateUpdate;
+    }
+
+    public function getSelleName()
+    {
+        return $this->sellerName;
+    }
+
+    public function setSellerName($sellerName)
+    {
+        $this->isActive = $sellerName;
+
+        return $this;
     }
 
     /**
