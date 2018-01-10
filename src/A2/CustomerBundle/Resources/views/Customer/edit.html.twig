@@ -1,21 +1,93 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CustomerBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Customer edit</h1>
+{% block customer_content %}
+
+    <h2>Modification du client</h2>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+
+    {{ form_errors(edit_form) }}
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            {{ form_label(edit_form.name, "Nom", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(edit_form.name) }}
+            <div class="col-md-4">
+                {{ form_widget(edit_form.name, {'attr': {'class': 'form-control', 'value': customer.name }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.lastname, "Prénom", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(edit_form.lastname) }}
+            <div class="col-md-4">
+                {{ form_widget(edit_form.lastname, {'attr': {'class': 'form-control', 'value': customer.lastname }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.bday, "Date de naissance", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(form.bday) }}
+            <div class="col-md-3">
+                {{ form_widget(form.bday.day, {'attr': {'class': 'form-control', 'value': customer.bday.day }}) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.bday.month, {'attr': {'class': 'form-control', 'value': customer.bday.month }}) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_widget(form.bday.year, {'attr': {'class': 'form-control', 'value': customer.bday.year }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.address, "Adresse", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(edit_form.address.streetNb) }}
+            <div class="col-md-3">
+                {{ form_widget(edit_form.address.streetNb, {'attr': {'class': 'form-control', 'value': customer.address.streetNb }}) }}
+            </div>
+            {{ form_errors(edit_form.address.streetName) }}
+            <div class="col-md-7">
+                {{ form_widget(edit_form.address.streetName, {'attr': {'class': 'form-control', 'value': customer.address.streetName }}) }}
+            </div>
+            <div class="col-md-2"></div>
+            {{ form_errors(edit_form.address.complement) }}
+            <div class="col-md-10">
+                {{ form_widget(edit_form.address.complement, {'attr': {'class': 'form-control', 'value': customer.address.complement }}) }}
+            </div>
+            <div class="col-md-2"></div>
+            {{ form_errors(edit_form.address.zipCode) }}
+            <div class="col-md-3">
+                {{ form_widget(edit_form.address.zipCode, {'attr': {'class': 'form-control', 'value': customer.address.zipCode }}) }}
+            </div>
+            {{ form_errors(edit_form.address.town) }}
+            <div class="col-md-4">
+                {{ form_widget(edit_form.address.town, {'attr': {'class': 'form-control', 'value': customer.address.town }}) }}
+            </div>
+            {{ form_errors(edit_form.address.country) }}
+            <div class="col-md-3">
+                {{ form_widget(edit_form.address.country, {'attr': {'class': 'form-control', 'value': customer.address.country }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.email, "E-mail", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(edit_form.email) }}
+            <div class="col-md-4">
+                {{ form_widget(edit_form.email, {'attr': {'class': 'form-control', 'value': customer.email }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.num, "Numéro", {'label_attr': {'class': 'control-label col-md-2'}}) }}
+            {{ form_errors(edit_form.num) }}
+            <div class="col-md-4">
+                {{ form_widget(edit_form.num, {'attr': {'class': 'form-control', 'value': customer.num }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Valider" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <p><a href="{{ path('a2_customer_index') }}">Retour à la liste</a></p>
+
     {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('customer_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+{% endblock customer_content %}
