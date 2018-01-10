@@ -3,6 +3,7 @@
 namespace A2\CustomerBundle\Controller;
 
 use A2\CustomerBundle\Entity\Customer;
+use A2\SaleBundle\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -64,11 +65,30 @@ class CustomerController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $car = $em
+                ->getRepository('A2CarBundle:Car')
+                ->myFind($id)
+            ;
+
+            if (null == $car)
+                throw new NotFoundHttpException("La voiture d'id id n'existe pas");
+
+            $customer->addCar($car);
             $customer->setAdminAdd($this->getUser()->getId());
             $customer->setDateAdd(new \DateTime());
             $customer->setIsActive(true);
 
             $em->persist($customer);
+            $em->flush();
+
+            $sale = new Sale();
+            $sale->setCar($car);
+            $sale->setCustomer($customer);
+            $sale->setAdminAdd($this->getUser()->getId());
+            $sale->setDateAdd(new \DateTime());
+            $sale->setIsActive(true);
+
+            $em->persist($sale);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Client bien enregistré');
