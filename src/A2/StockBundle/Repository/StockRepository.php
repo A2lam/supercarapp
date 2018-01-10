@@ -97,7 +97,7 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
 }
