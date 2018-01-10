@@ -46,6 +46,8 @@ class CoreController extends Controller
 
                     if ($qteTotal < $model->getAlertValue())
                         $modelsAReguler[] = $model;
+
+                    $qteTotal = 0;
                 }
             }
             //elseif ($role == "ROLE_MANAGER")
