@@ -153,6 +153,56 @@ class CarController extends Controller
     }
 
     /**
+     * Methodes de mise en place d'une vente de voiture
+     */
+    public function soldAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $car = $em
+            ->getRepository('A2CarBundle:Car')
+            ->myFind($id)
+        ;
+
+        if (null == $car)
+            throw new NotFoundHttpException("La voiture d'id " .$id. " n'existe pas");
+
+        $nameAdminAdd = $em
+            ->getRepository('A2CarBundle:Car')
+            ->getAdminName($car, 'add')
+        ;
+
+        $nameUserUpdate = $em
+            ->getRepository('A2CarBundle:Car')
+            ->getAdminName($car, 'update')
+        ;
+
+        $soldForm = $this->createForm('A2\CustomerBundle\Form\ChoiceeType', null);
+        $soldForm->handleRequest($request);
+
+        if ($soldForm->isSubmitted() && $soldForm->isValid()) {
+            if ($soldForm->get('choice')->getData() == 1)
+            {
+                return $this->render('A2CustomerBundle:Customer:new.html.twig', array(
+                    'car_id' => $car->getId()
+                ));
+            }
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Stock Mis à jour');
+
+            return $this->redirectToRoute('a2_stock_index');
+        }
+
+        return $this->render('A2CarBundle:Car:sold.html.twig', array(
+            'car'          => $car,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'sold_form'  => $soldForm->createView()
+        ));
+    }
+
+    /**
      * Deletes a car entity.
      *
      */
