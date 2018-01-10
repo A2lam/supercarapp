@@ -17,9 +17,28 @@ class SaleController extends Controller
      * Lists all sale entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $sales = $em
+                    ->getRepository('A2SaleBundle:Sale')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2SaleBundle:Sale:index.html.twig', array(
+                    'sales' => $sales,
+                    'form' => $form->createView()
+                ));
+            }
+        }
 
         $sales = $em
             ->getRepository('A2SaleBundle:Sale')
@@ -28,6 +47,7 @@ class SaleController extends Controller
 
         return $this->render('A2SaleBundle:Sale:index.html.twig', array(
             'sales' => $sales,
+            'form' => $form->createView()
         ));
     }
 
@@ -83,45 +103,15 @@ class SaleController extends Controller
             ->getAdminName($sale, 'add')
         ;
 
-        return $this->render('A2SaleBundle:Sale:show.html.twig', array(
-            'sale' => $sale,
-            'nameAdminAdd' => $nameAdminAdd
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing sale entity.
-     *
-     */
-    public function editAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $sale = $em
+        $nameUserUpdate = $em
             ->getRepository('A2SaleBundle:Sale')
-            ->myFind($id)
+            ->getAdminName($sale, 'update')
         ;
 
-        if (null == $sale)
-            throw new NotFoundHttpException("La vente d'id " .$id. " n'existe pas");
-
-        $editForm = $this->createForm('A2\SaleBundle\Form\SaleType', $sale);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $sale->setUserUpdate($this->getUser()->getId());
-            $sale->setDateUpdate(new \DateTime());
-
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Vente bien modifiée');
-
-            return $this->redirectToRoute('a2_sale_edit', array('id' => $sale->getId()));
-        }
-
-        return $this->render('A2SaleBundle:Sale:edit.html.twig', array(
+        return $this->render('A2SaleBundle:Sale:show.html.twig', array(
             'sale' => $sale,
-            'edit_form' => $editForm->createView()
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
