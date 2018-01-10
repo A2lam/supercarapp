@@ -54,4 +54,18 @@ class CustomerRepository extends \Doctrine\ORM\EntityRepository
 
         return $name;
     }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->where('c.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
