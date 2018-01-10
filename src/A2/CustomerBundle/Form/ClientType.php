@@ -17,7 +17,7 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('customer',      EntityType::class, array(
+            ->add('customer', EntityType::class, array(
                 'class'        => 'A2CustomerBundle:Customer',
                 'choice_label' => 'fullName',
                 'multiple'     => false

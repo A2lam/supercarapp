@@ -4,6 +4,7 @@ namespace A2\CustomerBundle\Controller;
 
 use A2\CustomerBundle\Entity\Customer;
 use A2\SaleBundle\Entity\Sale;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -77,7 +78,6 @@ class CustomerController extends Controller
             $customer->setAdminAdd($this->getUser()->getId());
             $customer->setDateAdd(new \DateTime());
             $customer->setIsActive(true);
-
             $em->persist($customer);
             $em->flush();
 
@@ -87,8 +87,10 @@ class CustomerController extends Controller
             $sale->setAdminAdd($this->getUser()->getId());
             $sale->setDateAdd(new \DateTime());
             $sale->setIsActive(true);
-
             $em->persist($sale);
+            $em->flush();
+
+            $car->setIsSold(true);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Client et vente bien enregistrée');
@@ -118,6 +120,22 @@ class CustomerController extends Controller
 
         if (null == $customer)
             throw new NotFoundHttpException("Le client d'id " .$id. " n'existe pas");
+
+        $carsId = $em
+            ->getRepository('A2SaleBundle:Sale')
+            ->getCustomerCars($customer)
+        ;
+
+        foreach ($carsId as $key => $value)
+        {
+            $sale = $em
+                ->getRepository('A2SaleBundle:Sale')
+                ->myFind($value)
+            ;
+
+            if (!null == $sale)
+                $customer->addCar($sale->getCar());
+        }
 
         $nameAdminAdd = $em
             ->getRepository('A2CustomerBundle:Customer')
@@ -180,7 +198,7 @@ class CustomerController extends Controller
         $customerForm = $this->createForm('A2\CustomerBundle\Form\ClientType', null);
         $customerForm->handleRequest($request);
 
-        if ($customerForm->isSubmitted() && $customerForm->isValid()) {
+        if ($customerForm->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
 
             $car = $em
@@ -239,6 +257,22 @@ class CustomerController extends Controller
 
         if (null == $customer)
             throw new NotFoundHttpException("Le client d'id " .$id. " n'existe pas");
+
+        $carsId = $em
+            ->getRepository('A2SaleBundle:Sale')
+            ->getCustomerCars($customer)
+        ;
+
+        foreach ($carsId as $carId)
+        {
+            $car = $em
+                ->getRepository('A2CarBundle:Car')
+                ->find($carId)
+            ;
+
+            if (!null == $car)
+                $customer->addCar($car);
+        }
 
         $nameAdminAdd = $em
             ->getRepository('A2CustomerBundle:Customer')

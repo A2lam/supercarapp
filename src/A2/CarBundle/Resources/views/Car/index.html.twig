@@ -48,7 +48,9 @@
                 </td>
                 <td>
                     <a href="{{ path('a2_car_show', { 'id': car.id }) }}">Détails</a> |
-                    <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a> |
+                    {% if car.isSold == false %}
+                        <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a> |
+                    {% endif %}
                     <a href="{{ path('a2_car_delete', { 'id': car.id }) }}">Supprimer</a>
                 </td>
             </tr>

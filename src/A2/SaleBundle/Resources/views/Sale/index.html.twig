@@ -37,7 +37,7 @@
                     {{ sale.car.model.name }}
                 </td>
                 <td>
-                    {{ sale.dateAdde }}
+                    {{ sale.dateAdd|date("d/m/Y h:m:s") }}
                 </td>
                 <td>
                     <a href="{{ path('a2_sale_show', { 'id': sale.id }) }}">Détails</a> |

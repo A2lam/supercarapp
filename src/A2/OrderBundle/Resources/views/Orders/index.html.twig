@@ -48,7 +48,9 @@
                 </td>
                 <td>
                     <a href="{{ path('a2_orders_show', { 'id': order.id }) }}">Détails</a> |
-                    <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a> |
+                    {% if order.isReceived == false %}
+                        <a href="{{ path('a2_orders_edit', { 'id': order.id }) }}">Modifier</a> |
+                    {% endif %}
                     <a href="{{ path('a2_orders_delete', { 'id': order.id }) }}">Supprimer</a>
                 </td>
             </tr>

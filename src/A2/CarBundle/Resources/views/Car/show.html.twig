@@ -141,9 +141,9 @@
         </dl>
     </div>
     <p>
-        <a href="{{ path('a2_car_index') }}">Retour à la liste</a> |
+        <a href="{{ path('a2_car_index') }}">Retour à la liste</a>
         {% if car.isSold == false %}
-            <a href="{{ path('a2_car_sold', { 'id': car.id }) }}">Procéder à la vente de la voiture</a> |
+            | <a href="{{ path('a2_car_sold', { 'id': car.id }) }}">Procéder à la vente de la voiture</a> |
             <a href="{{ path('a2_car_edit', { 'id': car.id }) }}">Modifier</a>
         {% endif %}
     </p>

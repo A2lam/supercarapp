@@ -68,4 +68,23 @@ class SaleRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function getCustomerCars($customer)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        $qb
+            ->select('s.id')
+            ->where('s.customer = :customer')
+            ->setParameter('customer', $customer)
+        ;
+
+        $result = array();
+        $results = $qb->getQuery()->getArrayResult();
+        foreach ($results as $res)
+        {
+            $result[] = $res['id'];
+        }
+        return $result;
+    }
 }

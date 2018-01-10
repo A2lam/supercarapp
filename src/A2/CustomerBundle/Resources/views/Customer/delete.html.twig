@@ -27,7 +27,7 @@
                 Date de naissance
             </dt>
             <dd>
-                {{ customer.bday }}
+                {{ customer.bday|date("d/m/Y h:m:s") }}
             </dd>
 
             <dt>
@@ -53,6 +53,15 @@
             </dt>
             <dd>
                 {{ customer.num }}
+            </dd>
+
+            <dt>
+                Voitures achetés
+            </dt>
+            <dd>
+                {% for car in customer.cars %}
+                    - {{ car.model.name }} <br />
+                {% endfor %}
             </dd>
 
             <dt>
