@@ -74,6 +74,7 @@ class CustomerController extends Controller
             if (null == $car)
                 throw new NotFoundHttpException("La voiture d'id id n'existe pas");
 
+            // Enregistrement du client
             $customer->addCar($car);
             $customer->setAdminAdd($this->getUser()->getId());
             $customer->setDateAdd(new \DateTime());
@@ -81,6 +82,7 @@ class CustomerController extends Controller
             $em->persist($customer);
             $em->flush();
 
+            // Enregistrement de la vente
             $sale = new Sale();
             $sale->setCar($car);
             $sale->setCustomer($customer);
@@ -90,7 +92,14 @@ class CustomerController extends Controller
             $em->persist($sale);
             $em->flush();
 
+            // Marquage de la voiture comme vendu et diminution du stock
             $car->setIsSold(true);
+            $stock = $em
+                ->getRepository('A2StockBundle:Stock')
+                ->findByModelAndStorehouse($car->getModel(), $car->getStorehouse())
+            ;
+            if (!null == $stock)
+                $stock->setQuantity($stock->getQuantity() - 1);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Client et vente bien enregistrée');
@@ -220,6 +229,7 @@ class CustomerController extends Controller
 
             $em->persist($customer);
 
+            // Enregistrement de la vente
             $sale = new Sale();
             $sale->setCar($car);
             $sale->setCustomer($customer);
@@ -228,6 +238,15 @@ class CustomerController extends Controller
             $sale->setIsActive(true);
 
             $em->persist($sale);
+
+            // Marquage de la voiture comme vendu et diminution du stock
+            $car->setIsSold(true);
+            $stock = $em
+                ->getRepository('A2StockBundle:Stock')
+                ->findByModelAndStorehouse($car->getModel(), $car->getStorehouse())
+            ;
+            if (!null == $stock)
+                $stock->setQuantity($stock->getQuantity() - 1);
 
             $em->flush();
 
