@@ -85,4 +85,19 @@ class StockRepository extends \Doctrine\ORM\EntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findByModel($model)
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        $qb
+            ->where('s.model = :model')
+            ->setParameter('model', $model)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
