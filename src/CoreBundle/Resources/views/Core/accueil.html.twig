@@ -1,1 +1,56 @@
 {% extends "CoreBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <div class="jumbotron">
+        <h3 style="text-align: center">Bonjour {{ app.user.name }} {{ app.user.lastname }}</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 alert alert-danger">
+            {% if modelsAReguler != null %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../../../../../web/img/378px-Avertissement_orange.svg.png" width="100" height="100" />
+                    </div>
+                    <div class="col-md-9">
+                        <h3 style="color: red">De nouvelles commandes sont à passer !</h3>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <p>Les modèles suivants ont atteints leur valeurs d'alerte</p>
+                {% for model in modelsAReguler %}
+                    <p style="margin-left: 30px"> - {{ model.name }}</p>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../../../../../web/img/smiley-face-png-96527038_o.png" width="100" height="100" />
+                    </div>
+                    <div class="col-md-9">
+                        <h3 style="color: blue">Aucune notification personnelle</h3>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6 alert alert-info">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Les dernières ventes !!</h2>
+                    {% for sale in sales %}
+                        <p>L'employé {{ app.user.lastname }} a vendu une {{ sale.car.model.brand.name }} {{ sale.car.model.name }} ({{ sale.car.storehouse.name }})</p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-12">
+                    <h2>Les nouveaux arrivages :</h2>
+                    {% for order in orders %}
+                        <p>{{ order.quantity }} nouvelles {{ order.model.brand.name }} {{ order.model.name }} pour l'entrepot de {{ order.storehouse.name }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
