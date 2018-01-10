@@ -91,7 +91,7 @@ class CustomerController extends Controller
             $em->persist($sale);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Client bien enregistré');
+            $request->getSession()->getFlashBag()->add('notice', 'Client et vente bien enregistrée');
 
             return $this->redirectToRoute('a2_customer_show', array('id' => $customer->getId()));
         }
@@ -177,24 +177,49 @@ class CustomerController extends Controller
      */
     public function saleAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $car = $em
-            ->getRepository('A2CarBundle:Car')
-            ->myFind($id)
-        ;
-
-        if (null == $car)
-            throw new NotFoundHttpException("La voiture d'id " .$id. " n'existe pas");
-
         $customerForm = $this->createForm('A2\CustomerBundle\Form\ClientType', null);
         $customerForm->handleRequest($request);
 
-        //if ($customerForm->isSubmitted() && $customerForm->isValid()) {
-        //}
+        if ($customerForm->isSubmitted() && $customerForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $car = $em
+                ->getRepository('A2CarBundle:Car')
+                ->myFind($id)
+            ;
+
+            if (null == $car)
+                throw new NotFoundHttpException("La voiture d'id " .$id. " n'existe pas");
+
+            $customer = $customerForm->get('customer')->getData();
+
+            if (null == $customer)
+                throw new NotFoundHttpException("Le client d'id " .$id. " n'existe pas");
+
+            $customer->addCar($car);
+            $customer->setUserUpdate($this->getUser()->getId());
+            $customer->setDateUpdate(new \DateTime());
+
+            $em->persist($customer);
+
+            $sale = new Sale();
+            $sale->setCar($car);
+            $sale->setCustomer($customer);
+            $sale->setAdminAdd($this->getUser()->getId());
+            $sale->setDateAdd(new \DateTime());
+            $sale->setIsActive(true);
+
+            $em->persist($sale);
+
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Vente bien enregistrée');
+
+            return $this->redirectToRoute('a2_customer_show', array('id' => $customer->getId()));
+        }
 
         return $this->render('A2CustomerBundle:Customer:sale.html.twig', array(
-            'car'        => $car,
+            'id'        => $id,
             'customer_form'  => $customerForm->createView()
         ));
     }
