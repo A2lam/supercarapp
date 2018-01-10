@@ -1,0 +1,58 @@
+{% extends "A2SaleBundle::layout.html.twig" %}
+
+{% block sale_content %}
+
+    <h2>Suppression de la vente</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer cette vente ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom du client
+            </dt>
+            <dd>
+                {{ sale.customer.name }}
+            </dd>
+
+            <dt>
+                Prénom du client
+            </dt>
+            <dd>
+                {{ sale.customer.lastname }}
+            </dd>
+
+            <dt>
+                Modèle acheté
+            </dt>
+            <dd>
+                {{ sale.car.model.name }}
+            </dd>
+
+            <dt>
+                Date de vente
+            </dt>
+            <dd>
+                {{ sale.dateAdd }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_sale_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock sale_content %}
