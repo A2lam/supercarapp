@@ -127,6 +127,33 @@ class CustomerController extends Controller
     }
 
     /**
+     * Gestion de la vente a un client existant
+     */
+    public function saleAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $car = $em
+            ->getRepository('A2CarBundle:Car')
+            ->myFind($id)
+        ;
+
+        if (null == $car)
+            throw new NotFoundHttpException("La voiture d'id " .$id. " n'existe pas");
+
+        $customerForm = $this->createForm('A2\CustomerBundle\Form\ClientType', null);
+        $customerForm->handleRequest($request);
+
+        //if ($customerForm->isSubmitted() && $customerForm->isValid()) {
+        //}
+
+        return $this->render('A2CustomerBundle:Customer:sale.html.twig', array(
+            'car'        => $car,
+            'sold_form'  => $customerForm->createView()
+        ));
+    }
+
+    /**
      * Deletes a customer entity.
      *
      */
