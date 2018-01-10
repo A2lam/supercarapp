@@ -42,7 +42,7 @@
                 <div class="col-md-12">
                     <h2>Les dernières ventes !!</h2>
                     {% for sale in sales %}
-                        <p>L'employé {{ app.user.lastname }} a vendu une {{ sale.car.model.brand.name }} {{ sale.car.model.name }} ({{ sale.car.storehouse.name }})</p>
+                        <p>L'employé {{ sale.sellerName }} a vendu une {{ sale.car.model.brand.name }} {{ sale.car.model.name }} ({{ sale.car.storehouse.name }})</p>
                     {% endfor %}
                 </div>
                 <div class="col-md-12">

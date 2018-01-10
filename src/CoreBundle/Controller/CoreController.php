@@ -70,6 +70,15 @@ class CoreController extends Controller
                 0
             )
         ;
+        // Etablissement des noms de vendeurs
+        foreach ($sales as $sale)
+        {
+            $sellerName = $em
+                ->getRepository('A2SaleBundle:Sale')
+                ->getAdminName($sale, 'add')
+            ;
+            $sale->setSellerName($sellerName);
+        }
         $orders = $em
             ->getRepository('A2OrderBundle:Orders')
             ->findBy(

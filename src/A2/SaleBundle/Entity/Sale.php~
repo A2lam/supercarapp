@@ -166,18 +166,6 @@ class Sale
         return $this->dateUpdate;
     }
 
-    public function getSellerName()
-    {
-        return $this->sellerName;
-    }
-
-    public function setSellerName($sellerName)
-    {
-        $this->sellerName = $sellerName;
-
-        return $this;
-    }
-
     /**
      * Set isActive
      *
