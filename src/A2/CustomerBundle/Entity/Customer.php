@@ -229,6 +229,15 @@ class Customer
     {
         return $this->num;
     }
+
+    /**
+     * Retourne nom + prenom
+     */
+    public function getFullName()
+    {
+        return $this->getName(). ' ' .$this->getLastname();
+    }
+
     /**
      * Constructor
      */
