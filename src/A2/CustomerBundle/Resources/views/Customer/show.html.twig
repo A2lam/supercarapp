@@ -1,68 +1,92 @@
-{% extends 'base.html.twig' %}
+{% extends "A2CustomerBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Customer</h1>
+{% block customer_content %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ customer.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ customer.name }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ customer.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Bday</th>
-                <td>{% if customer.bday %}{{ customer.bday|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ customer.email }}</td>
-            </tr>
-            <tr>
-                <th>Num</th>
-                <td>{{ customer.num }}</td>
-            </tr>
-            <tr>
-                <th>Adminadd</th>
-                <td>{{ customer.adminAdd }}</td>
-            </tr>
-            <tr>
-                <th>Dateadd</th>
-                <td>{% if customer.dateAdd %}{{ customer.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Userupdate</th>
-                <td>{{ customer.userUpdate }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{% if customer.dateUpdate %}{{ customer.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{% if customer.isActive %}Yes{% else %}No{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2>Détails du client</h2>
 
-    <ul>
-        <li>
-            <a href="{{ path('customer_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('customer_edit', { 'id': customer.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ customer.name }}
+            </dd>
+
+            <dt>
+                Prénom
+            </dt>
+            <dd>
+                {{ customer.lastname }}
+            </dd>
+
+            <dt>
+                Date de naissance
+            </dt>
+            <dd>
+                {{ customer.bday }}
+            </dd>
+
+            <dt>
+                Adresse
+            </dt>
+            <dd>
+                {{ customer.address.streetNb }} {{ customer.address.streetName }} <br />
+                {% if customer.address.complement is not null %}
+                    {{ customer.address.complement }} <br />
+                {% endif %}
+                {{ customer.address.zipCode }}, {{ customer.address.town }}, {{ customer.address.country }}
+            </dd>
+
+            <dt>
+                E-mail
+            </dt>
+            <dd>
+                {{ customer.email }}
+            </dd>
+
+            <dt>
+                Téléphone
+            </dt>
+            <dd>
+                {{ customer.num }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ customer.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if customer.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ customer.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+    <p>
+        <a href="{{ path('a2_customer_index') }}">Retour à la liste</a> |
+        <a href="{{ path('a2_customer_edit', { 'id': customer.id }) }}">Modifier</a>
+    </p>
+
+{% endblock customer_content %}
