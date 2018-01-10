@@ -103,15 +103,9 @@ class SaleController extends Controller
             ->getAdminName($sale, 'add')
         ;
 
-        $nameUserUpdate = $em
-            ->getRepository('A2SaleBundle:Sale')
-            ->getAdminName($sale, 'update')
-        ;
-
         return $this->render('A2SaleBundle:Sale:show.html.twig', array(
             'sale' => $sale,
-            'nameAdminAdd' => $nameAdminAdd,
-            'nameUserUpdate' => $nameUserUpdate
+            'nameAdminAdd' => $nameAdminAdd
         ));
     }
 
@@ -131,12 +125,28 @@ class SaleController extends Controller
         if (null == $sale)
             throw new NotFoundHttpException("La vente d'id " .$id. " n'existe pas");
 
-        $sale->setIsActive(false);
+        $nameAdminAdd = $em
+            ->getRepository('A2SaleBundle:Sale')
+            ->getAdminName($sale, 'add')
+        ;
 
-        $em->flush();
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
 
-        $request->getSession()->getFlashBag()->add('notice', 'Vente supprimée');
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $sale->setIsActive(false);
 
-        return $this->redirectToRoute('a2_sale_index');
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Vente supprimée');
+
+            return $this->redirectToRoute('a2_sale_index');
+        }
+
+        return $this->render('A2SaleBundle:Sale:delete.html.twig', array(
+            'sale'     => $sale,
+            'nameAdminAdd' => $nameAdminAdd,
+            'delete_form' => $deleteForm->createView()
+        ));
     }
 }
