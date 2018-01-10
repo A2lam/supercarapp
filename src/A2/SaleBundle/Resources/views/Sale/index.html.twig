@@ -1,47 +1,50 @@
-{% extends 'base.html.twig' %}
+{% extends "A2SaleBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Sales list</h1>
+{% block sale_content %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h2>Liste des Ventes</h2>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher une vente</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Nom du client
+            </th>
+            <th>
+                Modèle acheté
+            </th>
+            <th>
+                Date de la vente
+            </th>
+        </tr>
+
         {% for sale in sales %}
             <tr>
-                <td><a href="{{ path('sale_show', { 'id': sale.id }) }}">{{ sale.id }}</a></td>
-                <td>{{ sale.adminAdd }}</td>
-                <td>{% if sale.dateAdd %}{{ sale.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ sale.userUpdate }}</td>
-                <td>{% if sale.dateUpdate %}{{ sale.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if sale.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('sale_show', { 'id': sale.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('sale_edit', { 'id': sale.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ sale.customer.fullName }}
+                </td>
+                <td>
+                    {{ sale.car.model.name }}
+                </td>
+                <td>
+                    {{ sale.dateAdde }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_sale_show', { 'id': sale.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_sale_delete', { 'id': sale.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('sale_new') }}">Create a new sale</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock sale_content %}
