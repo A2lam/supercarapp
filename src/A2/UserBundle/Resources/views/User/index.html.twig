@@ -1,55 +1,45 @@
-{% extends 'base.html.twig' %}
+{% extends "A2UserBundle::layout.html.twig" %}
 
-{% block body %}
-    <h1>Users list</h1>
+{% block fos_user_content %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Bday</th>
-                <th>Num</th>
-                <th>Adminadd</th>
-                <th>Dateadd</th>
-                <th>Userupdate</th>
-                <th>Dateupdate</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h2>Liste des Utilisateurs</h2>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table align="right">
+        <tr>
+            <td>Rechercher un utilisateur</td>
+            <td>{{ form_widget(form.searchString, {'attr': {'class': 'form-control'}}) }}</td>
+            <td><input type="submit" value="Rechercher" class="btn btn-default"></td>
+        </tr>
+    </table>
+    {{ form_end(form) }}
+
+    <table class="table">
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Prénom
+            </th>
+        </tr>
+
         {% for user in users %}
             <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{% if user.bday %}{{ user.bday|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ user.num }}</td>
-                <td>{{ user.adminAdd }}</td>
-                <td>{% if user.dateAdd %}{{ user.dateAdd|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ user.userUpdate }}</td>
-                <td>{% if user.dateUpdate %}{{ user.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if user.isActive %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ user.name }}
+                </td>
+                <td>
+                    {{ user.lastname }}
+                </td>
+                <td>
+                    <a href="{{ path('a2_user_show', { 'id': user.id }) }}">Détails</a> |
+                    <a href="{{ path('a2_user_edit', { 'id': user.id }) }}">Modifier</a> |
+                    <a href="{{ path('a2_user_delete', { 'id': user.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
-{% endblock %}
+{% endblock fos_user_content %}
