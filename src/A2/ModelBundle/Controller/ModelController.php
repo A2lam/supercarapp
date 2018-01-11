@@ -6,6 +6,7 @@ use A2\ModelBundle\Entity\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Model controller.
@@ -15,7 +16,7 @@ class ModelController extends Controller
 {
     /**
      * Lists all model entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class ModelController extends Controller
 
     /**
      * Creates a new model entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class ModelController extends Controller
 
     /**
      * Finds and displays a model entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function showAction($id)
     {
@@ -120,7 +121,7 @@ class ModelController extends Controller
 
     /**
      * Displays a form to edit an existing model entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -156,7 +157,7 @@ class ModelController extends Controller
 
     /**
      * Deletes a model entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function deleteAction(Request $request, $id)
     {
