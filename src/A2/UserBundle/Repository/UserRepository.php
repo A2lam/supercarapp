@@ -1,6 +1,7 @@
 <?php
 
 namespace A2\UserBundle\Repository;
+use A2\UserBundle\Entity\User;
 
 /**
  * UserRepository
@@ -10,4 +11,61 @@ namespace A2\UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFind($id)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('u.isActive = :isActive')
+            ->setParameter('isActive', 1)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function myRemove($id)
+    {
+        $user = $this->myFind($id);
+        $user->setIsActive(false);
+
+        return;
+    }
+
+    public function getAdminName(User $user, $action)
+    {
+        $query = $this->_em->createQuery('SELECT u.name, u.lastname FROM A2UserBundle:User u WHERE u.id = :id');
+
+        if ($action == 'add')
+            $query->setParameter('id', $user->getAdminAdd());
+        else
+            $query->setParameter('id', $user->getUserUpdate());
+
+        $name = "";
+        $results = $query->getArrayResult();
+        foreach ($results as $result)
+        {
+            $name = $result['name'];
+            $name .= ' ' .$result['lastname'];
+        }
+
+        return $name;
+    }
+
+    public function findByKeyword($keyword)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb
+            ->where('u.name LIKE \'%'. $keyword .'%\'')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
