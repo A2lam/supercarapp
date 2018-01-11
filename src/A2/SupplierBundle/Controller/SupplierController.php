@@ -6,6 +6,7 @@ use A2\SupplierBundle\Entity\Supplier;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Supplier controller.
@@ -15,7 +16,7 @@ class SupplierController extends Controller
 {
     /**
      * Lists all supplier entities.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class SupplierController extends Controller
 
     /**
      * Creates a new supplier entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class SupplierController extends Controller
 
     /**
      * Finds and displays a supplier entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction($id)
     {
@@ -120,7 +121,7 @@ class SupplierController extends Controller
 
     /**
      * Displays a form to edit an existing supplier entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, $id)
     {
@@ -156,7 +157,7 @@ class SupplierController extends Controller
 
     /**
      * Deletes a supplier entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
