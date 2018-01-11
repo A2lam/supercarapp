@@ -4,10 +4,10 @@ namespace A2\CustomerBundle\Controller;
 
 use A2\CustomerBundle\Entity\Customer;
 use A2\SaleBundle\Entity\Sale;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Customer controller.
@@ -17,7 +17,7 @@ class CustomerController extends Controller
 {
     /**
      * Lists all customer entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -58,7 +58,7 @@ class CustomerController extends Controller
 
     /**
      * Creates a new customer entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction(Request $request, $id)
     {
@@ -119,7 +119,7 @@ class CustomerController extends Controller
 
     /**
      * Finds and displays a customer entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
@@ -168,7 +168,7 @@ class CustomerController extends Controller
 
     /**
      * Displays a form to edit an existing customer entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -204,6 +204,7 @@ class CustomerController extends Controller
 
     /**
      * Gestion de la vente a un client existant
+     * @Security("has_role('ROLE_USER')")
      */
     public function saleAction(Request $request, $id)
     {
@@ -266,7 +267,7 @@ class CustomerController extends Controller
 
     /**
      * Deletes a customer entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request, $id)
     {
