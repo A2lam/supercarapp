@@ -1,6 +1,6 @@
-{% extends "A2UserBundle::layout.html.twig" %}
+{% extends "CoreBundle::layout.html.twig" %}
 
-{% block fos_user_content %}
+{% block content %}
 
     <h2>Liste des Utilisateurs</h2>
 
@@ -35,11 +35,10 @@
                 </td>
                 <td>
                     <a href="{{ path('a2_user_show', { 'id': user.id }) }}">Détails</a> |
-                    <a href="{{ path('a2_user_edit', { 'id': user.id }) }}">Modifier</a> |
                     <a href="{{ path('a2_user_delete', { 'id': user.id }) }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
     </table>
 
-{% endblock fos_user_content %}
+{% endblock content %}

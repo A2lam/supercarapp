@@ -5,6 +5,7 @@ namespace A2\UserBundle\Controller;
 use A2\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * User controller.
@@ -81,13 +82,32 @@ class UserController extends Controller
      * Finds and displays a user entity.
      *
      */
-    public function showAction(User $user)
+    public function showAction($id)
     {
-        $deleteForm = $this->createDeleteForm($user);
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('user/show.html.twig', array(
+        $user = $em
+            ->getRepository('A2UserBundle:User')
+            ->myFind($id)
+        ;
+
+        if (null == $user)
+            throw new NotFoundHttpException("L'utilisateur d'id " .$id. " n'existe pas");
+
+        $nameAdminAdd = $em
+            ->getRepository('A2UserBundle:User')
+            ->getAdminName($user, 'add')
+        ;
+
+        $nameUserUpdate = $em
+            ->getRepository('A2UserBundle:User')
+            ->getAdminName($user, 'update')
+        ;
+
+        return $this->render('A2UserBundle:User:show.html.twig', array(
             'user' => $user,
-            'delete_form' => $deleteForm->createView(),
+            'nameAdminAdd' => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate
         ));
     }
 
@@ -118,33 +138,46 @@ class UserController extends Controller
      * Deletes a user entity.
      *
      */
-    public function deleteAction(Request $request, User $user)
+    public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($user);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
+        $user = $em
+            ->getRepository('A2UserBundle:User')
+            ->myFind($id)
+        ;
+
+        if (null == $user)
+            throw new NotFoundHttpException("L'utilisateur d'id " .$id. " n'existe pas");
+
+        $nameAdminAdd = $em
+            ->getRepository('A2UserBundle:User')
+            ->getAdminName($user, 'add')
+        ;
+
+        $nameUserUpdate = $em
+            ->getRepository('A2UserBundle:User')
+            ->getAdminName($user, 'update')
+        ;
+
+        $deleteForm = $this->createFormBuilder()->getForm();
+        $deleteForm->handleRequest($request);
+
+        if ($deleteForm->isSubmitted() && $deleteForm->isValid()) {
+            $user->setIsActive(false);
+
             $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Utilisateur supprimé');
+
+            return $this->redirectToRoute('a2_user_index');
         }
 
-        return $this->redirectToRoute('user_index');
-    }
-
-    /**
-     * Creates a form to delete a user entity.
-     *
-     * @param User $user The user entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(User $user)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        return $this->render('A2SupplierBundle:Supplier:delete.html.twig', array(
+            'user'     => $user,
+            'nameAdminAdd'   => $nameAdminAdd,
+            'nameUserUpdate' => $nameUserUpdate,
+            'delete_form'    => $deleteForm->createView()
+        ));
     }
 }
