@@ -6,6 +6,7 @@ use A2\CarBundle\Entity\Car;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Car controller.
@@ -15,7 +16,7 @@ class CarController extends Controller
 {
     /**
      * Lists all car entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class CarController extends Controller
 
     /**
      * Creates a new car entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction(Request $request)
     {
@@ -88,7 +89,7 @@ class CarController extends Controller
 
     /**
      * Finds and displays a car entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
@@ -121,7 +122,7 @@ class CarController extends Controller
 
     /**
      * Displays a form to edit an existing car entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -157,6 +158,7 @@ class CarController extends Controller
 
     /**
      * Methodes de mise en place d'une vente de voiture
+     * @Security("has_role('ROLE_USER')")
      */
     public function soldAction(Request $request, $id)
     {
@@ -204,7 +206,7 @@ class CarController extends Controller
 
     /**
      * Deletes a car entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function deleteAction(Request $request, $id)
     {
