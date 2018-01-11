@@ -6,6 +6,7 @@ use A2\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * User controller.
@@ -15,7 +16,7 @@ class UserController extends Controller
 {
     /**
      * Lists all user entities.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class UserController extends Controller
 
     /**
      * Creates a new user entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -80,7 +81,7 @@ class UserController extends Controller
 
     /**
      * Finds and displays a user entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction($id)
     {
@@ -113,7 +114,7 @@ class UserController extends Controller
 
     /**
      * Displays a form to edit an existing user entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, User $user)
     {
@@ -136,7 +137,7 @@ class UserController extends Controller
 
     /**
      * Deletes a user entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
