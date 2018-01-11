@@ -1,0 +1,92 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h2>Suppression de l'utilisateur</h2>
+
+    <h3>Etes-vous sûr de vouloir supprimer cet utilisateur ?</h3>
+
+    <div>
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt>
+                Nom
+            </dt>
+            <dd>
+                {{ user.name }}
+            </dd>
+
+            <dt>
+                Prénom
+            </dt>
+            <dd>
+                {{ user.lastname }}
+            </dd>
+
+            <dt>
+                Date de naissance
+            </dt>
+            <dd>
+                {{ user.bday|date("d/m/Y h:m:s") }}
+            </dd>
+
+            <dt>
+                Numéro
+            </dt>
+            <dd>
+                {{ user.num }}
+            </dd>
+
+            <dt>
+                Adresse
+            </dt>
+            <dd>
+                {{ user.address.streetNb }} {{ user.address.streetName }} <br />
+                {% if user.address.complement is not null %}
+                    {{ user.address.complement }} <br />
+                {% endif %}
+                {{ user.address.zipCode }}, {{ user.address.town }}, {{ user.address.country }}
+            </dd>
+
+            <dt>
+                Administateur d'ajout
+            </dt>
+            <dd>
+                {{ nameAdminAdd }}
+            </dd>
+
+            <dt>
+                Date d'ajout
+            </dt>
+            <dd>
+                {{ user.dateAdd|date("d/m/Y h:m:s") }}
+            </dd>
+
+            {% if user.userUpdate is not null %}
+                <dt>
+                    Administateur de mise à jour
+                </dt>
+                <dd>
+                    {{ nameUserUpdate }}
+                </dd>
+
+                <dt>
+                    Date de mise à jour
+                </dt>
+                <dd>
+                    {{ user.dateUpdate|date("d/m/Y h:m:s") }}
+                </dd>
+            {% endif %}
+        </dl>
+
+        {{ form_start(delete_form) }}
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+            <a href="{{ path('a2_user_index') }}">Retour à la liste</a>
+        </div>
+
+        {{ form_end(delete_form) }}
+    </div>
+
+{% endblock content %}

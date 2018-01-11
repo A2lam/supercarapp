@@ -173,7 +173,7 @@ class UserController extends Controller
             return $this->redirectToRoute('a2_user_index');
         }
 
-        return $this->render('A2SupplierBundle:Supplier:delete.html.twig', array(
+        return $this->render('A2UserBundle:User:delete.html.twig', array(
             'user'     => $user,
             'nameAdminAdd'   => $nameAdminAdd,
             'nameUserUpdate' => $nameUserUpdate,
