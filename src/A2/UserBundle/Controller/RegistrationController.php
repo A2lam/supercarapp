@@ -22,9 +22,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\HttpCache\Store;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class RegistrationController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return null|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function registerAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
