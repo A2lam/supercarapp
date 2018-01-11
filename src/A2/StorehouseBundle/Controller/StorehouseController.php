@@ -6,6 +6,7 @@ use A2\StorehouseBundle\Entity\Storehouse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Storehouse controller.
@@ -15,7 +16,7 @@ class StorehouseController extends Controller
 {
     /**
      * Lists all storehouse entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class StorehouseController extends Controller
 
     /**
      * Creates a new storehouse entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class StorehouseController extends Controller
 
     /**
      * Finds and displays a storehouse entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function showAction($id)
     {
@@ -120,7 +121,7 @@ class StorehouseController extends Controller
 
     /**
      * Displays a form to edit an existing storehouse entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -156,7 +157,7 @@ class StorehouseController extends Controller
 
     /**
      * Deletes a storehouse entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function deleteAction(Request $request, $id)
     {
