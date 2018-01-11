@@ -3,6 +3,7 @@
 {% block content %}
 
     <h2>Liste des Utilisateurs</h2>
+    <p><a href="{{ path('fos_user_registration_register') }}">Créer un nouvel utilisateur</a></p>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
