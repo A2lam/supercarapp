@@ -16,14 +16,40 @@ class UserController extends Controller
      * Lists all user entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('A2UserBundle:User')->findAll();
+        $form = $this->createForm('CoreBundle\Form\SearchType', null);
+        $form->handleRequest($request);
 
-        return $this->render('user/index.html.twig', array(
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if (!null == $data)
+            {
+                $users = $em
+                    ->getRepository('A2UserBundle:User')
+                    ->findByKeyword($data['searchString'])
+                ;
+
+                return $this->render('A2UserBundle:User:index.html.twig', array(
+                    'users' => $users,
+                    'form' => $form->createView()
+                ));
+            }
+        }
+
+        $users = $em
+            ->getRepository('A2UserBundle:User')
+            ->findBy(
+                array('isActive' => true),
+                array('dateAdd'  => 'DESC')
+            )
+        ;
+
+        return $this->render('A2UserBundle:User:index.html.twig', array(
             'users' => $users,
+            'form' => $form->createView()
         ));
     }
 
