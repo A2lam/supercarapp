@@ -6,6 +6,7 @@ use A2\CategoryBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Category controller.
@@ -15,7 +16,7 @@ class CategoryController extends Controller
 {
     /**
      * Lists all category entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class CategoryController extends Controller
 
     /**
      * Creates a new category entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class CategoryController extends Controller
 
     /**
      * Finds and displays a category entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function showAction($id)
     {
@@ -122,7 +123,7 @@ class CategoryController extends Controller
 
     /**
      * Displays a form to edit an existing category entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -158,7 +159,7 @@ class CategoryController extends Controller
 
     /**
      * Deletes a category entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function deleteAction(Request $request, $id)
     {
