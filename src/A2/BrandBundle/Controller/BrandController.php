@@ -6,6 +6,7 @@ use A2\BrandBundle\Entity\Brand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Brand controller.
@@ -15,7 +16,7 @@ class BrandController extends Controller
 {
     /**
      * Lists all brand entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class BrandController extends Controller
 
     /**
      * Creates a new brand entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class BrandController extends Controller
 
     /**
      * Finds and displays a brand entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function showAction($id)
     {
@@ -121,7 +122,7 @@ class BrandController extends Controller
 
     /**
      * Displays a form to edit an existing brand entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function editAction(Request $request, $id)
     {
@@ -157,7 +158,7 @@ class BrandController extends Controller
 
     /**
      * Deletes a brand entity.
-     *
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function deleteAction(Request $request, $id)
     {
