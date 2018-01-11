@@ -6,6 +6,7 @@ use A2\SaleBundle\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Sale controller.
@@ -15,7 +16,7 @@ class SaleController extends Controller
 {
     /**
      * Lists all sale entities.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class SaleController extends Controller
 
     /**
      * Creates a new sale entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction(Request $request)
     {
@@ -87,7 +88,7 @@ class SaleController extends Controller
 
     /**
      * Finds and displays a sale entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
@@ -114,7 +115,7 @@ class SaleController extends Controller
 
     /**
      * Deletes a sale entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request, $id)
     {
