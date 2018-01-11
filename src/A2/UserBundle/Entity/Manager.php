@@ -24,7 +24,6 @@ class Manager
 
     /**
      * @ORM\OneToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", mappedBy="manager", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $storehouse;
 

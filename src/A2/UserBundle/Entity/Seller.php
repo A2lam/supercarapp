@@ -24,7 +24,6 @@ class Seller
 
     /**
      * @ORM\ManyToOne(targetEntity="A2\StorehouseBundle\Entity\Storehouse", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $storehouse;
 
