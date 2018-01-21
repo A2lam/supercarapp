@@ -7,7 +7,7 @@ security:
 
     role_hierarchy:
         # Un manager hérite des droits d'utilisateur de base
-        ROLE_MANAGER:      ROLE_USER
+        ROLE_MANAGER:      ROLE_SELLER
         # Un admin a aussi les droits manager et plus
         ROLE_ADMIN:        ROLE_MANAGER
         # Puis le role superadmin

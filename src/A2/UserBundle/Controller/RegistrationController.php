@@ -97,7 +97,7 @@ class RegistrationController extends Controller
                 }
                 if ($roleForm->get('role')->getData() == 3)
                 {
-                    $user->setRoles(array('ROLE_USER'));
+                    $user->setRoles(array('ROLE_SELLER'));
 
                     $seller = new Seller();
                     $seller->setNbSales(0);
