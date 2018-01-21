@@ -42,17 +42,21 @@
                                 <li><a href="{{ path('a2_car_index') }}">Voitures</a></li>
                             </ul>
 
-                            <li>
-                                <a href="{{ path('a2_supplier_index') }}">
-                                    <i class="fa fa-dashboard fa-lg"></i> Fournisseurs
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('a2_supplier_index') }}">
+                                        <i class="fa fa-dashboard fa-lg"></i> Fournisseurs
+                                    </a>
+                                </li>
+                            {% endif %}
 
-                            <li>
-                                <a href="{{ path('a2_orders_index') }}">
-                                    <i class="fa fa-dashboard fa-lg"></i> Commandes
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_MANAGER') %}
+                                <li>
+                                    <a href="{{ path('a2_orders_index') }}">
+                                        <i class="fa fa-dashboard fa-lg"></i> Commandes
+                                    </a>
+                                </li>
+                            {% endif %}
 
                             <li>
                                 <a href="{{ path('a2_stock_index') }}">
@@ -60,32 +64,39 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="{{ path('core_homepage') }}">
-                                    <i class="fa fa-gift fa-lg"></i> Primes
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('core_homepage') }}">
+                                        <i class="fa fa-gift fa-lg"></i> Primes
+                                    </a>
+                                </li>
+                            {% endif %}
 
-                            <li>
-                                <a href="{{ path('a2_storehouse_index') }}">
-                                    <i class="fa fa-dashboard fa-lg"></i> Entrepots
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_MANAGER') %}
+                                <li>
+                                    <a href="{{ path('a2_storehouse_index') }}">
+                                        <i class="fa fa-dashboard fa-lg"></i> Entrepots
+                                    </a>
+                                </li>
+                            {% endif %}
 
-                            <li>
-                                <a href="{{ path('a2_user_index') }}">
-                                    <i class="fa fa-dashboard fa-lg"></i> Utilisateurs
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('a2_user_index') }}">
+                                        <i class="fa fa-dashboard fa-lg"></i> Utilisateurs
+                                    </a>
+                                </li>
+                            {% endif %}
 
-
-                            <li data-toggle="collapse" data-target="#parametres" class="collapsed">
-                                <a href="#"><i class="fa fa-car fa-lg"></i> Paramètres <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="parametres">
-                                <li><a href="#">Valeurs par défaut</a></li>
-                                <li><a href="{{ path('a2_currency_index') }}">Devises</a></li>
-                            </ul>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li data-toggle="collapse" data-target="#parametres" class="collapsed">
+                                    <a href="#"><i class="fa fa-car fa-lg"></i> Paramètres <span class="arrow"></span></a>
+                                </li>
+                                <ul class="sub-menu collapse" id="parametres">
+                                    <li><a href="#">Valeurs par défaut</a></li>
+                                    <li><a href="{{ path('a2_currency_index') }}">Devises</a></li>
+                                </ul>
+                            {% endif %}
 
 
                             <li data-toggle="collapse" data-target="#profil" class="collapsed">

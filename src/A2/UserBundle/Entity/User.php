@@ -36,19 +36,19 @@ class User extends BaseUser
     private $name;
 
     /**
-     * @ORM\Column(name="userLastname", type="string", length=255)
+     * @ORM\Column(name="usrLastname", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $lastname;
 
     /**
-     * @ORM\Column(name="userBday", type="date")
+     * @ORM\Column(name="usrBday", type="date")
      * @Assert\DateTime()
      */
     private $bday;
 
     /**
-     * @ORM\Column(name="userNum", type="string", length=255)
+     * @ORM\Column(name="usrNum", type="string", length=255)
      * @Assert\Type(type="integer")
      */
     private $num;
